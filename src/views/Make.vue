@@ -85,7 +85,7 @@ export default {
   mounted() {
     const self = this;
     const swiper = new Swiper(".swiper-container", {
-      // loop: true,
+      loop: true,
       slidesPerView: 1.7,
       centeredSlides: true,
       spaceBetween: 50,

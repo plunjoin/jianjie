@@ -1,31 +1,26 @@
 <template>
   <div class="jie-content">
-    <div class="jie-layer-head">
+    <div class="jie-layer-head" :style="'background-image:url('+info.bg_img_url+')'">
       <div class="context">
         <div class="prev"></div>
         <div class="next"></div>
       </div>
       <div class="jie-layer-head-comtent" v-show="isTitle">
-        <h2 class="font-songti">望隆鄉國</h2>
+        <h2 class="font-songti">{{ info.name }}</h2>
         <hr />
-        <h3 class="font-songti">HARRY WINSTON & 見芥</h3>
-        <p>‘望隆鄉國’是五鳳廳的牌匾，也是本次活動的主題。牌匾由乾隆賜，象征著無比尊貴的聲望和地位，也正如Harry Winston 被譽為“King of Diamonds”壹般，國士無雙，無出其右。傳統與現代，東方與西方，在這壹刻互相融合又互相碰撞。賓客們皆沉浸於海瑞溫斯頓營造的這東情西韻的世界。</p>
+        <h3 class="font-songti">{{ info.category_name }}</h3>
+        <p>{{ info.introduction }}</p>
       </div>
     </div>
     <div class="jie-layer-video">
-      <video-player
-        class="video-player vjs-custom-skin"
-        ref="videoPlayer"
-        :playsinline="true"
-        :options="option"
-      ></video-player>
+      <video width="100%" autoplay muted controls :src="info.bg_video_url"></video>
       <!-- <video src muted autoplay width="100%"></video> -->
     </div>
     <div class="jie-layer-tab">
       <div class="tab-title-warp">
         <ul>
           <li
-            v-for="(item,index) in night"
+            v-for="(item,index) in info.view_group"
             :key="index"
             v-bind:class="{active:tabIndex==index}"
             @click="selected(item.contents,index)"
@@ -34,7 +29,7 @@
       </div>
       <div
         class="jie-layer-tab-warp"
-        v-for="(items,index) in night"
+        v-for="(items,index) in info.view_group"
         :key="index"
         v-show="tabIndex==index"
       >
@@ -46,7 +41,7 @@
           <swiper-slide :key="index" v-for="(item,index) in items.imgs">
             <img v-if="item.type == 0" :src="item.url" alt />
             <div v-else class="video">
-              <video :src="item.url" autoplay muted height="100%"></video>
+              <video :src="item.url" autoplay muted loop height="100%"></video>
             </div>
             <p class="item-text">{{ item.text }}</p>
           </swiper-slide>
@@ -359,18 +354,18 @@
           </tr>
           <tr>
             <td>香品：</td>
-            <td>海南沈香   </td>
+            <td>海南沈香</td>
           </tr>
-           <tr>
-            <td> </td>
+          <tr>
+            <td></td>
             <td>虎斑棋楠</td>
           </tr>
-           <tr>
-            <td> </td>
+          <tr>
+            <td></td>
             <td>芽莊綠油棋楠</td>
           </tr>
-           <tr>
-            <td> </td>
+          <tr>
+            <td></td>
             <td>富森紅土沈香</td>
           </tr>
           <tr>
@@ -569,39 +564,16 @@ import foot from "../../components/Footer";
 import { mapState, mapMutations } from "vuex";
 export default {
   name: "content",
+  props: ["id"],
   components: {
     foot
   },
-  computed: mapState(["night", "isTitle"]),
+  computed: mapState(["night", "isTitle", "harry_winston"]),
   data() {
     const self = this;
     return {
       count: 0,
       tabIndex: 0,
-      option: {
-        playbackRates: [0.5, 1.0, 1.5, 2.0],
-        autoplay: false,
-        muted: false,
-        loop: false,
-        preload: "auto",
-        language: "zh-CN",
-        aspectRatio: "16:9",
-        fluid: true,
-        sources: [
-          {
-            type: "video/mp4",
-            src: "https://prugna.cn/video/night_content.mp4"
-          }
-        ],
-        poster: "",
-        notSupportedMessage: "此视频暂无法播放，请稍后再试",
-        controlBar: {
-          timeDivider: true,
-          durationDisplay: true,
-          remainingTimeDisplay: false,
-          fullscreenToggle: true
-        }
-      },
       child: null,
       realIndex: "",
       swiperOption: {
@@ -619,17 +591,29 @@ export default {
           }
         }
       },
-      tabloid: [{ 导演: "侃侃 " }]
+      info: null
     };
   },
-  watch: {},
+  watch: {
+    id(newid, oldid) {
+      this.info = this.harry_winston[this.id];
+      this.option.sources.url = this.info.bg_video_url;
+      console.log(this.info);
+    }
+  },
   mounted() {
+    this.info = this.harry_winston[this.id];
+    console.log(this.info);
+
+    this.$axios.get("/category").then(res => {
+      console.log(res);
+    });
     var _this = this,
       bv = 0;
     window.onscroll = function() {
       if (this.scrollY >= window.innerHeight / 2) {
         if (bv == 0) {
-          _this.$refs.videoPlayer.player.play();
+          // _this.$refs.videoPlayer.player.play();
         }
         bv = 1;
       }
@@ -692,8 +676,17 @@ export default {
     width: 100%;
     height: 100vh;
     position: relative;
-    background-image: url("../../assets/image/right_background.jpg");
     background-size: cover;
+    &::after {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #00000065;
+    }
     .context {
       top: 50%;
       position: absolute;
@@ -731,6 +724,7 @@ export default {
       right: 10.25rem;
       position: absolute;
       width: 25rem;
+      z-index: 1;
       h2 {
         font-size: 3.416666rem;
       }

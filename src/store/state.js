@@ -26,6 +26,8 @@ import huamu from './night/huamu'
 import yuanlin from './night/yuanlin'
 import shiwu from './night/shiwu'
 
+import harry_winston from './night/harry_winston'
+
 export default {
     opening: true,
     menu: false,
@@ -48,5 +50,6 @@ export default {
     space: [youyou, xueyin, zhangju, pinfan, fangzhuang, guwang, piaoxiang, puquan, wenyue, tagu, weixiang, qita, paowu, liangtao, shuju, xingshi],
     thing: [antoushanzi, shiguang, shuipanzhijing],
     night: [space, yuanlin, huamu, gewu, gudong, shiwu],
+    harry_winston: harry_winston,
     isTitle: true,
 }

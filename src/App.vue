@@ -54,12 +54,12 @@
                 <dt>HARRY WINSTON & 見芥</dt>
                 <dd>
                   <strong>
-                    <router-link to="/detail">望隆鄉國</router-link>
+                    <router-link to="/detail/0">望隆鄉國</router-link>
                   </strong>
                 </dd>
                 <dd>
                   <strong>
-                    <router-link to="/detail">佳山有緣</router-link>
+                    <router-link to="/detail/1">佳山有緣</router-link>
                   </strong>
                 </dd>
               </dl>
@@ -263,32 +263,21 @@
           <div class="night-child">
             <div class="feast-list">
               <dl>
-                <dd>
+                <dt>石玩</dt>
+                <dd v-for="(e,i) in thing" :key="i">
                   <strong>
-                    <router-link to="/thingdatail">石玩</router-link>
+                    <router-link :to="'/thingdatail/'+i">{{ e.title }}</router-link>
                   </strong>
                 </dd>
               </dl>
               <dl>
-                <dd>
-                  <strong>
-                    <router-link to="/thingdatail">器物</router-link>
-                  </strong>
-                </dd>
+                <dt>器物</dt>
               </dl>
               <dl>
-                <dd>
-                  <strong>
-                    <router-link to="/thingdatail">家具</router-link>
-                  </strong>
-                </dd>
+                <dt>家具</dt>
               </dl>
               <dl>
-                <dd>
-                  <strong>
-                    <router-link to="/thingdatail">首饰</router-link>
-                  </strong>
-                </dd>
+                <dt>首饰</dt>
               </dl>
             </div>
           </div>
@@ -352,7 +341,13 @@ export default {
     };
   },
   name: "jiezi",
-  computed: mapState(["menu", "footerList", "isTitle"]),
+  computed: mapState([
+    "menu",
+    "footerList",
+    "isTitle",
+    "thing",
+    "harry_winston"
+  ]),
   mounted() {
     var _this = this;
     this.$nextTick(function() {

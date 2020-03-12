@@ -88,7 +88,7 @@ export default {
     var swiper = new Swiper(".swiper-container", {
       slidesPerView: 4,
       initialSlide: 2,
-      centeredSlides: true,
+      // centeredSlides: true,
       spaceBetween: 0,
       grabCursor: true
     });

@@ -1,6 +1,6 @@
 <template>
   <div class="jie-content jie-container">
-    <div class="make-child-warp">
+    <div class="make-child-warp jie-container">
       <div class="banners">
         <img src="../../assets/image/make/_DSC7153.jpg" alt srcset />
         <div class="banner-title">
@@ -33,11 +33,13 @@
       <div class="make-detail-content">
         <div style="display: flex;align-items: center;">
           <div style="text-align: center;">
-            <p style="width: 50%;display: inline-block;text-align: left;">林泉之志，烟霞之侣，梦寐在 焉，耳目断绝，今得妙手郁然出之，
-              不下堂筵，坐穷泉壑，猿声鸟啼依约 在耳，山光水色滉漾夺目，此岂不快 人意，实获我心哉，此世之所以贵夫 画山之本意也。</p>
+            <p style="width: 50%;display: inline-block;text-align: left;">
+              林泉之志，烟霞之侣，梦寐在 焉，耳目断绝，今得妙手郁然出之，
+              不下堂筵，坐穷泉壑，猿声鸟啼依约 在耳，山光水色滉漾夺目，此岂不快 人意，实获我心哉，此世之所以贵夫 画山之本意也。
+            </p>
           </div>
           <div>
-            <img src="../../assets/image/867ee26fb82863bf5ddf1730266567e.png" alt="">
+            <img src="../../assets/image/867ee26fb82863bf5ddf1730266567e.png" alt />
           </div>
         </div>
         <div>
@@ -81,42 +83,40 @@
 </template>
 
 <script>
-  import FOOT from "../../components/Footer";
-  export default {
-    name: "makechild",
-    components: { FOOT }
-  };
+import FOOT from "../../components/Footer";
+export default {
+  name: "makechild",
+  components: { FOOT }
+};
 </script>
 
 <style lang="less" scoped>
-  .make-child-warp {
-    width: 67.5rem;
-    max-width: 1324px;
-    margin: auto;
+.make-child-warp {
+  margin: auto;
 
-    .make-detail-content {
-      font-size: 16px;
+  .make-detail-content {
+    font-size: 16px;
+  }
+
+  .banners {
+    text-align: center;
+    position: relative;
+
+    img {
+      width: 100%;
     }
 
-    .banners {
-      text-align: center;
-      position: relative;
+    .banner-title {
+      top: 6rem;
+      left: 4rem;
+      position: absolute;
 
-      img {
-        width: 100%;
-      }
-
-      .banner-title {
-        top: 6rem;
-        left: 4rem;
-        position: absolute;
-
-        h2,
-        p {
-          text-align: left;
-          font-size: 2.5rem;
-        }
+      h2,
+      p {
+        text-align: left;
+        font-size: 2.5rem;
       }
     }
   }
+}
 </style>

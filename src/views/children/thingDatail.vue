@@ -1,6 +1,6 @@
 <template>
   <div class="thing-content">
-    <div class="thing-content-list">
+    <!-- <div class="thing-content-list">
       <ul class="font-songti">
         <li
           v-for="(item,index) in thing"
@@ -9,8 +9,8 @@
           @click="changeData(index,item.imgs)"
         >{{ item.title }}</li>
       </ul>
-    </div>
-    <div class="jie-container">
+    </div>-->
+    <div class>
       <div class="thing-content-img-warp">
         <div class="gallery-thumbs gallery-thumbs-0">
           <img :src="mainPicture" alt />
@@ -28,33 +28,48 @@
           </div>
           <div class="swiper-scrollbar"></div>
         </div>
-        <div class="p-warp">
-          <div class="p">
-            <div class="p-title">石種：</div>
-            <div class="p-content">馬達加斯加原皮瑪瑙</div>
+
+        <div class="jie-thing-info jie-container">
+          <br />
+          <br />
+
+          <div class="p-warp">
+            <div class="p">
+              <div class="p-title">石種：</div>
+              <div class="p-content">馬達加斯加原皮瑪瑙</div>
+            </div>
+            <div class="p">
+              <div class="p-title">蕨座：</div>
+              <div class="p-content">黑檀木+水紅綢皮色綢板</div>
+            </div>
           </div>
-          <div class="p">
-            <div class="p-title">蕨座：</div>
-            <div class="p-content">黑檀木+水紅綢皮色綢板</div>
+          <div class="p-warp">
+            <div class="p">
+              <div class="p-title">石頭尺寸：</div>
+              <div class="p-content">6.5cm*6.5cm*6.5cm</div>
+            </div>
+            <div class="p">
+              <div class="p-title">蕨座尺寸：</div>
+              <div class="p-content">23cm*6.5cm*3cm</div>
+            </div>
           </div>
-        </div>
-        <div class="p-warp">
-          <div class="p">
-            <div class="p-title">石頭尺寸：</div>
-            <div class="p-content">6.5cm*6.5cm*6.5cm</div>
+          <div class="p-warp">
+            <p>电容感应開關</p>
+            <div class="p">
+              <div class="p-title">充电方式：</div>
+              <div class="p-content">可用USB通用接口直接充電</div>
+            </div>
+            <p>一次充电時間需3h,續航時間至少24h</p>
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
           </div>
-          <div class="p">
-            <div class="p-title">蕨座尺寸：</div>
-            <div class="p-content">23cm*6.5cm*3cm</div>
-          </div>
-        </div>
-        <div class="p-warp">
-          <p>电容感应開關</p>
-          <div class="p">
-            <div class="p-title">充电方式：</div>
-            <div class="p-content">可用USB通用接口直接充電</div>
-          </div>
-          <p>一次充电時間需3h,續航時間至少24h</p>
         </div>
       </div>
     </div>
@@ -69,6 +84,7 @@ import { mapState } from "vuex";
 export default {
   name: "thingdatail",
   components: { foot },
+  props: ["id"],
   computed: mapState(["thing"]),
   data() {
     return {
@@ -78,10 +94,16 @@ export default {
       mainPicture: null
     };
   },
+  watch: {
+    id(newinfo, oldinfo) {
+      this.imgs = this.thing[this.id].imgs;
+      this.mainPicture = this.imgs[this.id].url;
+      this.onloadSwiper();
+    }
+  },
   mounted() {
-    this.imgs = this.thing[0].imgs;
-    this.mainPicture = this.imgs[0].url;
-    console.log(this.thing);
+    this.imgs = this.thing[this.id].imgs;
+    this.mainPicture = this.imgs[this.id].url;
     var swipers = {};
     this.cate.forEach(el => {});
     const self = this;
@@ -94,8 +116,8 @@ export default {
       const galleryThumbs0 = new Swiper(".gallery-top-0", {
         // loop: true,
         direction: "horizontal",
-        autoplay: true,
-        centeredSlides: true,
+        autoplay: false,
+        // centeredSlides: true,
         spaceBetween: 10,
         slidesPerView: 10,
         freeMode: true,
@@ -161,16 +183,12 @@ export default {
   }
 }
 .gallery-thumbs {
-  height: calc(100vh - 250px);
+  height: calc(100vh - 100px);
   box-sizing: border-box;
-  padding: 10px 0;
-  margin-bottom: 20px;
+  padding: 0 0 20px 0;
   position: relative;
+  text-align: center;
   img {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     height: 100%;
     width: auto !important;
   }
@@ -184,7 +202,6 @@ export default {
   opacity: 1;
 }
 .thing-content {
-  margin-top: 5rem;
   position: relative;
   .thing-content-list {
     position: absolute;

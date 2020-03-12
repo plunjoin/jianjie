@@ -12,21 +12,21 @@
       <!-- <button class="font-songti" >跳过</button> -->
     </div>
     <div class="background-video">
-      <video src="https://prugna.cn/video/night_feast.864055c2.mp4" width="100%" ref="bg"></video>
+      <video src="https://prugna.cn/video/night_feast.864055c2.mp4" loop width="100%" ref="bg"></video>
     </div>
     <div class="feast-list" ref="listwarp">
       <dl>
         <dt>HARRY WINSTON & 見芥</dt>
         <dd>
-          <strong>
-            <router-link to="/detail">【 望隆鄉國 】</router-link>
+          <strong @mouseover="controller = false" @mouseout="controller = true">
+            <router-link to="/detail/0">【 望隆鄉國 】</router-link>
           </strong>
           <p>Anlu, Shanghai, Chin</p>
           <p>2019 08 27 - 08 30</p>
         </dd>
         <dd>
           <strong>
-            <router-link to="/detail">【 佳山有緣 】</router-link>
+            <router-link to="/detail/1">【 佳山有緣 】</router-link>
           </strong>
           <p>Anlu, Shanghai, Chin</p>
           <p>2019 08 27 - 08 30</p>
@@ -171,7 +171,7 @@ export default {
       controller: false,
       interval: setInterval(function() {
         if (self.controller) {
-          self.$refs.warp.scrollTop += 3;
+          self.$refs.warp.scrollTop += 2;
         } else {
         }
       }, 20)
@@ -179,17 +179,16 @@ export default {
   },
   computed: {},
   mounted() {
-    
     var _this = this,
-    maxScroll = _this.$refs.warp.scrollHeight - window.innerHeight;
+      maxScroll = _this.$refs.warp.scrollHeight - window.innerHeight;
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
     _this.$refs.warp.onscroll = function() {
       try {
         var scrollTop = _this.$refs.warp.scrollTop;
-        if (scrollTop >= maxScroll-3) {
+        if (scrollTop >= maxScroll - 3) {
           clearInterval(_this.interval);
-          _this.$refs.listwarp.style.paddingTop = 0
+          _this.$refs.listwarp.style.paddingTop = 0;
         }
       } catch (error) {
         console.log(error);

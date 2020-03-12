@@ -48,11 +48,11 @@ const routes = [
     }
   },
   {
-    path: "/detail",
+    path: "/detail/:id",
     name: 'detail',
     component: function () {
       return import('../views/children/detail')
-    }
+    }, props: true
   }, {
     path: '/makechild',
     name: 'makechild',
@@ -72,12 +72,13 @@ const routes = [
       return import('../views/children/spaceDatail')
     }
   }, {
-    path: '/thingdatail',
+    path: '/thingdatail/:id',
     name: 'thingdatail',
     component: function () {
       return import('../views/children/thingDatail')
-    }
+    }, props: true
   }
+
 ]
 
 const router = new VueRouter({

@@ -1,7 +1,7 @@
 <template>
   <div class="space">
-    <div class="transtion-video-warp" v-if="opening_video" ref="opening_video">
-      <video src="https://prugna.cn/video/space_transtion.mp4" muted autoplay @click="opening_video=false"></video>
+    <div class="transtion-video-warp" v-if="opening_video" ref="opening_video_warp">
+      <video src="https://prugna.cn/video/space_transtion.mp4" ref="opening_video" muted autoplay @click="opening_video=false"></video>
     </div>
     <div class="space-surface">
       <div class="space-menu" v-show="isTitle">
@@ -34,8 +34,11 @@ export default {
     };
   },
   mounted() {
+    var _this = this;
     this.$refs.opening_video.addEventListener("ended", function() {
-      this.opening_video = false;
+      console.log(123);
+      
+      _this.opening_video = false;
     });
   },
   methods: {}
@@ -67,6 +70,8 @@ export default {
     position: fixed;
     width: 100%;
     z-index: 999;
+    height:100%;
+    background-color: #000;
     video {
       width: 100%;
     }
