@@ -4,7 +4,7 @@ module.exports = {
         port: 8082,
         proxy: {
             '/jiezi': {
-                target: '127.0.0.1:8808',
+                target: 'http://192.168.10.103:8808',
                 changeOrigin: true,
                 pathRewrite: {
                     '^/jiezi': '/api'

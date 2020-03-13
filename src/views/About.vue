@@ -39,8 +39,11 @@
 </template>
 
 <script>
+import { mapState, mapMutations } from "vuex";
+
 export default {
   name: "about",
+  computed: mapState(["isTitle"]),
   data() {
     return {
       count: -1,

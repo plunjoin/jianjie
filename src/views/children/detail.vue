@@ -52,7 +52,7 @@
         </swiper>
       </div>
     </div>
-    <div class="jie-tabloid">
+    <div class="jie-tabloid" v-if="false">
       <div class="jie-tabloid-row">
         <table>
           <tr>
@@ -603,11 +603,10 @@ export default {
   },
   mounted() {
     this.info = this.harry_winston[this.id];
-    console.log(this.info);
 
-    this.$axios.get("/category").then(res => {
-      console.log(res);
-    });
+    // this.$axios.get("/category").then(res => {
+    //   console.log(res);
+    // });
     var _this = this,
       bv = 0;
     window.onscroll = function() {

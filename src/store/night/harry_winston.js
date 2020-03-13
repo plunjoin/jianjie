@@ -15,51 +15,51 @@ export default [
                 "imgs": [
                     {
                         "type": 1,
-                        "url": "https: //prugna.cn/video/49b522f66e9ec295b6f9d94219a3fa5e.mp4"
+                        "url": "https://prugna.cn/video/49b522f66e9ec295b6f9d94219a3fa5e.mp4"
                     },
                     {
                         "type": 0,
-                        "url": "https: //cdn.jsdelivr.net/gh/plunjoin/right@0.1/3/space/(1).jpg"
+                        "url": "https://cdn.jsdelivr.net/gh/plunjoin/right@0.1/3/space/(1).jpg"
                     },
                     {
                         "type": 0,
-                        "url": "https: //cdn.jsdelivr.net/gh/plunjoin/right@0.1/3/space/(2).jpg"
+                        "url": "https://cdn.jsdelivr.net/gh/plunjoin/right@0.1/3/space/(2).jpg"
                     },
                     {
                         "type": 0,
-                        "url": "https: //cdn.jsdelivr.net/gh/plunjoin/right@0.1/3/space/(3).jpg"
+                        "url": "https://cdn.jsdelivr.net/gh/plunjoin/right@0.1/3/space/(3).jpg"
                     },
                     {
                         "type": 0,
-                        "url": "https: //cdn.jsdelivr.net/gh/plunjoin/right@0.1/3/space/(4).jpg"
+                        "url": "https://cdn.jsdelivr.net/gh/plunjoin/right@0.1/3/space/(4).jpg"
                     },
                     {
                         "type": 0,
-                        "url": "https: //cdn.jsdelivr.net/gh/plunjoin/right@0.1/3/space/(5).jpg"
+                        "url": "https://cdn.jsdelivr.net/gh/plunjoin/right@0.1/3/space/(5).jpg"
                     },
                     {
                         "type": 0,
-                        "url": "https: //cdn.jsdelivr.net/gh/plunjoin/right@0.1/3/space/(6).jpg"
+                        "url": "https://cdn.jsdelivr.net/gh/plunjoin/right@0.1/3/space/(6).jpg"
                     },
                     {
                         "type": 0,
-                        "url": "https: //cdn.jsdelivr.net/gh/plunjoin/right@0.1/3/space/(7).jpg"
+                        "url": "https://cdn.jsdelivr.net/gh/plunjoin/right@0.1/3/space/(7).jpg"
                     },
                     {
                         "type": 0,
-                        "url": "https: //cdn.jsdelivr.net/gh/plunjoin/right@0.1/3/space/(8).jpg"
+                        "url": "https://cdn.jsdelivr.net/gh/plunjoin/right@0.1/3/space/(8).jpg"
                     },
                     {
                         "type": 0,
-                        "url": "https: //cdn.jsdelivr.net/gh/plunjoin/right@0.1/3/space/(9).jpg"
+                        "url": "https://cdn.jsdelivr.net/gh/plunjoin/right@0.1/3/space/(9).jpg"
                     },
                     {
                         "type": 0,
-                        "url": "https: //cdn.jsdelivr.net/gh/plunjoin/right@0.1/3/space/(10).jpg"
+                        "url": "https://cdn.jsdelivr.net/gh/plunjoin/right@0.1/3/space/(10).jpg"
                     },
                     {
                         "type": 0,
-                        "url": "https: //cdn.jsdelivr.net/gh/plunjoin/right@0.1/3/space/(11).jpg"
+                        "url": "https://cdn.jsdelivr.net/gh/plunjoin/right@0.1/3/space/(11).jpg"
                     }
                 ]
             },
@@ -72,31 +72,31 @@ export default [
                     },
                     {
                         "type": 0,
-                        "url": "https: //cdn.jsdelivr.net/gh/plunjoin/right@0.1/3/yuanlin/(1).jpg"
+                        "url": "https://cdn.jsdelivr.net/gh/plunjoin/right@0.1/3/yuanlin/(1).jpg"
                     },
                     {
                         "type": 0,
-                        "url": "https: //cdn.jsdelivr.net/gh/plunjoin/right@0.1/3/yuanlin/(2).jpg"
+                        "url": "https://cdn.jsdelivr.net/gh/plunjoin/right@0.1/3/yuanlin/(2).jpg"
                     },
                     {
                         "type": 0,
-                        "url": "https: //cdn.jsdelivr.net/gh/plunjoin/right@0.1/3/yuanlin/(3).jpg"
+                        "url": "https://cdn.jsdelivr.net/gh/plunjoin/right@0.1/3/yuanlin/(3).jpg"
                     },
                     {
                         "type": 0,
-                        "url": "https: //cdn.jsdelivr.net/gh/plunjoin/right@0.1/3/yuanlin/(4).jpg"
+                        "url": "https://cdn.jsdelivr.net/gh/plunjoin/right@0.1/3/yuanlin/(4).jpg"
                     },
                     {
                         "type": 0,
-                        "url": "https: //cdn.jsdelivr.net/gh/plunjoin/right@0.1/3/yuanlin/(5).jpg"
+                        "url": "https://cdn.jsdelivr.net/gh/plunjoin/right@0.1/3/yuanlin/(5).jpg"
                     },
                     {
                         "type": 0,
-                        "url": "https: //cdn.jsdelivr.net/gh/plunjoin/right@0.1/3/yuanlin/(6).jpg"
+                        "url": "https://cdn.jsdelivr.net/gh/plunjoin/right@0.1/3/yuanlin/(6).jpg"
                     },
                     {
                         "type": 0,
-                        "url": "https: //cdn.jsdelivr.net/gh/plunjoin/right@0.1/3/yuanlin/(7).jpg"
+                        "url": "https://cdn.jsdelivr.net/gh/plunjoin/right@0.1/3/yuanlin/(7).jpg"
                     }
                 ]
             },

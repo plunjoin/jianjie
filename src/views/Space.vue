@@ -1,7 +1,13 @@
 <template>
   <div class="space">
     <div class="transtion-video-warp" v-if="opening_video" ref="opening_video_warp">
-      <video src="https://prugna.cn/video/space_transtion.mp4" ref="opening_video" muted autoplay @click="opening_video=false"></video>
+      <video
+        src="https://prugna.cn/video/space_transtion.mp4"
+        ref="opening_video"
+        muted
+        autoplay
+        @click="opening_video=false"
+      ></video>
     </div>
     <div class="space-surface">
       <div class="space-menu" v-show="isTitle">
@@ -36,8 +42,6 @@ export default {
   mounted() {
     var _this = this;
     this.$refs.opening_video.addEventListener("ended", function() {
-      console.log(123);
-      
       _this.opening_video = false;
     });
   },
@@ -54,15 +58,17 @@ export default {
     right: 0;
     top: 0;
     background-image: url("../assets/image/space/WechatIMG5876.jpg");
-    background-size: 100%;
+    background-size: 110%;
+    background-position: center;
     .space-menu {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
       right: 20%;
       li {
+        letter-spacing: 8px;
         font-size: 1.75rem;
-        margin: 2.65rem 0;
+        margin: 1.65rem 0;
       }
     }
   }
@@ -70,7 +76,7 @@ export default {
     position: fixed;
     width: 100%;
     z-index: 999;
-    height:100%;
+    height: 100%;
     background-color: #000;
     video {
       width: 100%;

@@ -272,6 +272,15 @@
               </dl>
               <dl>
                 <dt>器物</dt>
+                <dd>
+                  <strong>茶器</strong>
+                </dd>
+                <dd>
+                  <strong>酒器</strong>
+                </dd>
+                <dd>
+                  <strong>食器</strong>
+                </dd>
               </dl>
               <dl>
                 <dt>家具</dt>

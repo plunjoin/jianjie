@@ -17,16 +17,11 @@
         </div>
         <div class="swiper-container gallery-top gallery-top-0">
           <div class="swiper-wrapper">
-            <span
-              class="swiper-slide"
-              v-for="(el,i) in imgs"
-              :key="i"
-              @mousemove="mainPicture=el.url"
-            >
+            <span class="swiper-slide" v-for="(el,i) in imgs" :key="i" @click="mainPicture=el.url">
               <img :src="el.url" alt />
             </span>
           </div>
-          <div class="swiper-scrollbar"></div>
+          <!-- <div class="swiper-scrollbar"></div> -->
         </div>
 
         <div class="jie-thing-info jie-container">
@@ -114,26 +109,28 @@ export default {
   methods: {
     onloadSwiper() {
       const galleryThumbs0 = new Swiper(".gallery-top-0", {
-        // loop: true,
+        loop: true,
         direction: "horizontal",
         autoplay: false,
         // centeredSlides: true,
+        slideToClickedSlide: true,
         spaceBetween: 10,
         slidesPerView: 10,
         freeMode: true,
         autoHeight: false,
         watchSlidesVisibility: true,
+        centeredSlides: true,
         watchSlidesProgress: true,
         observer: true, //修改swiper自己或子元素时，自动初始化swiper
         observeParents: true, //修改swiper的父元素时，自动初始化swiper
-        freeMode: true,
-        scrollbar: {
-          el: ".swiper-scrollbar",
-          hide: true,
-          draggable: false,
-          snapOnRelease: true,
-          mousewheel: true
-        }
+        freeMode: true
+        // scrollbar: {
+        //   el: ".swiper-scrollbar",
+        //   hide: true,
+        //   draggable: false,
+        //   snapOnRelease: true,
+        //   mousewheel: true
+        // }
       });
     },
     changeData(num, item) {

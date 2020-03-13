@@ -79,16 +79,27 @@
 
 <script>
 import Swiper from "swiper/dist/js/swiper";
+import { mapState } from "vuex";
 
 export default {
   name: "spacedatail",
+  computed: mapState(["space"]),
   mounted() {
     const self = this;
-
+    console.log(this.space);
+    var i = 0;
+    while (i++) {
+      if (i >= this.space.length) {
+        if (i % 4 == 0) {
+          console.log(i);
+        }
+        break;
+      }
+    }
     var swiper = new Swiper(".swiper-container", {
       slidesPerView: 4,
-      initialSlide: 2,
-      // centeredSlides: true,
+      initialSlide: 1,
+      centeredSlides: true,
       spaceBetween: 0,
       grabCursor: true
     });
