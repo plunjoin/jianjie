@@ -128,4 +128,12 @@ export default {
     z-index: 1;
   }
 }
+@media screen and (max-width: 620px) {
+  .opening {
+    .opening-jianjie {
+      transform: scale(1.2) translate(-50%, -50%);
+      width: 100%;
+    }
+  }
+}
 </style>

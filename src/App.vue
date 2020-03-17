@@ -286,7 +286,7 @@
                 <dt>家具</dt>
               </dl>
               <dl>
-                <dt>首饰</dt>
+                <dt>首飾</dt>
               </dl>
             </div>
           </div>

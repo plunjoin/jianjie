@@ -38,7 +38,7 @@ export default {
           title: "家具"
         },
         {
-          title: "首饰"
+          title: "首飾"
         }
       ],
       count: 0

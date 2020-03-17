@@ -580,7 +580,7 @@ export default {
         // 所有的参数同 swiper 官方 api 参数
         // ...
         scrollbar: false,
-        autoHeight: true,
+        autoHeight: false,
         navigation: {
           nextEl: ".swiper-button-next",
           prevEl: ".swiper-button-prev"
@@ -588,6 +588,13 @@ export default {
         on: {
           slideChangeTransitionEnd(swiper) {
             self.realIndex = this.activeIndex;
+          },
+          reachEnd: function(swiper) {
+            if (self.tabIndex == self.info.view_group.length - 1) {
+              self.tabIndex = 0;
+              return false;
+            }
+            self.tabIndex += 1;
           }
         }
       },
@@ -843,6 +850,19 @@ export default {
       .jie-layer-head-comtent {
         position: relative;
         left: 1rem;
+      }
+    }
+    .jie-layer-tab {
+      .swiper-container {
+        min-height: 600px;
+        max-height: 600px;
+        .swiper-slide {
+          overflow: hidden;
+          video {
+            width: 100% !important;
+            height: auto;
+          }
+        }
       }
     }
   }

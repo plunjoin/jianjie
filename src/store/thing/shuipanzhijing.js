@@ -1,5 +1,5 @@
 export default {
-    title: '水盘置景',
+    title: '水盤置景',
     imgs: [
         { type: 0, url: 'https://cdn.jsdelivr.net/gh/plunjoin/thing@stone/stone/shuipanzhijing/1.jpg' },
         { type: 0, url: 'https://cdn.jsdelivr.net/gh/plunjoin/thing@stone/stone/shuipanzhijing/2.jpg' },
