@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div class="jie-logo" v-show="n">
+    <div class="jie-logo" :style="'transition: 1s;opacity:'+n">
       <h1 title="见芥">
         <router-link to="/">
           <img src="./assets/883486010602843048.png" alt />
@@ -10,8 +10,8 @@
     <div
       class="jie-common-floor-head"
       v-bind:class="{active:menu}"
-      @mouseover="n=false"
-      @mouseout="n=true"
+      @mouseover="n=0"
+      @mouseout="n=1"
     >
       <div class="jie-head-top">
         <div class="jie-head-wrap">
@@ -248,13 +248,6 @@
                   </strong>
                 </dd>
               </dl>
-              <dl>
-                <dd>
-                  <strong>
-                    <router-link to="/spacelist">营造学舍</router-link>
-                  </strong>
-                </dd>
-              </dl>
             </div>
           </div>
         </router-link>
@@ -273,13 +266,13 @@
               <dl>
                 <dt>器物</dt>
                 <dd>
-                  <strong>茶器</strong>
+                  <strong><router-link to="/thingdatail/1">茶器</router-link></strong>
                 </dd>
                 <dd>
-                  <strong>酒器</strong>
+                  <strong><router-link to="/thingdatail/2">酒器</router-link></strong>
                 </dd>
                 <dd>
-                  <strong>食器</strong>
+                  <strong><router-link to="/thingdatail/3">食器</router-link></strong>
                 </dd>
               </dl>
               <dl>
@@ -346,7 +339,7 @@ export default {
   data() {
     return {
       conunt: 0,
-      n: true
+      n: 1
     };
   },
   name: "jiezi",

@@ -21,9 +21,6 @@
           <li>
             <router-link to="/spacelist">【苏州本色美术馆】</router-link>
           </li>
-          <li>
-            <router-link to="/spacelist">【营造学舍】</router-link>
-          </li>
         </ul>
       </div>
     </div>

@@ -30,6 +30,7 @@
     </div>
     <div class="copyright">
       <p>©2019Datenschutz Onlinewerbung/AGB</p>
+      <!-- <li v-for=""></li> -->
     </div>
   </div>
 </template>
@@ -40,6 +41,7 @@ export default {
   data() {
     return {
       conunt: 0,
+      test: null,
       footerList: [
         {
           title: "關注見芥",
@@ -60,19 +62,27 @@ export default {
           title: "購物幫助",
           list: ["支付相關", "配送", "退貨", "發票", "保養與維修"]
         },
-        
 
         {
           title: "見芥服務",
           list: ["春節假期物流須知", "免費禮品包裝"]
         },
-        
+
         {
           title: "需要幫助?",
           list: ["聯繫我們", "常見問題"]
         }
       ]
     };
+  },
+  mounted() {
+    this.$axios.get("/content").then(res => {
+      // this.test = JSON.parse(res[0].content);
+      var data = JSON.parse(res[0].content)
+      console.log(data);
+      
+      // console.log(JSON.parse(res[0].content));
+    });
   }
 };
 </script>

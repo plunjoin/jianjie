@@ -10,34 +10,28 @@ Vue.prototype.$axios = axios;
 
 axios.interceptors.request.use(
     config => {
-        console.log(config);
         return config
     },
     error => {
-        console.log(error)
-        alert(error)
         return Promise.resolve(error)
     }
 )
 
 axios.interceptors.response.use(
     data => {
-        return data
+        if (data.data.stat == 1)
+            return data.data.data
+        else
+            return {}
     },
     error => {
-
-        console.log(error.response)
         if (error.response.status == 401 || error.response.status == 400) {
 
-
         } else if (error.response.status == 500) {
-            alert('服务器错误,请稍后重试')
+            // alert('服务器错误,请稍后重试')
         } else if (error.response.status == 404) {
-            alert('404')
         } else if (error.response.status == 403) {
-            alert('403')
         } else {
-            alert('未知错误')
         }
         return Promise.resolve(error.response)
     }

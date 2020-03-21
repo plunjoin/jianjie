@@ -15,162 +15,158 @@
       <video src="https://prugna.cn/video/night_feast.864055c2.mp4" loop width="100%" ref="bg"></video>
     </div>
     <div class="feast-list" ref="listwarp">
-      <dl>
-        <dt>HARRY WINSTON & 見芥</dt>
-        <dd>
+      <dl v-for="(e,i) in ls" :key="i">
+        <dt>{{ e.title }}</dt>
+        <dd v-for="(el,idx) in e.child" :key="idx">
           <strong @mouseover="controller = false" @mouseout="controller = true">
-            <router-link to="/detail/0">【 望隆鄉國 】</router-link>
+            <router-link :to="'/detail/'+idx">{{ el.name }}</router-link>
           </strong>
-          <p>Anlu, Shanghai, Chin</p>
-          <p>2019 08 27 - 08 30</p>
-        </dd>
-        <dd>
-          <strong>
-            <router-link to="/detail/1">【 佳山有緣 】</router-link>
-          </strong>
-          <p>Anlu, Shanghai, Chin</p>
-          <p>2019 08 27 - 08 30</p>
-        </dd>
-      </dl>
-      <dl>
-        <dt>Hennessy X.O & 見芥</dt>
-        <dd>
-          <strong>
-            <router-link to="/detail">【 醉花陰 】</router-link>
-          </strong>
-          <p>Anlu, Shanghai, Chin</p>
-          <p>2019 08 27 - 08 30</p>
-        </dd>
-        <dd>
-          <strong>
-            <router-link to="/detail">【 鳳求凰 】</router-link>
-          </strong>
-          <p>Anlu, Shanghai, Chin</p>
-          <p>2019 08 27 - 08 30</p>
-        </dd>
-      </dl>
-      <dl>
-        <dt>阿里巴巴 & 見芥</dt>
-        <dd>
-          <strong>
-            <router-link to="/detail">【 萬芊斜 】</router-link>
-          </strong>
-          <p>Anlu, Shanghai, Chin</p>
-          <p>2019 08 27 - 08 30</p>
-        </dd>
-        <dd>
-          <strong>
-            <router-link to="/detail">【 歸隱 】</router-link>
-          </strong>
-          <p>Anlu, Shanghai, Chin</p>
-          <p>2019 08 27 - 08 30</p>
-        </dd>
-        <dd>
-          <strong>
-            <router-link to="/detail">【 太極極古 】</router-link>
-          </strong>
-          <p>Anlu, Shanghai, Chin</p>
-          <p>2019 08 27 - 08 30</p>
-        </dd>
-
-        <dd>
-          <strong>
-            <router-link to="/detail">【 外灘·午宴 】</router-link>
-          </strong>
-          <p>Anlu, Shanghai, Chin</p>
-          <p>2019 08 27 - 08 30</p>
-        </dd>
-        <dd>
-          <strong>
-            <router-link to="/detail">【 深竹月 】</router-link>
-          </strong>
-          <p>Anlu, Shanghai, Chin</p>
-          <p>2019 08 27 - 08 30</p>
-        </dd>
-        <dd>
-          <strong>
-            <router-link to="/detail">【 阿里議事 】</router-link>
-          </strong>
-          <p>Anlu, Shanghai, Chin</p>
-          <p>2019 08 27 - 08 30</p>
-        </dd>
-        <dd>
-          <strong>
-            <router-link to="/detail">【 歸來遇秋 】</router-link>
-          </strong>
-          <p>Anlu, Shanghai, Chin</p>
-          <p>2019 08 27 - 08 30</p>
-        </dd>
-        <dd>
-          <strong>
-            <router-link to="/detail">【 鏡花水月 】</router-link>
-          </strong>
-          <p>Anlu, Shanghai, Chin</p>
-          <p>2019 08 27 - 08 30</p>
-        </dd>
-        <dd>
-          <strong>
-            <router-link to="/detail">【 歸來遇秋 】</router-link>
-          </strong>
-          <p>Anlu, Shanghai, Chin</p>
-          <p>2019 08 27 - 08 30</p>
-        </dd>
-      </dl>
-      <dl>
-        <dt>蘇州棠頌 & 見芥</dt>
-        <dd>
-          <strong>
-            <router-link to="/detail">【 遇棠富貴 】</router-link>
-          </strong>
-          <p>Anlu, Shanghai, Chin</p>
-          <p>2019 08 27 - 08 30</p>
-        </dd>
-      </dl>
-      <dl>
-        <dt>龍宮 & 見芥</dt>
-        <dd>
-          <strong>
-            <router-link to="/detail">【 龍宮 】</router-link>
-          </strong>
-          <p>Anlu, Shanghai, Chin</p>
-          <p>2019 08 27 - 08 30</p>
-        </dd>
-      </dl>
-      <dl>
-        <dt>枚青 & 見芥</dt>
-        <dd>
-          <strong>
-            <router-link to="/detail">【 紅樓小宴 】</router-link>
-          </strong>
-          <p>Anlu, Shanghai, Chin</p>
-          <p>2019 08 27 - 08 30</p>
-        </dd>
-      </dl>
-      <dl>
-        <dt>阿姆斯特丹 & 見芥</dt>
-        <dd>
-          <strong>
-            <router-link to="/detail">【 他鄉亦貴 】</router-link>
-          </strong>
-          <p>Anlu, Shanghai, Chin</p>
-          <p>2019 08 27 - 08 30</p>
+          <p>{{ el.add }}</p>
+          <p>{{ el.time }}</p>
         </dd>
       </dl>
     </div>
+    <div class="feast-list" ref="copy"></div>
   </div>
 </template>
 
 <script>
 import touch from "@/common/touch/touch";
+import $ from "jquery";
 export default {
   name: "night",
   data() {
     const self = this;
     return {
+      ls: [
+        {
+          title: "HARRY WINSTON & 見芥",
+          child: [
+            {
+              name: "【 望隆鄉國 】",
+              add: "Anlu, Shanghai, Chin",
+              time: "2019 08 27 - 08 30"
+            },
+            {
+              name: "【 佳山有緣 】",
+              add: "Anlu, Shanghai, Chin",
+              time: "2019 08 27 - 08 30"
+            }
+          ]
+        },
+        {
+          title: "Hennessy X.O & 見芥",
+          child: [
+            {
+              name: "【醉花陰】",
+              add: "Anlu, Shanghai, Chin",
+              time: "2019 08 27 - 08 30"
+            },
+            {
+              name: "【 鳳求凰 】",
+              add: "Anlu, Shanghai, Chin",
+              time: "2019 08 27 - 08 30"
+            }
+          ]
+        },
+        {
+          title: "阿里巴巴 & 見芥",
+          child: [
+            {
+              name: "【 萬芊斜 】",
+              add: "Anlu, Shanghai, Chin",
+              time: "2019 08 27 - 08 30"
+            },
+            {
+              name: "【歸隱】",
+              add: "Anlu, Shanghai, Chin",
+              time: "2019 08 27 - 08 30"
+            },
+            {
+              name: "【 太極極古 】",
+              add: "Anlu, Shanghai, Chin",
+              time: "2019 08 27 - 08 30"
+            },
+            {
+              name: "【 外灘·午宴 】",
+              add: "Anlu, Shanghai, Chin",
+              time: "2019 08 27 - 08 30"
+            },
+            {
+              name: "【 深竹月 】",
+              add: "Anlu, Shanghai, Chin",
+              time: "2019 08 27 - 08 30"
+            },
+            {
+              name: "【 阿里議事 】",
+              add: "Anlu, Shanghai, Chin",
+              time: "2019 08 27 - 08 30"
+            },
+            {
+              name: "【 歸來遇秋 】",
+              add: "Anlu, Shanghai, Chin",
+              time: "2019 08 27 - 08 30"
+            },
+            {
+              name: "【 鏡花水月 】",
+              add: "Anlu, Shanghai, Chin",
+              time: "2019 08 27 - 08 30"
+            },
+            {
+              name: "【 歸來遇秋 】",
+              add: "Anlu, Shanghai, Chin",
+              time: "2019 08 27 - 08 30"
+            }
+          ]
+        },
+        {
+          title: "蘇州棠頌 & 見芥",
+          child: [
+            {
+              name: "【 遇棠富貴 】",
+              add: "Anlu, Shanghai, Chin",
+              time: "2019 08 27 - 08 30"
+            }
+          ]
+        },
+        {
+          title: "龍宮 & 見芥",
+          child: [
+            {
+              name: "【 龍宮 】",
+              add: "Anlu, Shanghai, Chin",
+              time: "2019 08 27 - 08 30"
+            }
+          ]
+        },
+        {
+          title: "枚青 & 見芥",
+          child: [
+            {
+              name: "【 紅樓小宴 】",
+              add: "Anlu, Shanghai, Chin",
+              time: "2019 08 27 - 08 30"
+            }
+          ]
+        },
+        {
+          title: "阿姆斯特丹 & 見芥",
+          child: [
+            {
+              name: "【 他鄉亦貴 】",
+              add: "Anlu, Shanghai, Chin",
+              time: "2019 08 27 - 08 30"
+            }
+          ]
+        }
+      ],
       opening_video: true,
       controller: false,
       interval: setInterval(function() {
         if (self.controller) {
+          if (self.$refs.warp.scrollTop >= self.$refs.listwarp.scrollHeight) {
+            self.$refs.warp.scrollTop = 0;
+          }
           self.$refs.warp.scrollTop += 2;
         } else {
         }
@@ -179,6 +175,7 @@ export default {
   },
   computed: {},
   mounted() {
+    this.$refs.copy.innerHTML = this.$refs.listwarp.innerHTML;
     var _this = this,
       maxScroll = _this.$refs.warp.scrollHeight - window.innerHeight;
     document.body.scrollTop = 0;
@@ -250,7 +247,7 @@ export default {
     }
   }
   .feast-list {
-    padding: 100% 0 0 8.875rem;
+    padding: 0 0 0 8.875rem;
     dl {
       font-family: "NotoSerifCJKsc";
       width: 100%;

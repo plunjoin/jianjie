@@ -3,56 +3,32 @@
     <!-- swiper-container -->
     <div class="space-list-warp font-songti" ref="wrapper">
       <div class="list-warp" ref="cont" @click="sun = 5,suns = 3">
-        <ul :style="publicWidth">
-          <li v-for="(el ,i) in space" :key="i" @click="changeimg(el.imgs)">{{ el.title }}</li>
-          <li>
-            <div class="back">
-              <router-link to="/space">
-                <div></div>
-              </router-link>
+        <div class="lsit-item" @click="openImgsBox($event)" v-for="(e,idx) in spaceData" :key="idx">
+          <ul :style="publicWidth">
+            <li v-for="(el ,i) in e" :key="i">
+              <span @click="changeimg(idx,el.imgs,$event)">{{ el.title }}</span>
+            </li>
+            <li>
+              <div class="back">
+                <router-link to="/space">
+                  <div></div>
+                </router-link>
+              </div>
+            </li>
+          </ul>
+          <div class="imgs-group">
+            <div
+              class="img-box"
+              :style="publicWidth"
+              v-for="(el ,i ) in e.activeArr"
+              :key="i"
+              @click="expand($event)"
+            >
+              <img :src="el.url" draggable="false" />
             </div>
-          </li>
-        </ul>
-        <div class="imgs-group" ref="iGroup">
-          <div
-            class="img-box"
-            :style="publicWidth"
-            v-for="(el ,i ) in imgsbox"
-            :key="i"
-            @click="expand($event)"
-          >
-            <img :src="el.url" draggable="false" />
           </div>
         </div>
       </div>
-      <!-- <ul>
-            <li>
-              <router-link to="/spacedatail">访庄</router-link>
-            </li>
-            <li>
-              <router-link to="/spacedatail">孤往</router-link>
-            </li>
-            <li>
-              <router-link to="/spacedatail">缥香</router-link>
-            </li>
-            <li>
-              <router-link to="/spacedatail">谱泉</router-link>
-            </li>
-          </ul>
-          <ul>
-            <li>
-              <router-link to="/spacedatail">问月</router-link>
-            </li>
-            <li>
-              <router-link to="/spacedatail">踏古</router-link>
-            </li>
-            <li>
-              <router-link to="/spacedatail">味象</router-link>
-            </li>
-            <li>
-              <router-link to="/spacedatail">其他</router-link>
-            </li>
-      </ul>-->
     </div>
     <!-- Add Pagination -->
   </div>
@@ -79,13 +55,48 @@ export default {
       width: window.innerWidth / 4,
       sun: 1,
       suns: 0,
-      imgsbox: null,
-      scroll: null
+      scroll: null,
+      spaceData: []
     };
   },
   methods: {
-    changeimg(item) {
-      this.imgsbox = item;
+    changeimg(i, item, e) {
+      let oldBoxWidth = (this.spaceData.length + 0.1) * this.width; //warp初始宽度
+      let master = $(e.target.parentNode.parentNode);
+
+      if (!master.siblings().children().length == item.length) {
+        master.removeClass("active");
+        this.verScroll(oldBoxWidth);
+        master.siblings().css({
+          width: `0px`,
+          opacity: 0,
+          transition: `.5s`
+        });
+      } else {
+        this.spaceData[i].activeArr = item;
+        this.$forceUpdate();
+        master.addClass("active");
+        this.changeBoxWidth(oldBoxWidth + (item.length + 2) * this.width);
+        master.siblings().css({
+          width: `${(item.length + 2) * this.width}px`,
+          opacity: 1,
+          transition: `1s`
+        });
+        master
+          .parent()
+          .siblings()
+          .find(".imgs-group")
+          .width(0);
+        master
+          .parent()
+          .siblings()
+          .find("ul")
+          .removeClass("active");
+      }
+    },
+    openImgsBox(e) {
+      let oldBoxWidth = (this.spaceData.length + 0.1) * this.width;
+      let master = $(e.target);
     },
     expand(e) {
       let a = this.sibling(e.currentTarget);
@@ -100,8 +111,8 @@ export default {
       e.currentTarget.style.width = "";
       e.currentTarget.style.transition = "1s";
     },
-    verScroll() {
-      let width = this.space.length * this.width; // 动态计算出滚动区域的大小，前面已经说过了，产生滚动的原因是滚动区域宽度大于父盒子宽度
+    verScroll(width) {
+      console.log(width);
 
       this.$refs.cont.style.width = width + "px"; // 修改滚动区域的宽度
       this.$nextTick(() => {
@@ -118,6 +129,9 @@ export default {
           this.scroll.refresh(); //如果dom结构发生改变调用该方法
         }
       });
+      // $(this.$refs.cont).css({
+      //   transform: `translateX(0px) translateY(0px) translateZ(0px)`
+      // });
     },
     sibling(elm) {
       var a = [];
@@ -126,16 +140,25 @@ export default {
         if (p[i] !== elm) a.push(p[i]);
       }
       return a;
+    },
+
+    changeBoxWidth(width) {
+      let timer = setTimeout(() => {
+        // 其实我也不想写这个定时器的，这相当于又嵌套了一层$nextTick，但是不这么写会失败
+        if (timer) {
+          clearTimeout(timer);
+          this.verScroll(width);
+        }
+      }, 0);
     }
   },
   mounted() {
-    this.imgsbox = this.space[0].imgs;
     this.$nextTick(() => {
       let timer = setTimeout(() => {
         // 其实我也不想写这个定时器的，这相当于又嵌套了一层$nextTick，但是不这么写会失败
         if (timer) {
           clearTimeout(timer);
-          this.verScroll();
+          this.verScroll((this.spaceData.length + 0.1) * this.width);
         }
       }, 0);
     });
@@ -157,6 +180,13 @@ export default {
       spaceBetween: 0,
       grabCursor: true
     });
+    for (var i = 0; i < this.space.length; i += 4) {
+      this.spaceData.push(this.space.slice(i, i + 4));
+    }
+    this.spaceData.forEach(el => {
+      el.activeArr = el[0].imgs;
+    });
+    console.log(this.spaceData);
 
     // const swiper = new Swiper(".swiper-container", {
     //   // ...
@@ -170,6 +200,10 @@ export default {
 </script>
 
 <style lang="less" scoped>
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
 .space-datail {
   background-image: url("../../assets/image/space/07.jpg");
   background-size: cover;
@@ -181,14 +215,28 @@ export default {
     height: 100%;
     .list-warp {
       height: 100%;
-      border-right: 1px solid #ffffff88;
       position: relative;
+      display: flex;
+      .lsit-item {
+        border-right: 1px solid #ffffff88;
+        position: relative;
+        height: 100%;
+        &:nth-child(even) ul {
+          ul {
+            bottom: 2rem;
+          }
+        }
+        &:nth-of-type(odd) ul {
+          transform: translateY(-50%);
+          top: 70%;
+        }
+      }
       ul {
-        width: 25%;
-        // position: absolute;
+        position: relative;
         padding-top: 4rem;
         text-align: center;
         float: left;
+
         li {
           margin: 0.7916666rem 0;
           .back {
@@ -205,6 +253,12 @@ export default {
               }
             }
           }
+          span {
+            cursor: pointer;
+          }
+        }
+        &:last-child {
+          border: none;
         }
       }
       .imgs-group {
@@ -212,6 +266,9 @@ export default {
         width: auto;
         overflow: hidden;
         height: 100%;
+        width: 0;
+        overflow: hidden;
+        background: #000;
         .img-box {
           float: left;
           height: 100%;
@@ -219,6 +276,7 @@ export default {
           position: relative;
           overflow: hidden;
           background: #000000;
+          max-width: 1620px;
           img {
             width: auto;
             height: 100%;
@@ -233,15 +291,6 @@ export default {
   }
   .swiper-container {
     .swiper-slide {
-      &:nth-of-type(2n-1) {
-        ul {
-          bottom: 2rem;
-        }
-      }
-      &:nth-of-type(3n) {
-        transform: translateY(-50%);
-        top: 50%;
-      }
     }
   }
 }

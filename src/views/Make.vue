@@ -89,6 +89,8 @@ export default {
       slidesPerView: 1.7,
       centeredSlides: true,
       spaceBetween: 50,
+      autoplay: true,
+      speed: 2000,
       navigation: {
         nextEl: ".swiper-button-next",
         prevEl: ".swiper-button-prev"

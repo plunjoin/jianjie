@@ -13,6 +13,11 @@
             <p @mousemove="changeBG(index)">
               <router-link to="/thingdatail">{{ item.title }}</router-link>
             </p>
+            <div class="child">
+              <div class="child-el" v-for="(e,i) in item.child" :key="i">
+                <router-link :to="'/thingdatail/'+i">{{ e }}</router-link>
+              </div>
+            </div>
           </li>
         </ul>
       </div>
@@ -24,15 +29,18 @@
 import { mapState } from "vuex";
 export default {
   name: "thing",
-  computed: mapState(["isTitle"]),
+  computed: mapState(["isTitle", "thing"]),
   data() {
+    const self = this;
     return {
       cate: [
         {
-          title: "石玩"
+          title: "石玩",
+          child: ["案頭山子", "石光", "水盤置景"]
         },
         {
-          title: "器物"
+          title: "器物",
+          child: ["茶器", "酒器", "食器"]
         },
         {
           title: "家具"
@@ -44,7 +52,10 @@ export default {
       count: 0
     };
   },
-  mounted() {},
+  mounted() {
+    console.log(this.cate);
+    console.log(this.thing);
+  },
   methods: {
     changeBG(bg) {
       this.count = bg;
@@ -90,11 +101,30 @@ export default {
         &.active {
           opacity: 1;
         }
+        &:hover {
+          .child {
+            display: inline-block;
+            opacity: 1;
+          }
+        }
         p {
           position: absolute;
           top: 50%;
           width: 100%;
           transform: translateY(-50%);
+        }
+        .child {
+          // display: none;
+          position: absolute;
+          top: 70%;
+          left: 0;
+          font-size: 0.6666rem;
+          transition: 1s;
+          opacity: 0;
+          .child-el {
+            float: left;
+            margin-right: 15px;
+          }
         }
       }
     }

@@ -25,11 +25,11 @@
 // }
 
 ::-webkit-scrollbar-thumb {
-    width: 8px;
-    padding: 0 1px;
-    box-sizing: border-box;
-    border-radius: 20px;
-    border: 2px solid #56575B;
+    width           : 8px;
+    padding         : 0 1px;
+    box-sizing      : border-box;
+    border-radius   : 20px;
+    border          : 2px solid #56575B;
     background-color: #B3B4B6;
 }
 
@@ -103,7 +103,7 @@ body {
     position  : fixed;
     background: #000000;
     height    : 100%;
-    z-index   : 9;
+    z-index   : 999;
 
     video {
         height  : 100%;
@@ -115,7 +115,7 @@ body {
 
 .jie-logo {
     position: absolute;
-    z-index : 3;
+    z-index : 99;
     height  : 100px;
     float   : left;
     top     : 50px;
@@ -131,10 +131,7 @@ body {
     }
 
     &:hover {
-        +.jie-common-floor-head {
-            display: block;
-            opacity: 1;
-        }
+
 
         opacity: 0;
     }
@@ -151,6 +148,20 @@ body {
         margin  : 0 5rem 0 0;
         padding : .58px;
         position: relative;
+
+        .night-child {
+            background-color: #00000080;
+
+            a {
+                opacity: .5;
+
+                &:hover {
+                    opacity: 1;
+                }
+            }
+        }
+
+
 
         &>div {
             top     : 100%;
@@ -183,13 +194,13 @@ body {
                 position   : relative;
                 margin     : 0 0 .5rem 0;
 
-                &::before {
-                    content    : '· ';
-                    font-size  : 24px;
-                    position   : absolute;
-                    left       : -24px;
-                    line-height: 24px;
-                }
+                // &::before {
+                //     content    : '· ';
+                //     font-size  : 24px;
+                //     position   : absolute;
+                //     left       : -24px;
+                //     line-height: 24px;
+                // }
             }
 
             dd {
