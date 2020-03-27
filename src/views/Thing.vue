@@ -2,16 +2,26 @@
   <div class="thing">
     <div class="thing-warp">
       <div class="thing-bg">
-        <img v-if="count==0" src="../assets/image/thing/bg/17.jpg" width="100%" alt />
-        <img v-if="count==1" src="../assets/image/thing/bg/41.jpg" width="100%" alt />
-        <img v-if="count==2" src="../assets/image/thing/bg/5.jpg" width="100%" alt />
-        <img v-if="count==3" src="../assets/image/thing/bg/1.jpg" width="100%" />
+        <img
+          v-bind:class="{active:count==0}"
+          src="../assets/image/thing/bg/17.jpg"
+          width="100%"
+          alt
+        />
+        <img
+          v-bind:class="{active:count==1}"
+          src="../assets/image/thing/bg/41.jpg"
+          width="100%"
+          alt
+        />
+        <img v-bind:class="{active:count==2}" src="../assets/image/thing/bg/5.jpg" width="100%" alt />
+        <img v-bind:class="{active:count==3}" src="../assets/image/thing/bg/1.jpg" width="100%" />
       </div>
-      <div class="list font-songti">
+      <div :class="'list font-songti '+$i18n.locale">
         <ul v-show="isTitle">
           <li v-for="(item,index) in cate" :key="index" v-bind:class="{active:count==index}">
-            <p @mousemove="changeBG(index)">
-              <router-link to="/thingdatail">{{ item.title }}</router-link>
+            <p class="jie-title-letter-spacing" @mousemove="changeBG(index)">
+              <router-link to="/thingdatail/0">{{ item.title }}</router-link>
             </p>
             <div class="child">
               <div class="child-el" v-for="(e,i) in item.child" :key="i">
@@ -33,22 +43,7 @@ export default {
   data() {
     const self = this;
     return {
-      cate: [
-        {
-          title: "石玩",
-          child: ["案頭山子", "石光", "水盤置景"]
-        },
-        {
-          title: "器物",
-          child: ["茶器", "酒器", "食器"]
-        },
-        {
-          title: "家具"
-        },
-        {
-          title: "首飾"
-        }
-      ],
+      cate: this.$t("thing.cate"),
       count: 0
     };
   },
@@ -80,10 +75,17 @@ export default {
     background: #00000088;
     width: 100%;
     img {
+      position: absolute;
+      left: 0;
+      top: 0;
+      transition: 1s;
       width: 100%;
       filter: grayscale(100%);
       filter: gray;
-      opacity: 0.5;
+      opacity: 0;
+      &.active {
+        opacity: 1;
+      }
     }
   }
   .list {

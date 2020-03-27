@@ -77,7 +77,20 @@ const routes = [
     component: function () {
       return import('../views/children/thingDatail')
     }, props: true
+  }, {
+    path: '/lianxi',
+    name: 'lianxi',
+    component: function () {
+      return import('../views/lianxi')
+    }, props: true
+  }, {
+    path: '/tiaowen',
+    name: 'tiaowen',
+    component: function () {
+      return import('../views/tiaowen')
+    }, props: true
   }
+
 
 ]
 

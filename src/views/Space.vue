@@ -12,14 +12,14 @@
     <div class="space-surface">
       <div class="space-menu" v-show="isTitle">
         <ul>
-          <li>
-            <router-link to="/spacelist">【見芥·石虎 空間】</router-link>
+          <li :class="'jie-title-letter-spacing '+$i18n.locale">
+            <router-link to="/spacelist">【{{ $t('space.msg001') }}】</router-link>
           </li>
-          <li>
-            <router-link to="/spacelist">【廣州悅睦堂會所】</router-link>
+          <li :class="'jie-title-letter-spacing '+$i18n.locale">
+            <router-link to="/spacelist">【{{ $t('space.msg002') }}】</router-link>
           </li>
-          <li>
-            <router-link to="/spacelist">【苏州本色美术馆】</router-link>
+          <li :class="'jie-title-letter-spacing '+$i18n.locale">
+            <router-link to="/spacelist">【{{ $t('space.msg003') }}】</router-link>
           </li>
         </ul>
       </div>
@@ -64,8 +64,13 @@ export default {
       right: 20%;
       li {
         letter-spacing: 8px;
-        font-size: 1.75rem;
+        font-size: 2rem;
         margin: 1.65rem 0;
+        opacity: 0.3;
+        transition: 0.5s;
+        &:hover {
+          opacity: 1;
+        }
       }
     }
   }

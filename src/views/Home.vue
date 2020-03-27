@@ -4,7 +4,7 @@
       <video
         ref="opening"
         class="opening-video"
-        src="https://cdn.jsdelivr.net/gh/plunjoin/right@ideo/before.mp4"
+        src="https://prugna.cn/video/73cb572e1b62e81eaa1d501a916b2bf7.mp4"
         muted
         autoplay
         width="100%"
@@ -26,7 +26,14 @@
         @click.stop="clearJianjie()"
       />
     </div>
-    <video src="https://prugna.cn/video/home.1066ffdc.mp4" width="100%" muted autoplay loop></video>
+    <video
+      src="https://prugna.cn/video/home.1066ffdc.mp4"
+      ref="home"
+      width="100%"
+      muted
+      autoplay
+      loop
+    ></video>
   </div>
 </template>
 
@@ -34,6 +41,12 @@
 export default {
   name: "Home",
   mounted() {
+    if (window.innerWidth <= 640) {
+      this.$refs.home.src =
+        "https://prugna.cn/video/1d7158c284a4ea82bde74126f5e949e9.mp4";
+      this.$refs.opening.src =
+        "https://prugna.cn/video/e4ef23c69280f878a3c1456c0621b9c1.mp4";
+    }
     var _this = this;
     this.$refs.opening.addEventListener("ended", function() {
       this.style.display = "none";

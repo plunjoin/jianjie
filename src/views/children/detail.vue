@@ -2,15 +2,20 @@
   <div class="jie-content">
     <swiper :options="vertical">
       <swiper-slide>
-        <div class="jie-layer-head" :style="'background-image:url('+info.bg_img_url+')'">
+        <div class="jie-layer-head">
+          <swiper :options="{autoplay:true,loop:true}" v-show="info.bg_img_url">
+            <swiper-slide v-for="(bg,idx) in info.bg_img_url" :key="idx">
+              <div class="jie-udd-bg" :style="'background-image:url('+bg+')'"></div>
+            </swiper-slide>
+          </swiper>
           <div class="context">
             <div class="prev"></div>
             <div class="next"></div>
           </div>
           <div class="jie-layer-head-comtent" v-show="isTitle">
-            <h2 class="font-songti">{{ info.name }}</h2>
+            <h2 :class="'font-songti jie-title-letter-spacing '+ $i18n.locale">{{ info.name }}</h2>
             <hr />
-            <h3 class="font-songti">{{ info.category_name }}</h3>
+            <h3 :class="'font-songti '+$i18n.locale">{{ info.category_name }}</h3>
             <p>{{ info.introduction }}</p>
           </div>
         </div>
@@ -30,6 +35,7 @@
                 :key="index"
                 v-bind:class="{active:tabIndex==index}"
                 @click="selected(item.contents,index)"
+                class="jie-title-letter-spacing"
               >{{ item.title }}</li>
             </ul>
           </div>
@@ -39,9 +45,6 @@
             :key="index"
             v-show="tabIndex==index"
           >
-            <p>
-              <span>{{ realIndex+1 }}/{{ items.imgs.length }}</span>
-            </p>
             <swiper :options="swiperOption">
               <!-- slides -->
               <swiper-slide :key="index" v-for="(item,index) in items.imgs">
@@ -49,13 +52,18 @@
                 <div v-else class="video">
                   <video :src="item.url" autoplay muted loop height="100%"></video>
                 </div>
-                <p class="item-text">{{ item.text }}</p>
+                <p v-if="item.text" class="item-text">{{ item.text }}</p>
               </swiper-slide>
               <!-- Optional controls -->
               <div class="swiper-pagination" slot="pagination"></div>
+            </swiper>
+            <div class="swiper-btn">
               <div class="swiper-button-prev jie-prev" slot="button-prev"></div>
               <div class="swiper-button-next jie-next" slot="button-next"></div>
-            </swiper>
+            </div>
+            <p align="right">
+              <span>{{ realIndex+1 }}/{{ items.imgs.length }}</span>
+            </p>
           </div>
         </div>
       </swiper-slide>
@@ -582,7 +590,7 @@ export default {
   components: {
     foot
   },
-  computed: mapState(["night", "isTitle", "harry_winston"]),
+  computed: mapState(["night", "isTitle"]),
   data() {
     const self = this;
     return {
@@ -639,14 +647,13 @@ export default {
   },
   watch: {
     id(newid, oldid) {
-      this.info = this.harry_winston[this.id];
+      this.info = this.$t("night.night")[this.id];
       this.option.sources.url = this.info.bg_video_url;
       console.log(this.info);
     }
   },
   mounted() {
-    this.info = this.harry_winston[this.id];
-
+    this.info = this.$t("night.night")[this.id];
     // this.$axios.get("/category").then(res => {
     //   console.log(res);
     // });
@@ -725,6 +732,7 @@ export default {
       position: absolute;
       top: 0;
       left: 0;
+      z-index: 1;
       width: 100%;
       height: 100%;
       background-color: #00000065;
@@ -766,23 +774,39 @@ export default {
       right: 10.25rem;
       position: absolute;
       width: 25rem;
-      z-index: 1;
+      z-index: 2;
       h2 {
         font-size: 3.416666rem;
+        font-weight: 100;
       }
       h3 {
         font-size: 1.8rem;
-        margin-bottom: 1.6rem;
+        margin-bottom: 1.3rem;
+        font-weight: 100;
       }
       p {
-        font-size: 0.8rem;
-        line-height: 1rem;
+        font-size: 0.65rem;
+        line-height: 1.33rem;
+        letter-spacing: 2px;
       }
+    }
+    .jie-udd-bg {
+      height: 100vh;
+      background-size: cover;
+      background-position: center;
     }
   }
   .jie-layer-tab {
-    padding: 0 4.166666rem 1.75rem 4.1666666rem;
+    padding: 2rem 4.166666rem 1.75rem 4.1666666rem;
+    & > .jie-next,
+    .jie-prev {
+      opacity: 0.5;
+      &:hover {
+        opacity: 1;
+      }
+    }
     .jie-layer-tab-warp {
+      position: relative;
       > p {
         padding-bottom: 0.625rem;
         > span {
@@ -810,67 +834,46 @@ export default {
       }
     }
     .swiper-container {
-      max-height: 768px;
-      min-height: 768px;
-      height: 768px;
+      height: 100%px;
       .swiper-wrapper {
-        max-height: 768px;
-        min-height: 768px;
-        height: 768px;
+        height: 100%px;
       }
       .swiper-slide {
         text-align: center;
+        height: calc(100vh - 8rem);
+        position: relative;
         .video {
-          max-height: 768px;
-          min-height: 768px;
-          height: 768px;
+          height: 100%;
         }
         img,
         video {
+          left: 50%;
+          position: absolute;
           height: 100%;
           width: auto !important;
+          transform: translateX(-50%);
         }
       }
     }
-
-    .jie-next {
-      width: 2rem;
-      height: 2rem;
-      border-radius: 50%;
-      background: transparent;
-      &::before {
-        content: "";
-        position: absolute;
-        right: 0.7rem;
-        top: 0.7rem;
-        width: 0.71rem;
-        height: 0.71rem;
-        box-sizing: border-box;
-        transform: translateX(-50%);
-        border-right: 3px solid #ed1c24;
-        border-bottom: 3px solid #ed1c24;
-        transition: transform 0.2s linear;
-        transform: rotate3d(0, 0, 1, -45deg);
+    .swiper-btn {
+      height: 100%;
+      width: 100%;
+      position: absolute;
+      top: 0;
+      display: flex;
+      & > div {
+        top: 0;
+        width: 50%;
+        height: 100%;
+        outline: none;
+        background: none;
+        position: relative;
       }
-    }
-    .jie-prev {
-      width: 2rem;
-      height: 2rem;
-      border-radius: 50%;
-      background: transparent;
-      &::before {
-        content: "";
-        position: absolute;
-        left: 0.8rem;
-        top: 0.7rem;
-        width: 0.71rem;
-        height: 0.71rem;
-        box-sizing: border-box;
-        transform: translateX(-50%);
-        border-right: 3px solid #ed1c24;
-        border-bottom: 3px solid #ed1c24;
-        transition: transform 0.2s linear;
-        transform: rotate3d(0, 0, 1, 135deg);
+      .jie-next {
+        cursor: url("../../assets/icon/next.png"), auto;
+      }
+      .jie-prev {
+        cursor: url("../../assets/icon/prev.png"), auto;
       }
     }
   }
@@ -892,11 +895,18 @@ export default {
   .jie-content {
     .jie-layer-head {
       .jie-layer-head-comtent {
-        position: relative;
+        position: absolute;
         left: 1rem;
       }
     }
+
     .jie-layer-tab {
+      .jie-layer-tab-warp {
+        p {
+          margin-top: -2.5rem;
+        }
+      }
+      padding: 1rem;
       .swiper-container {
         min-height: 600px;
         max-height: 600px;

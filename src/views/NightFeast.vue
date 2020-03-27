@@ -2,7 +2,7 @@
   <div class="night" ref="warp">
     <div class="openVideo" v-if="opening_video">
       <video
-        src="https://prugna.cn/video/night_feast.864055c2.mp4"
+        src="https://prugna.cn/video/d298e38b9e634d4320d66f1f2341d841.mp4"
         width="100%"
         muted
         autoplay
@@ -12,21 +12,37 @@
       <!-- <button class="font-songti" >跳过</button> -->
     </div>
     <div class="background-video">
-      <video src="https://prugna.cn/video/night_feast.864055c2.mp4" loop width="100%" ref="bg"></video>
+      <video
+        loop
+        ref="bg"
+        width="100%"
+        src="https://prugna.cn/video/51b954ecf7678a47d08441786a5f5bd6.mp4"
+      ></video>
     </div>
     <div class="feast-list" ref="listwarp">
-      <dl v-for="(e,i) in ls" :key="i">
+      <dl :class="$i18n.locale" v-for="(e,i) in $t('night.ls')" :key="i">
         <dt>{{ e.title }}</dt>
         <dd v-for="(el,idx) in e.child" :key="idx">
           <strong @mouseover="controller = false" @mouseout="controller = true">
-            <router-link :to="'/detail/'+idx">{{ el.name }}</router-link>
+            <router-link :to="'/detail/'+idx">【 {{ el.name }} 】</router-link>
           </strong>
           <p>{{ el.add }}</p>
           <p>{{ el.time }}</p>
         </dd>
       </dl>
     </div>
-    <div class="feast-list" ref="copy"></div>
+    <div class="feast-list" ref="copy">
+      <dl :class="$i18n.locale" v-for="(e,i) in $t('night.ls')" :key="i">
+        <dt>{{ e.title }}</dt>
+        <dd v-for="(el,idx) in e.child" :key="idx">
+          <strong @mouseover="controller = false" @mouseout="controller = true">
+            <router-link :to="'/detail/'+idx">【 {{ el.name }} 】</router-link>
+          </strong>
+          <p>{{ el.add }}</p>
+          <p>{{ el.time }}</p>
+        </dd>
+      </dl>
+    </div>
   </div>
 </template>
 
@@ -38,128 +54,6 @@ export default {
   data() {
     const self = this;
     return {
-      ls: [
-        {
-          title: "HARRY WINSTON & 見芥",
-          child: [
-            {
-              name: "【 望隆鄉國 】",
-              add: "Anlu, Shanghai, Chin",
-              time: "2019 08 27 - 08 30"
-            },
-            {
-              name: "【 佳山有緣 】",
-              add: "Anlu, Shanghai, Chin",
-              time: "2019 08 27 - 08 30"
-            }
-          ]
-        },
-        {
-          title: "Hennessy X.O & 見芥",
-          child: [
-            {
-              name: "【醉花陰】",
-              add: "Anlu, Shanghai, Chin",
-              time: "2019 08 27 - 08 30"
-            },
-            {
-              name: "【 鳳求凰 】",
-              add: "Anlu, Shanghai, Chin",
-              time: "2019 08 27 - 08 30"
-            }
-          ]
-        },
-        {
-          title: "阿里巴巴 & 見芥",
-          child: [
-            {
-              name: "【 萬芊斜 】",
-              add: "Anlu, Shanghai, Chin",
-              time: "2019 08 27 - 08 30"
-            },
-            {
-              name: "【歸隱】",
-              add: "Anlu, Shanghai, Chin",
-              time: "2019 08 27 - 08 30"
-            },
-            {
-              name: "【 太極極古 】",
-              add: "Anlu, Shanghai, Chin",
-              time: "2019 08 27 - 08 30"
-            },
-            {
-              name: "【 外灘·午宴 】",
-              add: "Anlu, Shanghai, Chin",
-              time: "2019 08 27 - 08 30"
-            },
-            {
-              name: "【 深竹月 】",
-              add: "Anlu, Shanghai, Chin",
-              time: "2019 08 27 - 08 30"
-            },
-            {
-              name: "【 阿里議事 】",
-              add: "Anlu, Shanghai, Chin",
-              time: "2019 08 27 - 08 30"
-            },
-            {
-              name: "【 歸來遇秋 】",
-              add: "Anlu, Shanghai, Chin",
-              time: "2019 08 27 - 08 30"
-            },
-            {
-              name: "【 鏡花水月 】",
-              add: "Anlu, Shanghai, Chin",
-              time: "2019 08 27 - 08 30"
-            },
-            {
-              name: "【 歸來遇秋 】",
-              add: "Anlu, Shanghai, Chin",
-              time: "2019 08 27 - 08 30"
-            }
-          ]
-        },
-        {
-          title: "蘇州棠頌 & 見芥",
-          child: [
-            {
-              name: "【 遇棠富貴 】",
-              add: "Anlu, Shanghai, Chin",
-              time: "2019 08 27 - 08 30"
-            }
-          ]
-        },
-        {
-          title: "龍宮 & 見芥",
-          child: [
-            {
-              name: "【 龍宮 】",
-              add: "Anlu, Shanghai, Chin",
-              time: "2019 08 27 - 08 30"
-            }
-          ]
-        },
-        {
-          title: "枚青 & 見芥",
-          child: [
-            {
-              name: "【 紅樓小宴 】",
-              add: "Anlu, Shanghai, Chin",
-              time: "2019 08 27 - 08 30"
-            }
-          ]
-        },
-        {
-          title: "阿姆斯特丹 & 見芥",
-          child: [
-            {
-              name: "【 他鄉亦貴 】",
-              add: "Anlu, Shanghai, Chin",
-              time: "2019 08 27 - 08 30"
-            }
-          ]
-        }
-      ],
       opening_video: true,
       controller: false,
       interval: setInterval(function() {
@@ -175,7 +69,6 @@ export default {
   },
   computed: {},
   mounted() {
-    this.$refs.copy.innerHTML = this.$refs.listwarp.innerHTML;
     var _this = this,
       maxScroll = _this.$refs.warp.scrollHeight - window.innerHeight;
     document.body.scrollTop = 0;
@@ -253,10 +146,24 @@ export default {
       width: 100%;
       overflow: hidden;
       margin: 0 0 2.16666rem 0;
+      &.en {
+        dt {
+          font-size: 1.2rem;
+          padding: 0 1rem;
+        }
+        dd {
+          padding: 0 1rem;
+          strong {
+            text-transform: capitalize;
+            font-size: 2rem;
+          }
+        }
+      }
       dt {
         width: 100%;
         display: block;
         color: #754c24;
+        font-weight: 600;
         font-size: 1.6666rem;
         margin: 0 0 1.08333rem 0;
       }
@@ -269,6 +176,7 @@ export default {
           font-size: 2.5416666rem;
           display: inline-block;
           margin: 0 0 0.75rem -33px;
+          font-weight: 100;
         }
         p {
           font-size: 0.5rem;

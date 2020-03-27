@@ -4,28 +4,28 @@
       <div class="banners">
         <img src="../../assets/image/make/_DSC7153.jpg" alt srcset />
         <div class="banner-title">
-          <h2>林泉高致</h2>
-          <p>Jasonwood club</p>
+          <h2 class="jie-title-letter-spacing">{{ $t("make.msg001") }}</h2>
+          <p>{{ $t("make.msg009") }}</p>
         </div>
       </div>
       <div class="make-attributes">
         <table style="width:100%;text-align:left;margin:2rem 0 3rem 0;">
           <thead style="font-size:16px">
-            <th>项目地址</th>
-            <th>主创设计</th>
-            <th>项目面积</th>
-            <th>营造周期</th>
-            <th>竣工时间</th>
-            <th>项目造价</th>
+            <th class="jie-title-letter-spacing">{{ $t('make.msg016') }}</th>
+            <th class="jie-title-letter-spacing">{{ $t('make.msg017') }}</th>
+            <th class="jie-title-letter-spacing">{{ $t('make.msg018') }}</th>
+            <th class="jie-title-letter-spacing">{{ $t('make.msg019') }}</th>
+            <th class="jie-title-letter-spacing">{{ $t('make.msg020') }}</th>
+            <th class="jie-title-letter-spacing">{{ $t('make.msg021') }}</th>
           </thead>
           <tbody style="font-size:16px">
             <tr>
-              <td>浙江·杭州</td>
-              <td>侃侃 花猪 晨昊</td>
-              <td>1200平方</td>
-              <td>6个月</td>
-              <td>2017年8月8日</td>
-              <td>210万</td>
+              <td>{{ $t('make.msg022') }}</td>
+              <td>{{ $t('make.msg023') }}</td>
+              <td>{{ $t('make.msg024') }}</td>
+              <td>{{ $t('make.msg025') }}</td>
+              <td>{{ $t('make.msg026') }}</td>
+              <td>{{ $t('make.msg027') }}</td>
             </tr>
           </tbody>
         </table>
@@ -33,10 +33,7 @@
       <div class="make-detail-content">
         <div style="display: flex;align-items: center;">
           <div style="text-align: center;">
-            <p style="width: 50%;display: inline-block;text-align: left;">
-              林泉之志，烟霞之侣，梦寐在 焉，耳目断绝，今得妙手郁然出之，
-              不下堂筵，坐穷泉壑，猿声鸟啼依约 在耳，山光水色滉漾夺目，此岂不快 人意，实获我心哉，此世之所以贵夫 画山之本意也。
-            </p>
+            <p style="width: 50%;display: inline-block;text-align: left;">{{ $t('make.msg028') }}</p>
           </div>
           <div>
             <img src="../../assets/image/867ee26fb82863bf5ddf1730266567e.png" alt />
@@ -55,8 +52,8 @@
           </div>
         </div>
         <div style="font-size: 16px;margin: 2rem 0;">
-          <p style="margin: 0 0 10px 0;">主要材料</p>
-          <span>老石板，晚清·白石龙吐水，巴厘岛·奇木家具，德清·野山石，老松木，墨染清混，镀黑钛钢板，山苔，老杆乌桕，老杆山朴，日本红枫，骨里红，老杆柴藤，狼尾，矢羽芒，溪荪，溲疏，穗花杜荆，夕雾草，玉簪，野山蕨，井栏边草，无尽夏，南天竹</span>
+          <p style="margin: 0 0 10px 0;">{{ $t('make.msg029') }}</p>
+          <span>{{ $t('make.msg030') }}</span>
         </div>
         <div>
           <img src="../../assets/image/make/_DSC7267.jpg" width="100%" alt />
@@ -91,9 +88,22 @@ export default {
 </script>
 
 <style lang="less" scoped>
+::-webkit-scrollbar {
+  height: 0px;
+}
+
+::-webkit-scrollbar-button{
+  width: 10px;
+}
 .make-child-warp {
   margin: auto;
-
+  .make-attributes {
+    width: 100%;
+    overflow-x: auto;
+    table {
+      min-width: 1190px;
+    }
+  }
   .make-detail-content {
     font-size: 16px;
   }
@@ -115,6 +125,20 @@ export default {
       p {
         text-align: left;
         font-size: 2.5rem;
+      }
+    }
+  }
+}
+@media screen and (max-width: 640px) {
+  .make-detail-content {
+    > div {
+      display: block !important;
+      img {
+        width: 100% !important;
+      }
+      p {
+        width: 100% !important;
+        padding: 0 1rem;
       }
     }
   }

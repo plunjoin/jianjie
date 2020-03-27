@@ -8,64 +8,64 @@
     <br />
     <div class="slide">
       <div class="swiper-container">
-        <div class="swiper-wrapper">
+        <div :class="'swiper-wrapper font-songti '+$i18n.locale">
           <!-- It is important to set "left" style prop on every slide -->
           <div class="swiper-slide" on-index="1">
             <img src="@/assets/image/01.jpg" alt />
-            <div class="item-title font-songti">
+            <div class="item-title" v-show="isTitle">
               <router-link to="/makechild">
-                <span>林泉高致</span>
-                <p>Jasonwood club</p>
+                <span class="jie-title-letter-spacing">{{ $t("make.msg001") }}</span>
+                <p>{{ $t("make.msg009") }}</p>
               </router-link>
             </div>
           </div>
           <div class="swiper-slide" on-index="2">
             <img src="@/assets/image/02.jpg" alt />
-            <div class="item-title font-songti">
-              <span>梅小姐花園</span>
-              <p>明苑別墅317</p>
+            <div class="item-title" v-show="isTitle">
+              <span class="jie-title-letter-spacing">{{ $t("make.msg002") }}</span>
+              <p>{{ $t("make.msg010") }}</p>
             </div>
           </div>
           <div class="swiper-slide" on-index="3">
             <img src="@/assets/image/03.jpg" alt />
-            <div class="item-title font-songti">
-              <span>莫奈花園</span>
-              <p>思南公館69號</p>
+            <div class="item-title" v-show="isTitle">
+              <span class="jie-title-letter-spacing">{{ $t("make.msg003") }}</span>
+              <p>{{ $t("make.msg011") }}</p>
             </div>
           </div>
           <div class="swiper-slide" on-index="4">
             <img src="@/assets/image/04.jpg" alt />
-            <div class="item-title font-songti">
-              <span>濠濮間想</span>
-              <p>思南公館67號院</p>
+            <div class="item-title" v-show="isTitle">
+              <span class="jie-title-letter-spacing">{{ $t("make.msg004") }}</span>
+              <p>{{ $t("make.msg012") }}</p>
             </div>
           </div>
           <div class="swiper-slide" on-index="5">
             <img src="@/assets/image/05.jpg" alt />
-            <div class="item-title font-songti">
-              <span>西湖山莊</span>
-              <p>杭州</p>
+            <div class="item-title" v-show="isTitle">
+              <span class="jie-title-letter-spacing">{{ $t("make.msg005") }}</span>
+              <p>{{ $t("make.msg013") }}</p>
             </div>
           </div>
           <div class="swiper-slide" on-index="6">
             <img src="@/assets/image/06.jpg" alt />
-            <div class="item-title font-songti">
-              <span>虞宅</span>
-              <p>上海</p>
+            <div class="item-title" v-show="isTitle">
+              <span class="jie-title-letter-spacing">{{ $t("make.msg006") }}</span>
+              <p>{{ $t("make.msg014") }}</p>
             </div>
           </div>
           <div class="swiper-slide" on-index="7">
             <img src="@/assets/image/07.jpg" alt />
-            <div class="item-title font-songti">
-              <span>西湖私宅</span>
-              <p>遠南山</p>
+            <div class="item-title" v-show="isTitle">
+              <span class="jie-title-letter-spacing">{{ $t("make.msg007") }}</span>
+              <p>{{ $t("make.msg015") }}</p>
             </div>
           </div>
           <div class="swiper-slide" on-index="8">
             <img src="@/assets/image/08.jpg" alt />
-            <div class="item-title font-songti">
-              <span>AV庭院</span>
-              <p>杭州</p>
+            <div class="item-title" v-show="isTitle">
+              <span class="jie-title-letter-spacing">{{ $t("make.msg008") }}</span>
+              <p>{{ $t("make.msg013") }}</p>
             </div>
           </div>
         </div>
@@ -78,7 +78,10 @@
 
 <script>
 import Swiper from "swiper/dist/js/swiper";
+import { mapState } from "vuex";
+
 export default {
+  computed: mapState(["isTitle"]),
   data() {
     return {};
   },

@@ -7,7 +7,12 @@ export default [
         "category_id": 1,
         "subtitle": "HARRY WINSTON & 見芥",
         "introduction": "‘望隆鄉國’是五鳳廳的牌匾，也是本次活動的主題。牌匾由乾隆賜，象征著無比尊貴的聲望和地位，也正如Harry Winston 被譽為“King of Diamonds”壹般，國士無雙，無出其右。傳統與現代，東方與西方，在這壹刻互相融合又互相碰撞。賓客們皆沉浸於海瑞溫斯頓營造的這東情西韻的世界。",
-        "bg_img_url": "https://prugna.cn/jie_view/right_background.jpg",
+        "bg_img_url": [
+            "https://prugna.cn/jie_view/right_background.jpg",
+            "https://prugna.cn/jie_view/351269037650870839.jpg",
+            "https://prugna.cn/jie_view/372085536364237758.jpg",
+            "https://prugna.cn/jie_view/524278914218941129.jpg",
+        ],
         "bg_video_url": "https://prugna.cn/video/night_content.mp4",
         "view_group": [
             {
@@ -743,7 +748,9 @@ export default [
         "category_id": 2,
         "subtitle": "HARRY WINSTON & 見芥",
         "introduction": `\n\n\n\n\n\n\n在西方，磚石被看做世上最耀眼的光。\n為這光，紐約頂級磚石品牌Harry Winston創始人曾說過：“如果可以的話，我希望能直接將磚石鑲嵌在女人的肌膚上”，夢露生前是HW的忠實擁趸，一從好萊塢影星與皇室名流亦將其珠寶視為畢生珍藏。\n\c\c在東方，“磚石之王”同樣不缺乏懂得欣賞得貴胄藏家。\n\n\n二零一八年，中秋，HW遇見了東方。\n\n\nHarry Winston希翼為台灣SVIP舉辦一場獨特的家宴，遂邀請侃侃及“見芥”團推趕赴台灣，為品牌量身打造一場磚石與東方交匯的“極樂之宴”。`,
-        "bg_img_url": "https://prugna.cn/jie_view/first/37015117e02378b2f07a7ed4740f756.jpg",
+        "bg_img_url": [
+            "https://prugna.cn/jie_view/first/37015117e02378b2f07a7ed4740f756.jpg"
+        ],
         "bg_video_url": "https://prugna.cn/jie_view/second/video/bg.mp4",
         "view_group": [
             {

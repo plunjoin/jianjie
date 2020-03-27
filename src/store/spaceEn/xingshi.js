@@ -1,0 +1,30 @@
+export default {
+    title: 'Wake up',
+    imgs: [
+        { type: 0, url: 'https://cdn.jsdelivr.net/gh/plunjoin/jianjie-space@jie-space/xingshi/(1).jpg' },
+        { type: 0, url: 'https://cdn.jsdelivr.net/gh/plunjoin/jianjie-space@jie-space/xingshi/(2).jpg' },
+        { type: 0, url: 'https://cdn.jsdelivr.net/gh/plunjoin/jianjie-space@jie-space/xingshi/(3).jpg' },
+        { type: 0, url: 'https://cdn.jsdelivr.net/gh/plunjoin/jianjie-space@jie-space/xingshi/(4).jpg' },
+        { type: 0, url: 'https://cdn.jsdelivr.net/gh/plunjoin/jianjie-space@jie-space/xingshi/(5).jpg' },
+        { type: 0, url: 'https://cdn.jsdelivr.net/gh/plunjoin/jianjie-space@jie-space/xingshi/(6).jpg' },
+        { type: 0, url: 'https://cdn.jsdelivr.net/gh/plunjoin/jianjie-space@jie-space/xingshi/(7).jpg' },
+        { type: 0, url: 'https://cdn.jsdelivr.net/gh/plunjoin/jianjie-space@jie-space/xingshi/(8).jpg' },
+        { type: 0, url: 'https://cdn.jsdelivr.net/gh/plunjoin/jianjie-space@jie-space/xingshi/(9).jpg' },
+        { type: 0, url: 'https://cdn.jsdelivr.net/gh/plunjoin/jianjie-space@jie-space/xingshi/(10).jpg' },
+        { type: 0, url: 'https://cdn.jsdelivr.net/gh/plunjoin/jianjie-space@jie-space/xingshi/(11).jpg' },
+        { type: 0, url: 'https://cdn.jsdelivr.net/gh/plunjoin/jianjie-space@jie-space/xingshi/(12).jpg' },
+        { type: 0, url: 'https://cdn.jsdelivr.net/gh/plunjoin/jianjie-space@jie-space/xingshi/(13).jpg' },
+        { type: 0, url: 'https://cdn.jsdelivr.net/gh/plunjoin/jianjie-space@jie-space/xingshi/(14).jpg' },
+        { type: 0, url: 'https://cdn.jsdelivr.net/gh/plunjoin/jianjie-space@jie-space/xingshi/(15).jpg' },
+        { type: 0, url: 'https://cdn.jsdelivr.net/gh/plunjoin/jianjie-space@jie-space/xingshi/(16).jpg' },
+        { type: 0, url: 'https://cdn.jsdelivr.net/gh/plunjoin/jianjie-space@jie-space/xingshi/(17).jpg' },
+        { type: 0, url: 'https://cdn.jsdelivr.net/gh/plunjoin/jianjie-space@jie-space/xingshi/(18).jpg' },
+        { type: 0, url: 'https://cdn.jsdelivr.net/gh/plunjoin/jianjie-space@jie-space/xingshi/(19).jpg' },
+        { type: 0, url: 'https://cdn.jsdelivr.net/gh/plunjoin/jianjie-space@jie-space/xingshi/(20).jpg' },
+        { type: 0, url: 'https://cdn.jsdelivr.net/gh/plunjoin/jianjie-space@jie-space/xingshi/(21).jpg' },
+        { type: 0, url: 'https://cdn.jsdelivr.net/gh/plunjoin/jianjie-space@jie-space/xingshi/(22).jpg' },
+        { type: 0, url: 'https://cdn.jsdelivr.net/gh/plunjoin/jianjie-space@jie-space/xingshi/(23).jpg' },
+        { type: 0, url: 'https://cdn.jsdelivr.net/gh/plunjoin/jianjie-space@jie-space/xingshi/(24).jpg' },
+        { type: 0, url: 'https://cdn.jsdelivr.net/gh/plunjoin/jianjie-space@jie-space/xingshi/(25).jpg' }
+    ]
+}

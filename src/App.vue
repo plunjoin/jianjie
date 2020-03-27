@@ -1,7 +1,8 @@
 <template>
   <div id="app">
+    <wapHead></wapHead>
     <div class="jie-logo" :style="'transition: 1s;opacity:'+n">
-      <h1 title="见芥">
+      <h1 :title="lang.name">
         <router-link to="/">
           <img src="./assets/883486010602843048.png" alt />
         </router-link>
@@ -10,308 +11,167 @@
     <div
       class="jie-common-floor-head"
       v-bind:class="{active:menu}"
-      @mouseover="n=0"
-      @mouseout="n=1"
+      @mouseover="n=0;saveIsTitleFalse()"
+      @mouseout="n=0.3;saveIsTitleTrue()"
     >
-      <div class="jie-head-top">
-        <div class="jie-head-wrap">
-          <h1>
-            <router-link to="/">見芥</router-link>
-          </h1>
-          <button class="jie-btn-toggle" @click="editMenu()">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="30"
-              height="30"
-              viewBox="0 0 30 30"
-              role="img"
-              focusable="false"
-            >
-              <title>Menu</title>
-              <path
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-miterlimit="10"
-                stroke-width="2"
-                d="M4 7h22M4 15h22M4 23h22"
-              />
-            </svg>
-          </button>
+      <div class="change-lang" @click="changeLang()">ZH/EN</div>
+      <div style="flex:1">
+        <div
+          id="nav"
+          :class="'font-songti a'+$i18n.locale"
+          @mouseover="saveIsTitleFalse()"
+          @mouseout="saveIsTitleTrue()"
+        >
+          <router-link to="/night" @mouseover="saveIsTitleFalse()" @mouseout="saveIsTitleTrue()">
+            <span :class="$i18n.locale">{{ $t('nav.night') }}</span>
+            <div class="night-child">
+              <div class="feast-list" ref="listwarp">
+                <dl v-for="(e,i) in $t('night.ls')" :key="i">
+                  <dt :class="$i18n.locale">{{ e.title }}</dt>
+                  <dd v-for="(el,idx) in e.child" :key="idx">
+                    <strong>
+                      <router-link :to="'/detail/'+idx">{{ el.name }}</router-link>
+                    </strong>
+                  </dd>
+                </dl>
+              </div>
+            </div>
+          </router-link>
+          <router-link to="/make">
+            <span :class="$i18n.locale">{{ $t('nav.make') }}</span>
+            <div class="night-child">
+              <div class="feast-list">
+                <dl>
+                  <dd>
+                    <strong>
+                      <router-link to="/makechild">{{ $t('make.msg001') }}</router-link>
+                    </strong>
+                  </dd>
+                </dl>
+                <dl>
+                  <dd>
+                    <strong>
+                      <router-link to="/makechild">{{ $t('make.msg002') }}</router-link>
+                    </strong>
+                  </dd>
+                </dl>
+                <dl>
+                  <dd>
+                    <strong>
+                      <router-link to="/makechild">{{ $t('make.msg003') }}</router-link>
+                    </strong>
+                  </dd>
+                </dl>
+                <dl>
+                  <dd>
+                    <strong>
+                      <router-link to="/makechild">{{ $t('make.msg004') }}</router-link>
+                    </strong>
+                  </dd>
+                </dl>
+                <dl>
+                  <dd>
+                    <strong>
+                      <router-link to="/makechild">{{ $t('make.msg005') }}</router-link>
+                    </strong>
+                  </dd>
+                </dl>
+                <dl>
+                  <dd>
+                    <strong>
+                      <router-link to="/makechild">{{ $t('make.msg006') }}</router-link>
+                    </strong>
+                  </dd>
+                </dl>
+                <dl>
+                  <dd>
+                    <strong>
+                      <router-link to="/makechild">{{ $t('make.msg007') }}</router-link>
+                    </strong>
+                  </dd>
+                </dl>
+                <dl>
+                  <dd>
+                    <strong>
+                      <router-link to="/makechild">{{ $t('make.msg008') }}</router-link>
+                    </strong>
+                  </dd>
+                </dl>
+              </div>
+            </div>
+          </router-link>
+          <router-link to="/space">
+            <span :class="$i18n.locale">{{ $t('nav.space') }}</span>
+            <div class="night-child">
+              <div class="feast-list">
+                <dl>
+                  <dd>
+                    <strong>
+                      <router-link to="/spacelist">{{ $t('space.msg001') }}</router-link>
+                    </strong>
+                  </dd>
+                </dl>
+                <dl>
+                  <dd>
+                    <strong>
+                      <router-link to="/spacelist">{{ $t('space.msg002') }}</router-link>
+                    </strong>
+                  </dd>
+                </dl>
+                <dl>
+                  <dd>
+                    <strong>
+                      <router-link to="/spacelist">{{ $t('space.msg003') }}</router-link>
+                    </strong>
+                  </dd>
+                </dl>
+              </div>
+            </div>
+          </router-link>
+          <router-link to="/thing">
+            <span :class="$i18n.locale">{{ $t('nav.thing') }}</span>
+            <div class="night-child">
+              <div class="feast-list">
+                <dl v-for="(el,idx) in $t('thing.cate')" :key="idx">
+                  <dt :class="$i18n.locale">{{ el.title }}</dt>
+                  <dd v-for="(e,i) in el.child" :key="i">
+                    <strong>
+                      <router-link :to="'/thingdatail/'+i">{{ e }}</router-link>
+                    </strong>
+                  </dd>
+                </dl>
+              </div>
+            </div>
+          </router-link>
+          <router-link to="/about">
+            <span :class="$i18n.locale">{{ $t('nav.about') }}</span>
+            <div class="night-child">
+              <div class="feast-list">
+                <dl>
+                  <dd>
+                    <strong>
+                      <router-link to="/lianxi">{{ $t("about.msg001") }}</router-link>
+                    </strong>
+                  </dd>
+                </dl>
+                <dl>
+                  <dd>
+                    <strong>
+                      <router-link to="/about">{{ $t("about.msg002") }}</router-link>
+                    </strong>
+                  </dd>
+                </dl>
+                <dl>
+                  <dd>
+                    <strong>
+                      <router-link to="/tiaowen">{{ $t("about.msg003") }}</router-link>
+                    </strong>
+                  </dd>
+                </dl>
+              </div>
+            </div>
+          </router-link>
         </div>
-      </div>
-
-      <div
-        id="nav"
-        class="font-songti"
-        @mouseover="saveIsTitleFalse()"
-        @mouseout="saveIsTitleTrue()"
-      >
-        <router-link to="/night" @mouseover="saveIsTitleFalse()" @mouseout="saveIsTitleTrue()">
-          <span>夜宴</span>
-          <div class="night-child">
-            <div class="feast-list" ref="listwarp">
-              <dl>
-                <dt>HARRY WINSTON & 見芥</dt>
-                <dd>
-                  <strong>
-                    <router-link to="/detail/0">望隆鄉國</router-link>
-                  </strong>
-                </dd>
-                <dd>
-                  <strong>
-                    <router-link to="/detail/1">佳山有緣</router-link>
-                  </strong>
-                </dd>
-              </dl>
-              <dl>
-                <dt>Hennessy X.O & 見芥</dt>
-                <dd>
-                  <strong>
-                    <router-link to="/detail">醉花陰</router-link>
-                  </strong>
-                </dd>
-                <dd>
-                  <strong>
-                    <router-link to="/detail">鳳求凰</router-link>
-                  </strong>
-                </dd>
-              </dl>
-              <dl>
-                <dt>阿里巴巴 & 見芥</dt>
-                <dd>
-                  <strong>
-                    <router-link to="/detail">萬芊斜</router-link>
-                  </strong>
-                </dd>
-                <dd>
-                  <strong>
-                    <router-link to="/detail">歸隱</router-link>
-                  </strong>
-                </dd>
-                <dd>
-                  <strong>
-                    <router-link to="/detail">太極極古</router-link>
-                  </strong>
-                </dd>
-
-                <dd>
-                  <strong>
-                    <router-link to="/detail">外灘·午宴</router-link>
-                  </strong>
-                </dd>
-                <dd>
-                  <strong>
-                    <router-link to="/detail">深竹月</router-link>
-                  </strong>
-                </dd>
-                <dd>
-                  <strong>
-                    <router-link to="/detail">阿里議事</router-link>
-                  </strong>
-                </dd>
-                <dd>
-                  <strong>
-                    <router-link to="/detail">歸來遇秋</router-link>
-                  </strong>
-                </dd>
-                <dd>
-                  <strong>
-                    <router-link to="/detail">鏡花水月</router-link>
-                  </strong>
-                </dd>
-                <dd>
-                  <strong>
-                    <router-link to="/detail">歸來遇秋</router-link>
-                  </strong>
-                </dd>
-              </dl>
-              <dl>
-                <dt>蘇州棠頌 & 見芥</dt>
-                <dd>
-                  <strong>
-                    <router-link to="/detail">遇棠富貴</router-link>
-                  </strong>
-                </dd>
-              </dl>
-              <dl>
-                <dt>龍宮 & 見芥</dt>
-                <dd>
-                  <strong>
-                    <router-link to="/detail">龍宮</router-link>
-                  </strong>
-                </dd>
-              </dl>
-              <dl>
-                <dt>枚青 & 見芥</dt>
-                <dd>
-                  <strong>
-                    <router-link to="/detail">紅樓小宴</router-link>
-                  </strong>
-                </dd>
-              </dl>
-              <dl>
-                <dt>阿姆斯特丹 & 見芥</dt>
-                <dd>
-                  <strong>
-                    <router-link to="/detail">他鄉亦貴</router-link>
-                  </strong>
-                </dd>
-              </dl>
-            </div>
-          </div>
-        </router-link>
-        <router-link to="/make">
-          <span>造園</span>
-          <div class="night-child">
-            <div class="feast-list">
-              <dl>
-                <dd>
-                  <strong>
-                    <router-link to="/makechild">林泉高致</router-link>
-                  </strong>
-                </dd>
-              </dl>
-              <dl>
-                <dd>
-                  <strong>
-                    <router-link to="/makechild">梅小姐花園</router-link>
-                  </strong>
-                </dd>
-              </dl>
-              <dl>
-                <dd>
-                  <strong>
-                    <router-link to="/makechild">莫奈花園</router-link>
-                  </strong>
-                </dd>
-              </dl>
-              <dl>
-                <dd>
-                  <strong>
-                    <router-link to="/makechild">濠濮間想</router-link>
-                  </strong>
-                </dd>
-              </dl>
-              <dl>
-                <dd>
-                  <strong>
-                    <router-link to="/makechild">西湖山莊</router-link>
-                  </strong>
-                </dd>
-              </dl>
-              <dl>
-                <dd>
-                  <strong>
-                    <router-link to="/makechild">虞宅</router-link>
-                  </strong>
-                </dd>
-              </dl>
-              <dl>
-                <dd>
-                  <strong>
-                    <router-link to="/makechild">西湖私宅</router-link>
-                  </strong>
-                </dd>
-              </dl>
-              <dl>
-                <dd>
-                  <strong>
-                    <router-link to="/makechild">AV庭院</router-link>
-                  </strong>
-                </dd>
-              </dl>
-            </div>
-          </div>
-        </router-link>
-        <router-link to="/space">
-          <span>空間</span>
-          <div class="night-child">
-            <div class="feast-list">
-              <dl>
-                <dd>
-                  <strong>
-                    <router-link to="/spacelist">見芥·石虎 空間</router-link>
-                  </strong>
-                </dd>
-              </dl>
-              <dl>
-                <dd>
-                  <strong>
-                    <router-link to="/spacelist">廣州悅睦堂會所</router-link>
-                  </strong>
-                </dd>
-              </dl>
-              <dl>
-                <dd>
-                  <strong>
-                    <router-link to="/spacelist">苏州本色美术馆</router-link>
-                  </strong>
-                </dd>
-              </dl>
-            </div>
-          </div>
-        </router-link>
-        <router-link to="/thing">
-          <span>長物</span>
-          <div class="night-child">
-            <div class="feast-list">
-              <dl>
-                <dt>石玩</dt>
-                <dd v-for="(e,i) in thing" :key="i">
-                  <strong>
-                    <router-link :to="'/thingdatail/'+i">{{ e.title }}</router-link>
-                  </strong>
-                </dd>
-              </dl>
-              <dl>
-                <dt>器物</dt>
-                <dd>
-                  <strong><router-link to="/thingdatail/1">茶器</router-link></strong>
-                </dd>
-                <dd>
-                  <strong><router-link to="/thingdatail/2">酒器</router-link></strong>
-                </dd>
-                <dd>
-                  <strong><router-link to="/thingdatail/3">食器</router-link></strong>
-                </dd>
-              </dl>
-              <dl>
-                <dt>家具</dt>
-              </dl>
-              <dl>
-                <dt>首飾</dt>
-              </dl>
-            </div>
-          </div>
-        </router-link>
-        <router-link to="/about">
-          <span>我</span>
-          <div class="night-child">
-            <div class="feast-list">
-              <dl>
-                <dd>
-                  <strong>
-                    <router-link to="/about">聯繫我們</router-link>
-                  </strong>
-                </dd>
-              </dl>
-              <dl>
-                <dd>
-                  <strong>
-                    <router-link to="/about">工作機會</router-link>
-                  </strong>
-                </dd>
-              </dl>
-              <dl>
-                <dd>
-                  <strong>
-                    <router-link to="/about">法律條文</router-link>
-                  </strong>
-                </dd>
-              </dl>
-            </div>
-          </div>
-        </router-link>
       </div>
       <!-- <div class="audio">
         <audio id="audio" controls="controls" autoplay="autoplay" loop ref="au">
@@ -326,6 +186,7 @@
       </div>
     </div>
     <router-view />
+    <div class="mb" v-bind:class="{active:!isTitle}"></div>
   </div>
 </template>
 
@@ -334,15 +195,20 @@
 </style>
 
 <script>
+import wapHead from "./components/WapHead";
 import { mapState, mapMutations } from "vuex";
+import $ from "jquery";
 export default {
+  name: "jianjie",
+  components: { wapHead },
   data() {
     return {
       conunt: 0,
-      n: 1
+      n: 0.3,
+      mb: false,
+      lang: null
     };
   },
-  name: "jiezi",
   computed: mapState([
     "menu",
     "footerList",
@@ -351,7 +217,14 @@ export default {
     "harry_winston"
   ]),
   mounted() {
+    // document.querySelector("style").innerText += import(
+    //   "@/lang/" + this.$i18n.locale + ".css"
+    // );
     var _this = this;
+    // this.$i18n.locale = 'en'
+    _this.$i18n.messages[_this.$i18n.locale];
+    _this.lang = _this.$i18n.messages[_this.$i18n.locale];
+    console.log(_this.lang);
     this.$nextTick(function() {
       // function play() {
       //   var music = document.getElementById("audio"); //判断如果音乐停止播放中，就让他播放。。。
@@ -384,6 +257,15 @@ export default {
         document.body.scrollTop = window.scrollY - 50;
         document.documentElement.scrollTop = window.scrollY - 50;
       }, 1);
+    },
+    changeLang() {
+      if (this.$i18n.locale == "en") {
+        this.$i18n.locale = "zh";
+        // document.querySelector("style").innerText = import("@/lang/zh.css");
+      } else {
+        this.$i18n.locale = "en";
+        // document.querySelector("style").innerText = import("@/lang/en.css");
+      }
     }
     // handleCanplay() {
     //   this.$nextTick(() => {
@@ -395,6 +277,21 @@ export default {
 </script>
 
 <style lang="less">
+.mb {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  transition: 1s;
+  opacity: 0;
+  background: #000000;
+  &.active {
+    z-index: 3;
+    opacity: 0.75;
+  }
+}
 .audio {
   display: none;
   position: fixed;

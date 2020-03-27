@@ -4,32 +4,43 @@
       <div class="footer-mian">
         <div
           class="jie-mian-item"
-          v-for="(items,index) in footerList"
+          v-for="(items,index) in $t('footer.footerList')"
           :key="index"
           v-bind:class="{active:index==conunt}"
         >
-          <span class="font-blod" @click="conunt = index">{{items.title}}</span>
-          <a v-for="(item,i) in items.list" :key="i" href>{{ item }}</a>
+          <span
+            :class="'font-blod jie-title-letter-spacing '+$i18n.locale"
+            @click="idx(index)"
+          >{{items.title}}</span>
+          <a
+            :class="item.icon? item.icon+' icon':''"
+            v-for="(item,i) in items.list"
+            :key="i"
+            href
+          >{{ item.title }}</a>
         </div>
 
         <div class="jie-mian-contact">
-          <a class="jie-icon jie-icon-message" href>在線顧問</a>
-          <a class="jie-icon jie-icon-tel" href>400.1234.1324</a>
+          <a
+            :class="'jie-icon jie-icon-message jie-title-letter-spacing '+$i18n.locale"
+            href
+          >{{ $t('footer.msg1') }}</a>
+          <a class="jie-icon jie-icon-tel" href>{{ $t('footer.msg2') }}</a>
         </div>
       </div>
       <div class="footer-consult">
         <div class="footer-consult-content">
-          <span>訂閱見芥電子咨詢</span>
+          <span :class="'jie-title-letter-spacing '+$i18n.locale">{{ $t('footer.msg3') }}</span>
           <p>
-            通過訂閱,級代表您接收見芥的
-            <a href>隱私政策條款</a>
+            {{ $t('footer.msg5') }}
+            <a href>{{ $t('footer.msg5') }}</a>
           </p>
-          <div class="jie-foot-email">電子郵件地址</div>
+          <div class="jie-foot-email">{{ $t('footer.msg6') }}</div>
         </div>
       </div>
     </div>
     <div class="copyright">
-      <p>©2019Datenschutz Onlinewerbung/AGB</p>
+      <p>{{ $t('footer.msg7') }}</p>
       <!-- <li v-for=""></li> -->
     </div>
   </div>
@@ -41,51 +52,72 @@ export default {
   data() {
     return {
       conunt: 0,
-      test: null,
-      footerList: [
-        {
-          title: "關注見芥",
-          list: ["微信", "微博", "嗶哩嗶哩", "Instagram"]
-        },
-        {
-          title: "關於公司",
-          list: [
-            "關於見芥",
-            "道德規範",
-            "職業發展",
-            "細則及條款",
-            "隱私與COOKIE",
-            "企業信息"
-          ]
-        },
-        {
-          title: "購物幫助",
-          list: ["支付相關", "配送", "退貨", "發票", "保養與維修"]
-        },
-
-        {
-          title: "見芥服務",
-          list: ["春節假期物流須知", "免費禮品包裝"]
-        },
-
-        {
-          title: "需要幫助?",
-          list: ["聯繫我們", "常見問題"]
-        }
-      ]
+      test: null
     };
   },
   mounted() {
     this.$axios.get("/content").then(res => {
       // this.test = JSON.parse(res[0].content);
-      var data = JSON.parse(res[0].content)
+      var data = JSON.parse(res[0].content);
       console.log(data);
-      
+
       // console.log(JSON.parse(res[0].content));
     });
+  },
+  methods: {
+    idx(idx) {
+      idx == this.conunt ? (this.conunt = -1) : (this.conunt = idx);
+    }
   }
 };
 </script>
 
 <style lang="less">
+.icon {
+  display: block;
+  padding-left: 20px;
+  position: relative;
+  &::after {
+    content: "";
+    display: block;
+    width: 18px;
+    height: 100%;
+    top: 0;
+    position: absolute;
+    left: 0;
+    background-size: 100%;
+    background-repeat: no-repeat;
+  }
+}
+
+.icon.wechat {
+  &::after {
+    background-image: url("../assets/icon/306aca576829a56865c656afc1568ace_.png");
+  }
+}
+
+.icon.bilibili {
+  &::after {
+    background-image: url("../assets/icon/ab6470001d71f76a5bafc1cd250d3379_.png");
+  }
+}
+
+.icon.sina {
+  &::after {
+    background-image: url("../assets/icon/2cb1d28f94c4cb45ce7948dc771aee6d_.png");
+  }
+}
+.icon.ins {
+  &::after {
+    background-image: url("../assets/icon/d7fa6ada1ddd05b1a9af766573d1fa07_.png");
+  }
+}
+@media screen and (max-width: 500px) {
+  .icon {
+    padding-left: 2rem !important;
+    &::after {
+      top: 1rem;
+    }
+  }
+}
 </style>

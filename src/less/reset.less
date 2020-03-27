@@ -9,14 +9,23 @@
         url('../assets/font/NotoSerifCJKac/NotoSerifCJKsc-Medium.otf');
 }
 
-::selection {
-    background : #f88;
-    text-shadow: none;
-    color      : #000;
+@font-face {
+    font-family: 'en';
+    src        : local('en'),
+        url(../assets/font/arial.ttf)
+}
+
+// ::selection {
+//     background : #f88;
+//     text-shadow: none;
+//     color      : #000;
+// }
+.both {
+    clear: both;
 }
 
 ::-webkit-scrollbar {
-    width           : 15px;
+    width           : 0px;
     background-color: #56575B;
 }
 
@@ -24,13 +33,23 @@
 //     background-color: #B3B4B6;
 // }
 
-::-webkit-scrollbar-thumb {
-    width           : 8px;
-    padding         : 0 1px;
-    box-sizing      : border-box;
-    border-radius   : 20px;
-    border          : 2px solid #56575B;
-    background-color: #B3B4B6;
+// ::-webkit-scrollbar-thumb {
+//     width           : 8px;
+//     padding         : 0 1px;
+//     box-sizing      : border-box;
+//     border-radius   : 20px;
+//     border          : 2px solid #56575B;
+//     background-color: #B3B4B6;
+// }
+
+.aen {
+    // font-family: en !important;
+}
+
+.en {
+    // font-family   : en !important;
+    letter-spacing   : 1px !important;
+    text-transform   : uppercase;
 }
 
 .jie-container {
@@ -54,6 +73,8 @@
 
 * {
     box-sizing: border-box;
+    outline   : none;
+    transition: .5s;
 }
 
 // reset
@@ -106,10 +127,7 @@ body {
     z-index   : 999;
 
     video {
-        height  : 100%;
-        width   : 200%;
-        position: relative;
-        left    : -50%;
+        width   : 100%;
     }
 }
 
@@ -120,6 +138,11 @@ body {
     float   : left;
     top     : 50px;
     left    : 50px;
+    opacity : .3;
+
+    &:hover {
+        opacity: 1 !important;
+    }
 
     h1 {
         height : 100%;
@@ -130,10 +153,82 @@ body {
         }
     }
 
-    &:hover {
+}
 
+.jie-head-top {
+    display : none;
+    position: fixed;
+    top     : 0;
+    left    : 0;
+    width   : 100%;
+    height  : 0;
 
-        opacity: 0;
+    .jie-head-wrap {
+        height: 0;
+
+        h1 {
+            padding: 1rem;
+
+        }
+
+        .menu-wap {
+            height          : 0;
+            opacity         : 0;
+            top             : 0;
+            left            : 0;
+            width           : 100%;
+            position        : relative;
+            background-color: #000000;
+            padding-bottom  : 35px;
+
+            &.active {
+                transition: 2s;
+                display   : block;
+                height    : auto;
+                opacity   : 1;
+            }
+
+            ul {
+                display: flex;
+
+                li {
+                    padding   : 1rem;
+                    text-align: right;
+                    position  : relative;
+                    font-size : 1.5rem;
+
+                    .night-child {
+                        position  : relative;
+                        left      : 0;
+                        text-align: left;
+                    }
+                }
+            }
+
+            .wapNavTab {
+                height    : 0;
+                opacity   : 0;
+                padding   : 0 1rem;
+                max-height: calc(100vh - 50px);
+                overflow-y: scroll;
+
+                &.active {
+                    height : auto;
+                    opacity: 1;
+                }
+
+                dd {
+                    width    : 50%;
+                    float    : left;
+                    font-size: 1.5rem;
+                    padding  : .5rem 0;
+                }
+            }
+        }
+
+        h1 {
+            position: fixed;
+        }
     }
 }
 
@@ -149,8 +244,13 @@ body {
         padding : .58px;
         position: relative;
 
+        span {
+            &::first-letter {}
+        }
+
         .night-child {
-            background-color: #00000080;
+            // background-color: #00000080;
+            opacity            : 0;
 
             a {
                 opacity: .5;
@@ -159,14 +259,18 @@ body {
                     opacity: 1;
                 }
             }
+
+            &::after {
+                content: '';
+                display: block;
+
+            }
         }
-
-
 
         &>div {
             top     : 100%;
             left    : -24px;
-            width   : 1500%;
+            width   : 700%;
             display : none;
             position: absolute;
             padding : 24px;
@@ -176,7 +280,9 @@ body {
             border-bottom: 2px solid #FFFFFF;
 
             &>div {
-                display: inline;
+                transition: 1s;
+                display   : inline;
+                opacity   : 1;
             }
         }
 
@@ -226,6 +332,9 @@ body {
 }
 
 .jie-common-floor-head {
+    display         : flex;
+    align-items     : center;
+    justify-content : space-between;
     opacity         : 0;
     position        : fixed;
     width           : 100%;
@@ -235,12 +344,17 @@ body {
     top             : 0;
     background-color: #000000;
 
+    .change-lang {
+        cursor   : pointer;
+        font-size: 16px;
+        padding  : 20px;
+    }
+
     #nav {
         padding: 0.7rem 0 1.375rem 0;
     }
 
     &:hover {
-        display: block;
         opacity: 1;
 
         +.jie-logo {
@@ -251,17 +365,6 @@ body {
 
 }
 
-.jie-head-top {
-    display         : none;
-    background-color: #000000;
-
-    .jie-head-wrap {
-        display        : flex;
-        padding        : 0 1rem;
-        margin         : 1rem 0;
-        justify-content: space-between;
-    }
-}
 
 // footer
 .jie-common-floor {
@@ -288,6 +391,8 @@ body {
                     display    : block;
                     font-weight: bold;
                     font-size  : .583333rem;
+                    opacity    : .6;
+
                 }
 
                 a {
@@ -295,6 +400,11 @@ body {
                     display    : table;
                     font-size  : .5416666rem;
                     font-weight: 100;
+                    opacity    : .3;
+
+                    &:hover {
+                        opacity: 1;
+                    }
                 }
             }
 
@@ -322,12 +432,18 @@ body {
                     margin     : 0 0 .8rem 0;
                     font-weight: bold;
                     font-size  : .583333rem;
+                    opacity    : .6;
                 }
 
                 p {
                     margin     : 0 0 1.3rem 0;
                     font-weight: 100;
                     font-size  : .5416666rem;
+                    opacity    : .3;
+
+                    &:hover {
+                        opacity: 1;
+                    }
                 }
 
                 div {
@@ -488,6 +604,7 @@ html {
                 }
 
                 .jie-mian-contact {
+                    width   : 100%;
                     padding : 1rem;
                     position: initial;
                 }
@@ -498,7 +615,7 @@ html {
             }
 
             .footer-consult {
-                padding: 2rem 0 0 1rem;
+                padding: 0 0 0 1rem;
                 width  : 60%;
             }
         }
@@ -508,10 +625,76 @@ html {
         }
     }
 
-    .jie-common-floor-head {
-        .jie-head-top {
-            display: block;
+    .jie-head-top {
+        display: block;
+        z-index: 999;
+
+        .jie-head-wrap {
+            align-items: flex-start;
         }
+
+        .jie-btn-toggle {
+            padding     : 0;
+            border      : none;
+            background  : none;
+            width       : 30px;
+            height      : 45px;
+            position    : relative;
+            float       : right;
+            margin-right: 10px;
+            margin-top  : -25px;
+
+            &.active {
+                margin-top: -35px;
+
+                span {
+                    opacity: 0;
+                }
+
+                &::before {
+                    top      : 0;
+                    transform: rotate(45deg);
+                }
+
+                &::after {
+                    transform: rotate(-45deg);
+                    bottom   : 42px;
+                }
+            }
+
+            &::before {
+                top: 5px;
+            }
+
+            &::before,
+            &::after {
+                content      : "";
+                position     : absolute;
+                width        : 100%;
+                display      : block;
+                height       : 1px;
+                border-bottom: 1px solid #FFFFFF;
+            }
+
+            span {
+                width        : 100%;
+                display      : block;
+                height       : 1px;
+                position     : absolute;
+                top          : 15px;
+                border-bottom: 1px solid #FFFFFF;
+            }
+
+        }
+    }
+
+    .jie-logo,
+    .jie-common-floor-head {
+        display: none;
+    }
+
+    .jie-common-floor-head {
+
 
         &.active {
             #nav {
@@ -522,4 +705,24 @@ html {
 
 
 
+}
+
+
+.thing-content-img-warp {
+    font-size: 14px;
+    width    : 100%;
+    color    : #737373;
+
+    .p-warp {
+        margin: 1.5rem 0;
+
+        .p {
+            margin : 0.5rem 0;
+            display: flex;
+        }
+    }
+
+    img {
+        width: 100%;
+    }
 }
