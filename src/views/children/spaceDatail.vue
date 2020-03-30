@@ -13,7 +13,7 @@
       </div>
       <div class="content-html-warp jie-container">
         <div v-for="(el,i) in warpImg" :key="i">
-          <video v-if="el.type==1" :src="el.url"></video>
+          <video v-if="el.type==1" :src="el.url" ></video>
           <img v-else :src="el.url" alt />
         </div>
       </div>

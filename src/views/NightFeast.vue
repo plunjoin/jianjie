@@ -1,26 +1,42 @@
 <template>
   <div class="night" ref="warp">
-    <div class="openVideo" v-if="opening_video">
+    <!-- <div class="openVideo" v-if="opening_video">
       <video
         src="https://prugna.cn/video/d298e38b9e634d4320d66f1f2341d841.mp4"
         width="100%"
         muted
         autoplay
+        playsinline
         @click="opening_video=false;openbg()"
         ref="openv"
       ></video>
-      <!-- <button class="font-songti" >跳过</button> -->
-    </div>
+    </div>-->
     <div class="background-video">
       <video
+        @click="startInterval()"
         loop
         ref="bg"
+        muted
         width="100%"
+        playsinline
+        autoplay
+        class="bg"
         src="https://prugna.cn/video/51b954ecf7678a47d08441786a5f5bd6.mp4"
       ></video>
+      <video
+        loop
+        ref="wapbg"
+        class="wapbg"
+        @click="startInterval()"
+        muted
+        width="100%"
+        playsinline
+        autoplay
+        src="https://prugna.cn/video/257990ffbde6a101cb28ed5f33856c98.mp4"
+      ></video>
     </div>
-    <div class="feast-list" ref="listwarp">
-      <dl :class="$i18n.locale" v-for="(e,i) in $t('night.ls')" :key="i">
+    <div class="feast-list" ref="listwarp" @click="startInterval()">
+      <dl :class="'font-songti ' + $i18n.locale" v-for="(e,i) in $t('night.ls')" :key="i">
         <dt>{{ e.title }}</dt>
         <dd v-for="(el,idx) in e.child" :key="idx">
           <strong @mouseover="controller = false" @mouseout="controller = true">
@@ -55,7 +71,7 @@ export default {
     const self = this;
     return {
       opening_video: true,
-      controller: false,
+      controller: true,
       interval: setInterval(function() {
         if (self.controller) {
           if (self.$refs.warp.scrollTop >= self.$refs.listwarp.scrollHeight) {
@@ -69,6 +85,7 @@ export default {
   },
   computed: {},
   mounted() {
+    this.$refs.bg.controls = false;
     var _this = this,
       maxScroll = _this.$refs.warp.scrollHeight - window.innerHeight;
     document.body.scrollTop = 0;
@@ -99,6 +116,10 @@ export default {
       self.controller = false;
       this.controller = false;
       // clearInterval(this.interval);
+    },
+    startInterval() {
+      self.controller = true;
+      this.controller = true;
     },
     vuetouch(s, e) {
       console.log(s);
@@ -140,9 +161,9 @@ export default {
     }
   }
   .feast-list {
-    padding: 0 0 0 8.875rem;
+    padding: 100vh 0 0 8.875rem;
     dl {
-      font-family: "NotoSerifCJKsc";
+      // font-family: "NotoSerifCJKsc";
       width: 100%;
       overflow: hidden;
       margin: 0 0 2.16666rem 0;
@@ -195,24 +216,38 @@ export default {
     position: fixed;
   }
 }
+.wapbg {
+  display: none;
+}
 @media screen and (max-width: 1200px) {
   .night {
     .feast-list {
-      padding: 100% 0 0 1rem;
+      padding: 100vh 0 0 1rem;
+    }
+    .wapbg {
+      display: none;
     }
   }
 }
 
-@media screen and (max-width: 620px) {
+@media screen and (max-width: 640px) {
   .night {
     .feast-list {
       dl {
         dd {
+          width: 100%;
           strong {
             font-size: 2rem;
+            margin: 0 0 0.75rem -20px;
           }
         }
       }
+    }
+    .bg {
+      display: none;
+    }
+    .wapbg {
+      display: block;
     }
   }
 }

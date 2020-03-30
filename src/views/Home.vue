@@ -8,6 +8,7 @@
         muted
         autoplay
         width="100%"
+        playsinline
       ></video>
       <img
         src="@/assets/logo.png"
@@ -23,7 +24,7 @@
         width="70%"
         alt
         ref="jianjie"
-        @click.stop="clearJianjie()"
+        @click.stop="clearJianjie($event)"
       />
     </div>
     <video
@@ -32,6 +33,7 @@
       width="100%"
       muted
       autoplay
+      playsinline
       loop
     ></video>
   </div>
@@ -44,8 +46,10 @@ export default {
     if (window.innerWidth <= 640) {
       this.$refs.home.src =
         "https://prugna.cn/video/1d7158c284a4ea82bde74126f5e949e9.mp4";
+      this.$refs.home.play();
       this.$refs.opening.src =
         "https://prugna.cn/video/e4ef23c69280f878a3c1456c0621b9c1.mp4";
+      this.$refs.opening.play();
     }
     var _this = this;
     this.$refs.opening.addEventListener("ended", function() {
@@ -57,7 +61,9 @@ export default {
         _this.$refs.jianjie.style.opacity = "1";
         setTimeout(function() {
           _this.$refs.jianjie.style.opacity = "0";
-          _this.$refs.openwarp.style.display = "none";
+          setTimeout(() => {
+            _this.$refs.openwarp.style.display = "none";
+          }, 2000);
         }, 5000);
       }, 2000);
       // _this.$router.push({ path: "/night" });
@@ -81,8 +87,6 @@ export default {
       // _this.$router.push({ path: "/night" });
     },
     clearLogo() {
-      console.log("logo");
-
       var _this = this;
       _this.$refs.logo.style.opacity = "0";
       _this.$refs.logo.style.display = "none";
@@ -92,11 +96,13 @@ export default {
         _this.$refs.openwarp.style.display = "none";
       }, 5000);
     },
-    clearJianjie() {
-      console.log("jianjie");
+    clearJianjie(e) {
+      console.log(e.target);
       var _this = this;
       _this.$refs.jianjie.style.opacity = "0";
-      _this.$refs.openwarp.style.display = "none";
+      setTimeout(() => {
+        _this.$refs.openwarp.style.display = "none";
+      }, 2000);
     }
   }
 };
@@ -122,23 +128,27 @@ export default {
   img,
   video {
     display: inline-block;
-    transition: 1s;
+    transition: 5s;
     opacity: 0;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
   }
+
   .opening-video {
     z-index: 3;
     opacity: 1;
   }
 
   .opening-logo {
+    opacity: 0;
     z-index: 2;
   }
+
   .opening-jianjie {
     z-index: 1;
+    opacity: 0;
   }
 }
 @media screen and (max-width: 620px) {

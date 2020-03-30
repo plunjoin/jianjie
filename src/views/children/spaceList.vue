@@ -455,7 +455,7 @@ export default {
   }
 }
 
-@media screen and (max-width: 520px) {
+@media screen and (max-width: 640px) {
   .space-datail {
     .space-list-warp {
       .list-warp {
@@ -466,9 +466,14 @@ export default {
           width: 100%;
           height: 25%;
           ul {
+            width: 100% !important;
             padding: 0;
             clear: both;
             position: relative;
+            li {
+              width: 50%;
+              display: -webkit-inline-box;
+            }
           }
         }
       }

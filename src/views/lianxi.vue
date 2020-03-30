@@ -102,13 +102,18 @@ export default {
       }
     }
     .jie-tab-content {
-      color: #fefefe;
-      padding: 0 1rem;
-      // width: 46.333333rem;
-      flex: 1;
-      font-size: 0.6666666rem;
-      font-weight: 400;
-      line-height: 1.2083333rem;
+      text-transform: capitalize;
+      letter-spacing: 2px;
+      line-height: 25px;
+      font-weight: 100;
+      opacity: 0.7;
+      text-align: justify;
+      font-size: 0.8rem;
+      h3 {
+        // font-weight: 100;
+        margin: 3rem 0;
+        opacity: 0.9;
+      }
       li {
         padding: 0.6666rem 0 0.66666rem 0;
         border-bottom: 1px solid #ffffff;
@@ -163,6 +168,14 @@ export default {
         display: inline-block;
         margin: 0 0 2rem 0;
       }
+    }
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .about {
+    .jie-tab-content {
+      padding: 0 30px;
     }
   }
 }

@@ -1,153 +1,31 @@
 <template>
   <div class="jie-head-top">
     <div class="jie-head-wrap">
-      <h1>
+      <h1 v-bind:class="{active:isShow}">
         <router-link to="/">
           <img src="../assets/883486010602843048.png" width="20" alt />
         </router-link>
       </h1>
       <div class="menu-wap" v-bind:class="{active:isShow}">
         <ul>
-          <li @click="count=0">
-            {{ $t('nav.night') }}
-            <!-- <router-link to="/night">{{ $t('nav.night') }}</router-link> -->
+          <li v-bind:class="{active:count==0}" @click="clear();count=0">
+            <router-link to="/night">{{ $t('nav.night') }}</router-link>
           </li>
-          <li @click="count=1">
-            {{ $t('nav.make') }}
-            <!-- <router-link to="/make">{{ $t('nav.make') }}</router-link> -->
+          <li v-bind:class="{active:count==1}" @click="clear();count=1">
+            <router-link to="/make">{{ $t('nav.make') }}</router-link>
           </li>
-          <li @click="count=2">
-            {{ $t('nav.space') }}
-            <!-- <router-link to="/space">{{ $t('nav.space') }}</router-link> -->
+          <li v-bind:class="{active:count==2}" @click="clear();count=2">
+            <router-link to="/space">{{ $t('nav.space') }}</router-link>
           </li>
-          <li @click="count=3">
-            {{ $t('nav.thing') }}
-            <!-- <router-link to="/thing">{{ $t('nav.thing') }}</router-link> -->
+          <li v-bind:class="{active:count==3}" @click="clear();count=3">
+            <router-link to="/thing">{{ $t('nav.thing') }}</router-link>
           </li>
-          <li @click="count=4">
+          <li v-bind:class="{active:count==4}" @click="count=4">
             {{ $t('nav.about') }}
             <!-- <router-link to="/about">{{ $t('nav.about') }}</router-link> -->
           </li>
         </ul>
         <div class="tabs" v-bind:class="{active:isShow}">
-          <div class="wapNavTab" v-bind:class="{active:count==0}">
-            <div class="night-child">
-              <div class="feast-list" ref="listwarp">
-                <dl v-for="(e,i) in $t('night.ls')" :key="i">
-                  <dt :class="$i18n.locale">{{ e.title }}</dt>
-                  <dd v-for="(el,idx) in e.child" :key="idx">
-                    <strong>
-                      <router-link :to="'/detail/'+idx">{{ el.name }}</router-link>
-                    </strong>
-                  </dd>
-                  <div class="both"></div>
-                </dl>
-              </div>
-            </div>
-          </div>
-          <div class="wapNavTab" v-bind:class="{active:count==1}">
-            <div class="night-child">
-              <div class="feast-list">
-                <dl>
-                  <dd>
-                    <strong>
-                      <router-link to="/makechild">{{ $t('make.msg001') }}</router-link>
-                    </strong>
-                  </dd>
-                </dl>
-                <dl>
-                  <dd>
-                    <strong>
-                      <router-link to="/makechild">{{ $t('make.msg002') }}</router-link>
-                    </strong>
-                  </dd>
-                </dl>
-                <dl>
-                  <dd>
-                    <strong>
-                      <router-link to="/makechild">{{ $t('make.msg003') }}</router-link>
-                    </strong>
-                  </dd>
-                </dl>
-                <dl>
-                  <dd>
-                    <strong>
-                      <router-link to="/makechild">{{ $t('make.msg004') }}</router-link>
-                    </strong>
-                  </dd>
-                </dl>
-                <dl>
-                  <dd>
-                    <strong>
-                      <router-link to="/makechild">{{ $t('make.msg005') }}</router-link>
-                    </strong>
-                  </dd>
-                </dl>
-                <dl>
-                  <dd>
-                    <strong>
-                      <router-link to="/makechild">{{ $t('make.msg006') }}</router-link>
-                    </strong>
-                  </dd>
-                </dl>
-                <dl>
-                  <dd>
-                    <strong>
-                      <router-link to="/makechild">{{ $t('make.msg007') }}</router-link>
-                    </strong>
-                  </dd>
-                </dl>
-                <dl>
-                  <dd>
-                    <strong>
-                      <router-link to="/makechild">{{ $t('make.msg008') }}</router-link>
-                    </strong>
-                  </dd>
-                </dl>
-              </div>
-            </div>
-          </div>
-          <div class="wapNavTab" v-bind:class="{active:count==2}">
-            <div class="night-child">
-              <div class="feast-list">
-                <dl>
-                  <dd>
-                    <strong>
-                      <router-link to="/spacelist">{{ $t('space.msg001') }}</router-link>
-                    </strong>
-                  </dd>
-                </dl>
-                <dl>
-                  <dd>
-                    <strong>
-                      <router-link to="/spacelist">{{ $t('space.msg002') }}</router-link>
-                    </strong>
-                  </dd>
-                </dl>
-                <dl>
-                  <dd>
-                    <strong>
-                      <router-link to="/spacelist">{{ $t('space.msg003') }}</router-link>
-                    </strong>
-                  </dd>
-                </dl>
-              </div>
-            </div>
-          </div>
-          <div class="wapNavTab" v-bind:class="{active:count==3}">
-            <div class="night-child">
-              <div class="feast-list">
-                <dl v-for="(el,idx) in $t('thing.cate')" :key="idx">
-                  <dt :class="$i18n.locale">{{ el.title }}</dt>
-                  <dd v-for="(e,i) in el.child" :key="i">
-                    <strong>
-                      <router-link :to="'/thingdatail/'+i">{{ e }}</router-link>
-                    </strong>
-                  </dd>
-                </dl>
-              </div>
-            </div>
-          </div>
           <div class="wapNavTab" v-bind:class="{active:count==4}">
             <div class="night-child">
               <div class="feast-list">
@@ -176,6 +54,15 @@
             </div>
           </div>
         </div>
+        <div class="jie-lang">
+          <div class="jie-lang-btns">
+            <p>
+              <span v-bind:class="{active:$i18n.locale=='zh'}" @click="changeLang('zh')">ZH </span>
+              <span v-bind:class="{active:$i18n.locale=='en'}" @click="changeLang('en')"> EN</span>
+            </p>
+          </div>
+          <button class="jie-btn-clear" @click="editMenu()"></button>
+        </div>
       </div>
       <button class="jie-btn-toggle" v-bind:class="{active:isShow}" @click="editMenu()">
         <span></span>
@@ -200,6 +87,10 @@ export default {
     },
     clear() {
       this.isShow = false;
+    },
+    changeLang(str) {
+      this.$i18n.locale = str;
+      this.clear()
     }
   },
   mounted() {
@@ -218,6 +109,20 @@ export default {
     display: none;
     &.active {
       display: block;
+    }
+  }
+  .jie-lang {
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .jie-lang-btns {
+      span {
+        opacity: 0.5;
+        &.active {
+          opacity: 1;
+        }
+      }
     }
   }
 }

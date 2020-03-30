@@ -16,7 +16,6 @@
             <th class="jie-title-letter-spacing">{{ $t('make.msg018') }}</th>
             <th class="jie-title-letter-spacing">{{ $t('make.msg019') }}</th>
             <th class="jie-title-letter-spacing">{{ $t('make.msg020') }}</th>
-            <th class="jie-title-letter-spacing">{{ $t('make.msg021') }}</th>
           </thead>
           <tbody style="font-size:16px">
             <tr>
@@ -25,7 +24,6 @@
               <td>{{ $t('make.msg024') }}</td>
               <td>{{ $t('make.msg025') }}</td>
               <td>{{ $t('make.msg026') }}</td>
-              <td>{{ $t('make.msg027') }}</td>
             </tr>
           </tbody>
         </table>
@@ -92,7 +90,7 @@ export default {
   height: 0px;
 }
 
-::-webkit-scrollbar-button{
+::-webkit-scrollbar-button {
   width: 10px;
 }
 .make-child-warp {
@@ -138,7 +136,14 @@ export default {
       }
       p {
         width: 100% !important;
-        padding: 0 1rem;
+        padding: 1rem;
+      }
+    }
+  }
+  .make-child-warp {
+    .make-attributes {
+      table {
+        margin: 2rem 0 1rem 0 !important;
       }
     }
   }

@@ -266,7 +266,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-
 ::-webkit-scrollbar {
   width: 0;
   height: 0;
@@ -359,6 +358,25 @@ export default {
   }
   .swiper-container {
     .swiper-slide {
+    }
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .space-datail {
+    .space-list-warp {
+      .list-warp {
+        .lsit-item {
+          ul {
+            width: 100% !important;
+          }
+        }
+      }
+    }
+  }
+  .lsit-item {
+    ul {
+      width: 100% !important;
     }
   }
 }

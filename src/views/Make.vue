@@ -119,6 +119,16 @@ export default {
 * {
   transition: 1s;
 }
+.make {
+  overflow: hidden;
+  height: 100vh;
+  position: relative;
+  .slide {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}
 .swiper-container {
   .swiper-button-next {
     position: absolute;
@@ -139,6 +149,7 @@ export default {
 }
 .slide {
 }
+
 .swiper-slide {
   text-align: center;
   transition: 1s;
@@ -171,6 +182,22 @@ export default {
     transition: 2s;
     right: -2%;
     // transform: translateX(-50%);
+  }
+}
+
+@media screen and (max-width: 640px) {
+  //swriper自带的类名（选中时的样式）
+  .swiper-slide-active,
+  .swiper-slide-duplicate-active {
+    transform: scale(1.5);
+    .item-title {
+      transition: 2s;
+      right: -2%;
+      // transform: translateX(-50%);
+    }
+  }
+  .swiper-slide .item-title {
+    font-size: 1rem;
   }
 }
 </style>

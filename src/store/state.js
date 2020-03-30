@@ -65,8 +65,8 @@ export default {
         title: '需要幫助?',
         list: ['聯繫我們', '常見問題']
     }],
-    space: [youyou, xueyin, zhangju, pinfan, fangzhuang, guwang, piaoxiang, puquan, wenyue, tagu, weixiang, qita, paowu, liangtao, shuju, xingshi],
-    spaceEn: [youyouE, xueyinE, zhangjuE, pinfanE, fangzhuangE, guwangE, piaoxiangE, puquanE, wenyueE, taguE, weixiangE, qitaE, paowuE, liangtaoE, shujuE, xingshiE],
+    spaceEn: [youyou, xueyin, zhangju, pinfan, fangzhuang, guwang, piaoxiang, puquan, wenyue, tagu, weixiang, qita, paowu, liangtao, shuju, xingshi],
+    space: [youyouE, xueyinE, zhangjuE, pinfanE, fangzhuangE, guwangE, piaoxiangE, puquanE, wenyueE, taguE, weixiangE, qitaE, paowuE, liangtaoE, shujuE, xingshiE],
     thing: [antoushanzi, shiguang, shuipanzhijing],
     night: [space, yuanlin, huamu, gewu, gudong, shiwu],
     harry_winston: harry_winston,

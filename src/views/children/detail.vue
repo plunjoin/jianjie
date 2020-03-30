@@ -1,6 +1,6 @@
 <template>
   <div class="jie-content">
-    <swiper :options="vertical">
+    <swiper class="pc" :options="vertical">
       <swiper-slide>
         <div class="jie-layer-head">
           <swiper :options="{autoplay:true,loop:true}" v-show="info.bg_img_url">
@@ -22,7 +22,7 @@
       </swiper-slide>
       <swiper-slide>
         <div class="jie-layer-video">
-          <video width="100%" autoplay muted controls :src="info.bg_video_url"></video>
+          <video width="100%" autoplay muted controls playsinline :src="info.bg_video_url"></video>
           <!-- <video src muted autoplay width="100%"></video> -->
         </div>
       </swiper-slide>
@@ -50,7 +50,7 @@
               <swiper-slide :key="index" v-for="(item,index) in items.imgs">
                 <img v-if="item.type == 0" :src="item.url" alt />
                 <div v-else class="video">
-                  <video :src="item.url" autoplay muted loop height="100%"></video>
+                  <video :src="item.url" autoplay muted playsinline loop height="100%"></video>
                 </div>
                 <p v-if="item.text" class="item-text">{{ item.text }}</p>
               </swiper-slide>
@@ -578,6 +578,71 @@
         </div>
       </swiper-slide>
     </swiper>
+    <div class="wap">
+      <div class="jie-layer-head">
+        <swiper :options="{autoplay:true,loop:true}" v-show="info.bg_img_url">
+          <swiper-slide v-for="(bg,idx) in info.bg_img_url" :key="idx">
+            <div class="jie-udd-bg" :style="'background-image:url('+bg+')'"></div>
+          </swiper-slide>
+        </swiper>
+        <div class="context">
+          <div class="prev"></div>
+          <div class="next"></div>
+        </div>
+        <div :class="'jie-layer-head-comtent '+$i18n.locale" v-show="isTitle">
+          <h2 :class="'font-songti jie-title-letter-spacing '+ $i18n.locale">{{ info.name }}</h2>
+          <hr />
+          <h3 :class="'font-songti '+$i18n.locale">{{ info.category_name }}</h3>
+          <p>{{ info.introduction }}</p>
+        </div>
+      </div>
+      <div class="jie-layer-video">
+        <video width="100%" autoplay muted controls playsinline :src="info.bg_video_url"></video>
+        <!-- <video src muted autoplay width="100%"></video> -->
+      </div>
+      <div class="jie-layer-tab">
+        <div class="tab-title-warp">
+          <ul>
+            <li
+              v-for="(item,index) in info.view_group"
+              :key="index"
+              v-bind:class="{active:tabIndex==index}"
+              @click="selected(item.contents,index)"
+              class="jie-title-letter-spacing"
+            >{{ item.title }}</li>
+          </ul>
+        </div>
+        <div
+          class="jie-layer-tab-warp"
+          v-for="(items,index) in info.view_group"
+          :key="index"
+          v-show="tabIndex==index"
+        >
+          <swiper :options="swiperOption">
+            <!-- slides -->
+            <swiper-slide :key="index" v-for="(item,index) in items.imgs">
+              <img v-if="item.type == 0" :src="item.url" alt />
+              <div v-else class="video">
+                <video :src="item.url" autoplay muted playsinline loop height="100%"></video>
+              </div>
+              <p v-if="item.text" class="item-text">{{ item.text }}</p>
+            </swiper-slide>
+            <!-- Optional controls -->
+            <div class="swiper-pagination" slot="pagination"></div>
+          </swiper>
+          <div class="swiper-btn">
+            <div class="swiper-button-prev jie-prev" slot="button-prev"></div>
+            <div class="swiper-button-next jie-next" slot="button-next"></div>
+          </div>
+          <p align="right">
+            <span>{{ realIndex+1 }}/{{ items.imgs.length }}</span>
+          </p>
+        </div>
+      </div>
+      <div class="jie-container buttom-warp">
+        <foot class="buttom" />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -654,15 +719,11 @@ export default {
   },
   mounted() {
     this.info = this.$t("night.night")[this.id];
-    // this.$axios.get("/category").then(res => {
-    //   console.log(res);
-    // });
     var _this = this,
       bv = 0;
     window.onscroll = function() {
       if (this.scrollY >= window.innerHeight / 2) {
         if (bv == 0) {
-          // _this.$refs.videoPlayer.player.play();
         }
         bv = 1;
       }
@@ -670,31 +731,10 @@ export default {
 
     var video, output;
     var scale = 0.8;
-    // var initialize = function() {
-    //   output = document.getElementById("output");
-    //   video = document.getElementById("video");
-    //   video.addEventListener("loadeddata", captureImage);
-    // };
-
-    // var captureImage = function() {
-    //   var canvas = document.createElement("canvas");
-    //   canvas.width = video.videoWidth * scale;
-    //   canvas.height = video.videoHeight * scale;
-    //   canvas
-    //     .getContext("2d")
-    //     .drawImage(video, 0, 0, canvas.width, canvas.height);
-
-    //   var img = document.createElement("img");
-    //   img.src = canvas.toDataURL("image/png");
-    //   output.appendChild(img);
-    // };
-
-    // initialize();
   },
   methods: {
     ...mapMutations(["saveIsTitle"]),
     selected(item, index) {
-      // this.child = item;
       this.realIndex = 0;
       this.tabIndex = index;
     }
@@ -703,6 +743,14 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.pc {
+}
+.wap {
+  display: none;
+}
+.swiper-slide {
+  overflow: hidden;
+}
 .jie-tabloid {
   text-align: center;
   font-size: 16px;
@@ -770,6 +818,7 @@ export default {
       }
     }
     .jie-layer-head-comtent {
+      text-align: justify;
       top: 8rem;
       right: 10.25rem;
       position: absolute;
@@ -839,6 +888,7 @@ export default {
         height: 100%px;
       }
       .swiper-slide {
+        overflow: hidden;
         text-align: center;
         height: calc(100vh - 8rem);
         position: relative;
@@ -918,6 +968,46 @@ export default {
           }
         }
       }
+    }
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .jie-content {
+    .jie-layer-head {
+      .jie-layer-head-comtent {
+        width: calc(100% - 4rem);
+        &.en {
+          width: calc(60%);
+          > p {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+        }
+      }
+    }
+  }
+  .jie-content {
+    .jie-layer-head-comtent {
+      position: relative;
+      width: 100%;
+    }
+    .jie-layer-tab {
+      padding-top: 70px;
+      .swiper-container {
+        min-height: calc(100vh - 150px);
+        max-height: calc(100vh - 150px);
+      }
+    }
+  }
+  .pc {
+    display: none;
+  }
+  .wap {
+    display: block;
+    .buttom-warp {
+      height: 130vh;
     }
   }
 }

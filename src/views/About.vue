@@ -12,7 +12,7 @@
         <div class="jie-tab-btn-item" @click="tabTaggle(3)" v-bind:class="{active:clause}">
           <span>{{ $t("about.msg003") }}</span>
         </div>
-      </div> -->
+      </div>-->
       <div class="jie-tab-content" v-if="contact" v-html="$t('about.msg004')">
         <div class="share"></div>
       </div>
@@ -75,11 +75,24 @@ export default {
 
 <style lang="less" scoped>
 .about {
-  
   height: 100%;
   min-height: 100vh;
   padding: 11rem 1rem 0 1rem;
   background-color: #00000099;
+  .jie-tab-content {
+    text-transform: capitalize;
+    letter-spacing: 2px;
+    line-height: 25px;
+    font-weight: 100;
+    opacity: 0.7;
+    text-align: justify;
+    font-size: 0.8rem;
+    h3 {
+      // font-weight: 100;
+      margin: 3rem 0;
+      opacity: 0.9;
+    }
+  }
   .bg {
     top: 0;
     left: 0;
@@ -115,7 +128,6 @@ export default {
       color: #fefefe;
       // width: 46.333333rem;
       flex: 1;
-      font-size: 0.6666666rem;
       font-weight: 400;
       line-height: 1.2083333rem;
       li {
@@ -172,6 +184,14 @@ export default {
         display: inline-block;
         margin: 0 0 2rem 0;
       }
+    }
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .about {
+    .jie-tab-content {
+      padding: 0 30px;
     }
   }
 }

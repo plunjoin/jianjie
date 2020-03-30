@@ -4,6 +4,7 @@
       <video
         src="https://prugna.cn/video/space_transtion.mp4"
         ref="opening_video"
+        playsinline
         muted
         autoplay
         @click="opening_video=false"
@@ -13,13 +14,25 @@
       <div class="space-menu" v-show="isTitle">
         <ul>
           <li :class="'jie-title-letter-spacing '+$i18n.locale">
-            <router-link to="/spacelist">【{{ $t('space.msg001') }}】</router-link>
+            <router-link to="/spacelist">
+              <span>【{{ $t('space.msg001') }}】</span>
+            </router-link>
+            <p>CHINA HANGZHOU</p>
+            <p>2019 09 09</p>
           </li>
           <li :class="'jie-title-letter-spacing '+$i18n.locale">
-            <router-link to="/spacelist">【{{ $t('space.msg002') }}】</router-link>
+            <router-link to="/spacelist">
+              <span>【{{ $t('space.msg002') }}】</span>
+            </router-link>
+            <p>CHINA HANGZHOU</p>
+            <p>2019 09 09</p>
           </li>
           <li :class="'jie-title-letter-spacing '+$i18n.locale">
-            <router-link to="/spacelist">【{{ $t('space.msg003') }}】</router-link>
+            <router-link to="/spacelist">
+              <span>【{{ $t('space.msg003') }}】</span>
+            </router-link>
+            <p>CHINA HANGZHOU</p>
+            <p>2019 09 09</p>
           </li>
         </ul>
       </div>
@@ -37,6 +50,11 @@ export default {
     };
   },
   mounted() {
+    if (window.innerWidth <= 640) {
+      this.$refs.opening_video.src =
+        "https://prugna.cn/video/34778d1bb3cd6740760f1dff83379c76.mp4";
+      this.$refs.opening.play();
+    }
     var _this = this;
     this.$refs.opening_video.addEventListener("ended", function() {
       _this.opening_video = false;
@@ -55,7 +73,7 @@ export default {
     right: 0;
     top: 0;
     background-image: url("../assets/image/space/WechatIMG5876.jpg");
-    background-size: 110%;
+    background-size: cover;
     background-position: center;
     .space-menu {
       position: absolute;
@@ -70,6 +88,12 @@ export default {
         transition: 0.5s;
         &:hover {
           opacity: 1;
+        }
+        p {
+          text-indent: 1rem;
+          font-size: 0.5rem;
+          font-family: Medium;
+          margin: 0 0 0.25rem 0;
         }
       }
     }
@@ -93,6 +117,29 @@ export default {
       border: none;
       cursor: pointer;
       outline: none;
+    }
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .space {
+    .space-surface {
+      .space-menu {
+        width: 100%;
+        right: 0;
+        li {
+          span {
+            display: inline-block;
+            text-indent: -2rem;
+            padding-left: 2rem;
+          }
+        }
+      }
+    }
+    .transtion-video-warp {
+      video {
+        width: auto;
+      }
     }
   }
 }
