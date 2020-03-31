@@ -286,10 +286,11 @@ body {
     transition: 1s;
 
     &>a {
-        margin  : 0 5rem 0 0;
-        padding : .58px;
-        position: relative;
+        margin       : 0 5rem 0 0;
+        padding      : .58px;
+        position     : relative;
         border-bottom: 2px solid transparent;
+
         span {
             &::first-letter {}
         }
@@ -578,18 +579,23 @@ html {
         .jie-common-footer-wrap {
             .footer-mian {
                 .jie-mian-item {
-                    font-size: 1rem;
+                    font-size: 0.5rem;
 
                     span,
                     a {
                         font-weight: 100;
-                        font-size  : 1rem;
+                        opacity    : 1;
+                        font-size  : 0.5rem;
+                    }
+
+                    a {
+                        opacity: .6;
                     }
                 }
 
                 .jie-mian-contact {
                     a {
-                        font-size: 1rem;
+                        font-size: 0.5rem;
                     }
                 }
             }
@@ -600,7 +606,7 @@ html {
 
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 640px) {
     html {
         font-size: 16px;
     }
@@ -640,10 +646,10 @@ html {
                             position     : absolute;
                             right        : 15px;
                             box-sizing   : border-box;
-                            width        : 10px;
-                            height       : 10px;
-                            border-right : 2px solid #b3b3b3;
-                            border-bottom: 2px solid #b3b3b3;
+                            width        : 8px;
+                            height       : 8px;
+                            border-right : 1px solid #b3b3b3;
+                            border-bottom: 1px solid #b3b3b3;
                             transform    : rotate3d(0, 0, 1, 45deg);
                             transition   : transform .2s linear;
                         }
@@ -672,10 +678,10 @@ html {
                             position     : absolute;
                             right        : 15px;
                             box-sizing   : border-box;
-                            width        : 10px;
-                            height       : 10px;
-                            border-right : 2px solid #b3b3b3;
-                            border-bottom: 2px solid #b3b3b3;
+                            width        : 8px;
+                            height       : 8px;
+                            border-right : 1px solid #b3b3b3;
+                            border-bottom: 1px solid #b3b3b3;
                             transform    : rotate3d(0, 0, 1, -45deg);
                             transition   : transform .2s linear;
                         }
@@ -695,15 +701,23 @@ html {
 
             .footer-consult {
                 padding: 0 0 0 0;
-                width  : 60%;
+                width  : 100%;
 
                 .footer-consult-content {
 
                     span,
                     p,
                     >div {
-                        font-size  : 1rem;
+                        font-size  : 0.5rem;
                         font-weight: 100;
+                    }
+
+                    .jie-foot-email {
+                        width: 60%;
+                    }
+
+                    p {
+                        opacity: 0.6;
                     }
                 }
             }

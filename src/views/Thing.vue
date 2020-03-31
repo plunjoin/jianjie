@@ -207,13 +207,13 @@ export default {
     display: none;
   }
   .wap-title {
-    text-align: right;
-    float: right;
+    left: 50%;
+    font-weight: 100;
+    text-align: center;
     position: absolute;
-    right: 3rem;
+    transform: translateX(-50%);
     .child {
       opacity: 0;
-      height: 0;
       transition: 2s;
     }
     &:hover {

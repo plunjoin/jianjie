@@ -32,7 +32,7 @@
         <div class="footer-consult-content">
           <span :class="'jie-title-letter-spacing '+$i18n.locale">{{ $t('footer.msg3') }}</span>
           <p>
-            {{ $t('footer.msg5') }}
+            {{ $t('footer.msg4') }}
             <a href>{{ $t('footer.msg5') }}</a>
           </p>
           <div class="jie-foot-email">{{ $t('footer.msg6') }}</div>

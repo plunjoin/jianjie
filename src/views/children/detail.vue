@@ -668,6 +668,8 @@ export default {
         // ...
         scrollbar: false,
         autoHeight: false,
+        observer: true,
+        observeParents: true,
         navigation: {
           nextEl: ".swiper-button-next",
           prevEl: ".swiper-button-prev"
@@ -677,11 +679,14 @@ export default {
             self.realIndex = this.activeIndex;
           },
           reachEnd: function(swiper) {
-            if (self.tabIndex == self.info.view_group.length - 1) {
-              self.tabIndex = 0;
-              return false;
-            }
-            self.tabIndex += 1;
+            // if (self.tabIndex == self.info.view_group.length + 1) {
+            //   self.tabIndex = 0;
+            //   return false;
+            // }
+            // alert(self.tabIndex);
+            // self.tabIndex += 1;
+            // swiper.slideTO(0);
+            // return false;
           }
         }
       },
@@ -737,6 +742,7 @@ export default {
     selected(item, index) {
       this.realIndex = 0;
       this.tabIndex = index;
+      console.log(this.swiper);
     }
   }
 };
@@ -962,9 +968,16 @@ export default {
         max-height: 600px;
         .swiper-slide {
           overflow: hidden;
-          video {
-            width: 100% !important;
-            height: auto;
+          .video {
+            position: relative;
+            video {
+              top: 50%;
+              left: 50%;
+              height: 100%;
+              position: absolute;
+              // width: 100% !important;
+              transform: translate(-50%,-50%);
+            }
           }
         }
       }
@@ -974,27 +987,49 @@ export default {
 
 @media screen and (max-width: 640px) {
   .jie-content {
+    .jie-layer-tab {
+      .jie-layer-tab-warp {
+        p {
+          margin-top: 0;
+        }
+      }
+    }
     .jie-layer-head {
       .jie-layer-head-comtent {
         width: calc(100% - 4rem);
         &.en {
           width: calc(60%);
+          > h2 {
+            font-size: 2.4rem;
+          }
+          > h3 {
+            font-size: 1rem;
+            text-transform: lowercase;
+          }
           > p {
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
+            &:hover {
+              white-space: initial;
+            }
           }
         }
       }
     }
   }
   .jie-content {
+    .buttom-warp {
+      .buttom {
+        position: relative;
+      }
+    }
     .jie-layer-head-comtent {
       position: relative;
       width: 100%;
     }
     .jie-layer-tab {
-      padding-top: 70px;
+      padding-top: 1rem;
       .swiper-container {
         min-height: calc(100vh - 150px);
         max-height: calc(100vh - 150px);
@@ -1006,9 +1041,6 @@ export default {
   }
   .wap {
     display: block;
-    .buttom-warp {
-      height: 130vh;
-    }
   }
 }
 </style>
