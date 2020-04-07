@@ -17,21 +17,21 @@
             <router-link to="/spacelist">
               <span>【{{ $t('space.msg001') }}】</span>
             </router-link>
-            <p>CHINA HANGZHOU</p>
+            <p>chian hangzhou</p>
             <p>2019 09 09</p>
           </li>
           <li :class="'jie-title-letter-spacing '+$i18n.locale">
             <router-link to="/spacelist">
               <span>【{{ $t('space.msg002') }}】</span>
             </router-link>
-            <p>CHINA HANGZHOU</p>
+            <p>chian hangzhou</p>
             <p>2019 09 09</p>
           </li>
           <li :class="'jie-title-letter-spacing '+$i18n.locale">
             <router-link to="/spacelist">
               <span>【{{ $t('space.msg003') }}】</span>
             </router-link>
-            <p>CHINA HANGZHOU</p>
+            <p>chian hangzhou</p>
             <p>2019 09 09</p>
           </li>
         </ul>
@@ -130,8 +130,23 @@ export default {
         li {
           span {
             display: inline-block;
-            text-indent: -2rem;
-            padding-left: 2rem;
+          }
+        }
+        .en {
+          width: 90%;
+          margin: 1rem auto;
+          opacity: 1;
+          a {
+            font-size: 1rem;
+          }
+          p {
+            text-transform: capitalize;
+            font-size: 0.1rem;
+            text-indent: 9px;
+            margin-top: 0.3rem;
+            &:last-child {
+              display: none;
+            }
           }
         }
       }

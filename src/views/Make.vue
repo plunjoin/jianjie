@@ -1,12 +1,12 @@
 <template>
   <div class="make">
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
     <div class="slide">
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
       <div class="swiper-container">
         <div :class="'swiper-wrapper font-songti '+$i18n.locale">
           <!-- It is important to set "left" style prop on every slide -->
@@ -73,6 +73,71 @@
         <div class="swiper-button-prev"></div>
       </div>
     </div>
+    <div class="wap-slide">
+      <div class="swiper-container-wap">
+        <div :class="'swiper-wrapper font-songti '+$i18n.locale">
+          <!-- It is important to set "left" style prop on every slide -->
+          <div class="swiper-slide" on-index="1">
+            <img src="@/assets/image/01.jpg" alt />
+            <div class="item-title" v-show="isTitle">
+              <router-link to="/makechild">
+                <span class="jie-title-letter-spacing">{{ $t("make.msg001") }}</span>
+                <p>{{ $t("make.msg009") }}</p>
+              </router-link>
+            </div>
+          </div>
+          <div class="swiper-slide" on-index="2">
+            <img src="@/assets/image/02.jpg" alt />
+            <div class="item-title" v-show="isTitle">
+              <span class="jie-title-letter-spacing">{{ $t("make.msg002") }}</span>
+              <p>{{ $t("make.msg010") }}</p>
+            </div>
+          </div>
+          <div class="swiper-slide" on-index="3">
+            <img src="@/assets/image/03.jpg" alt />
+            <div class="item-title" v-show="isTitle">
+              <span class="jie-title-letter-spacing">{{ $t("make.msg003") }}</span>
+              <p>{{ $t("make.msg011") }}</p>
+            </div>
+          </div>
+          <div class="swiper-slide" on-index="4">
+            <img src="@/assets/image/04.jpg" alt />
+            <div class="item-title" v-show="isTitle">
+              <span class="jie-title-letter-spacing">{{ $t("make.msg004") }}</span>
+              <p>{{ $t("make.msg012") }}</p>
+            </div>
+          </div>
+          <div class="swiper-slide" on-index="5">
+            <img src="@/assets/image/05.jpg" alt />
+            <div class="item-title" v-show="isTitle">
+              <span class="jie-title-letter-spacing">{{ $t("make.msg005") }}</span>
+              <p>{{ $t("make.msg013") }}</p>
+            </div>
+          </div>
+          <div class="swiper-slide" on-index="6">
+            <img src="@/assets/image/06.jpg" alt />
+            <div class="item-title" v-show="isTitle">
+              <span class="jie-title-letter-spacing">{{ $t("make.msg006") }}</span>
+              <p>{{ $t("make.msg014") }}</p>
+            </div>
+          </div>
+          <div class="swiper-slide" on-index="7">
+            <img src="@/assets/image/07.jpg" alt />
+            <div class="item-title" v-show="isTitle">
+              <span class="jie-title-letter-spacing">{{ $t("make.msg007") }}</span>
+              <p>{{ $t("make.msg015") }}</p>
+            </div>
+          </div>
+          <div class="swiper-slide" on-index="8">
+            <img src="@/assets/image/08.jpg" alt />
+            <div class="item-title" v-show="isTitle">
+              <span class="jie-title-letter-spacing">{{ $t("make.msg008") }}</span>
+              <p>{{ $t("make.msg013") }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -83,7 +148,9 @@ import { mapState } from "vuex";
 export default {
   computed: mapState(["isTitle"]),
   data() {
-    return {};
+    return {
+      screenWidth: document.body.clientWidth
+    };
   },
   mounted() {
     const self = this;
@@ -111,10 +178,43 @@ export default {
         };
       });
     });
-  }
+
+    var wapswiper = new Swiper(".swiper-container-wap", {
+      effect: "coverflow",
+      slidesPerView: 1,
+      loop: true,
+      direction: "vertical",
+      grabCursor: true,
+      centeredSlides: true,
+      observer: true, //修改swiper自己或子元素时，自动初始化swiper
+      observeParents: true,
+      coverflowEffect: {
+        rotate: 10,
+        stretch: -40, // slide左右距离
+        depth: 600, // slide前后距离
+        modifier: 3, //
+        slideShadows: false // 滑块遮罩层
+      },
+
+      on: {
+        TouchMove: function(swiper) {
+          //你的事件
+          console.log(swiper.touches);
+          // visibleSlides
+        }
+      }
+    });
+
+    window.onresize = () => {
+      return (() => {
+        window.screenWidth = document.body.clientWidth;
+        self.screenWidth = window.screenWidth;
+      })();
+    };
+  },
+  watch: {}
 };
 </script>
-
 <style lang="less" scoped>
 * {
   transition: 1s;
@@ -147,7 +247,12 @@ export default {
     left: 0;
   }
 }
-.slide {
+.wap-slide {
+  height: 100%;
+  display: none;
+  .swiper-container-wap {
+    height: 100%;
+  }
 }
 
 .swiper-slide {
@@ -186,18 +291,34 @@ export default {
 }
 
 @media screen and (max-width: 640px) {
+  .slide {
+    display: none;
+  }
+  .wap-slide {
+    display: block;
+  }
   //swriper自带的类名（选中时的样式）
+  .swiper-slide {
+    position: relative;
+    overflow: hidden;
+    img {
+      height: 100%;
+      width: auto;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
   .swiper-slide-active,
   .swiper-slide-duplicate-active {
-    transform: scale(1.5);
     .item-title {
       transition: 2s;
-      right: -2%;
+      right: 2%;
       // transform: translateX(-50%);
     }
   }
   .swiper-slide .item-title {
-    font-size: 1rem;
+    font-size: 2rem;
   }
 }
 </style>

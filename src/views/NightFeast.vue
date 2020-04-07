@@ -237,8 +237,12 @@ export default {
         dd {
           width: 100%;
           strong {
+            width: 100%;
             font-size: 2rem;
             margin: 0 0 0.75rem -20px;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
           }
         }
       }

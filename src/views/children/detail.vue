@@ -3,7 +3,7 @@
     <swiper class="pc" :options="vertical">
       <swiper-slide>
         <div class="jie-layer-head">
-          <swiper :options="{autoplay:true,loop:true}" v-show="info.bg_img_url">
+          <swiper :options="{autoplay:3000,loop:true}" v-show="info.bg_img_url">
             <swiper-slide v-for="(bg,idx) in info.bg_img_url" :key="idx">
               <div class="jie-udd-bg" :style="'background-image:url('+bg+')'"></div>
             </swiper-slide>
@@ -580,7 +580,7 @@
     </swiper>
     <div class="wap">
       <div class="jie-layer-head">
-        <swiper :options="{autoplay:true,loop:true}" v-show="info.bg_img_url">
+        <swiper :options="{autoplay:3000,loop:true}" v-show="info.bg_img_url">
           <swiper-slide v-for="(bg,idx) in info.bg_img_url" :key="idx">
             <div class="jie-udd-bg" :style="'background-image:url('+bg+')'"></div>
           </swiper-slide>
@@ -976,7 +976,7 @@ export default {
               height: 100%;
               position: absolute;
               // width: 100% !important;
-              transform: translate(-50%,-50%);
+              transform: translate(-50%, -50%);
             }
           }
         }
@@ -1030,6 +1030,18 @@ export default {
     }
     .jie-layer-tab {
       padding-top: 1rem;
+      .tab-title-warp {
+        overflow-x: auto;
+        margin: 0 0 1rem 0;
+        ul {
+          display: inline-flex;
+          padding: 0 0 1rem 0;
+          li {
+            margin: 0 1rem;
+            white-space: nowrap;
+          }
+        }
+      }
       .swiper-container {
         min-height: calc(100vh - 150px);
         max-height: calc(100vh - 150px);

@@ -3,12 +3,12 @@
     <div class="make-child-warp jie-container">
       <div class="banners">
         <img src="../../assets/image/make/_DSC7153.jpg" alt srcset />
-        <div class="banner-title">
+        <div :class="'banner-title '+$i18n.locale">
           <h2 class="jie-title-letter-spacing">{{ $t("make.msg001") }}</h2>
           <p>{{ $t("make.msg009") }}</p>
         </div>
       </div>
-      <div class="make-attributes">
+      <div :class="'make-attributes '+$i18n.locale">
         <table style="width:100%;text-align:left;margin:2rem 0 3rem 0;">
           <thead style="font-size:16px">
             <th class="jie-title-letter-spacing">{{ $t('make.msg016') }}</th>
@@ -28,7 +28,7 @@
           </tbody>
         </table>
       </div>
-      <div class="make-detail-content">
+      <div :class="'make-detail-content '+$i18n.locale">
         <div style="display: flex;align-items: center;">
           <div style="text-align: center;">
             <p style="width: 50%;display: inline-block;text-align: left;">{{ $t('make.msg028') }}</p>
@@ -50,8 +50,8 @@
           </div>
         </div>
         <div style="font-size: 16px;margin: 2rem 0;">
-          <p style="margin: 0 0 10px 0;">{{ $t('make.msg029') }}</p>
-          <span>{{ $t('make.msg030') }}</span>
+          <span style="margin: 0 0 10px 0;">{{ $t('make.msg029') }}</span>
+          <p>{{ $t('make.msg030') }}</p>
         </div>
         <div>
           <img src="../../assets/image/make/_DSC7267.jpg" width="100%" alt />
@@ -144,6 +144,90 @@ export default {
     .make-attributes {
       table {
         margin: 2rem 0 1rem 0 !important;
+      }
+    }
+    .banners {
+      .banner-title {
+        &.en {
+          left: auto;
+          right: 2rem;
+          text-transform: capitalize;
+          h2 {
+            font-size: 2rem;
+          }
+          p {
+            font-size: 1.7rem;
+            font-weight: 300;
+          }
+        }
+      }
+    }
+    .make-detail-content.en {
+      p {
+        opacity: 0.6;
+        text-transform: capitalize;
+        font-size: 0.8rem;
+        word-break: break-all;
+        text-align: justify;
+      }
+      span {
+        display: block;
+        padding: 0 1rem;
+      }
+    }
+    .make-attributes {
+      table {
+        min-width: auto;
+        text-transform: capitalize;
+        text-align: center;
+        thead {
+          th {
+            text-align: center;
+            position: relative;
+            font-weight: 400;
+            font-size: 1.2rem;
+            white-space: nowrap;
+            padding: 0.5rem 2rem;
+            &::after {
+              content: "|";
+              top: 50%;
+              right: -0.4rem;
+              position: absolute;
+            }
+            &:last-child {
+              &::after {
+                content: "";
+              }
+            }
+          }
+        }
+        tbody {
+          td {
+            text-align: center;
+            font-size: 0.95rem;
+            font-weight: 100;
+            opacity: 0.7;
+          }
+        }
+      }
+      &.en {
+        table {
+          text-transform: capitalize;
+          text-align: center;
+          thead {
+            th {
+              text-align: center;
+              font-size: 1.7rem;
+              font-weight: 340;
+              position: relative;
+            }
+          }
+          tbody {
+            td {
+              text-align: center;
+            }
+          }
+        }
       }
     }
   }
