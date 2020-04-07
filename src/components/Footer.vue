@@ -1,7 +1,7 @@
 <template>
   <div class="jie-common-floor jie-container">
     <div class="jie-common-footer-wrap font-blod">
-      <div class="footer-mian">
+      <div :class="'footer-mian '+$i18n.locale">
         <div
           class="jie-mian-item"
           v-for="(items,index) in $t('footer.footerList')"
@@ -112,11 +112,26 @@ export default {
     background-image: url("../assets/icon/d7fa6ada1ddd05b1a9af766573d1fa07_.png");
   }
 }
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 640px) {
   .icon {
     padding-left: 2rem !important;
     &::after {
       top: 1rem;
+    }
+  }
+  .jie-common-floor {
+    .jie-common-footer-wrap {
+      .footer-mian.en {
+        .jie-mian-item {
+          span,
+          a {
+            padding: 0.5rem 0;
+          }
+        }
+        .icon::after {
+          top: 7px;
+        }
+      }
     }
   }
 }
