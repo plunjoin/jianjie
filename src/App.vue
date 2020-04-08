@@ -224,7 +224,6 @@ export default {
     // this.$i18n.locale = 'en'
     _this.$i18n.messages[_this.$i18n.locale];
     _this.lang = _this.$i18n.messages[_this.$i18n.locale];
-    console.log(_this.lang);
     this.$nextTick(function() {
       // function play() {
       //   var music = document.getElementById("audio"); //判断如果音乐停止播放中，就让他播放。。。

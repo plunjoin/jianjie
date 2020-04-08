@@ -36,26 +36,26 @@
       ></video>
     </div>
     <div class="feast-list" ref="listwarp" @click="startInterval()">
-      <dl :class="'font-songti ' + $i18n.locale" v-for="(e,i) in $t('night.ls')" :key="i">
-        <dt>{{ e.title }}</dt>
-        <dd v-for="(el,idx) in e.child" :key="idx">
+      <dl :class="'font-songti ' + $i18n.locale" v-for="(e,i) in nd" :key="i">
+        <dt>{{ e.cate }}</dt>
+        <dd v-for="(el,idx) in e.data" :key="idx">
           <strong @mouseover="controller = false" @mouseout="controller = true">
-            <router-link :to="'/detail/'+idx">【 {{ el.name }} 】</router-link>
+            <router-link :to="'/detail/'+el._id">【 {{ el.name }} 】</router-link>
           </strong>
-          <p>{{ el.add }}</p>
-          <p>{{ el.time }}</p>
+          <p>{{ el.project_address }}</p>
+          <p>{{ el.date }}</p>
         </dd>
       </dl>
     </div>
     <div class="feast-list" ref="copy">
-      <dl :class="$i18n.locale" v-for="(e,i) in $t('night.ls')" :key="i">
-        <dt>{{ e.title }}</dt>
-        <dd v-for="(el,idx) in e.child" :key="idx">
+      <dl :class="$i18n.locale" v-for="(e,i) in nd" :key="i">
+        <dt>{{ e.cate }}</dt>
+        <dd v-for="(el,idx) in e.data" :key="idx">
           <strong @mouseover="controller = false" @mouseout="controller = true">
-            <router-link :to="'/detail/'+idx">【 {{ el.name }} 】</router-link>
+            <router-link :to="'/detail/'+el._id">【 {{ el.name }} 】</router-link>
           </strong>
-          <p>{{ el.add }}</p>
-          <p>{{ el.time }}</p>
+          <p>{{ el.project_address }}</p>
+          <p>{{ el.date }}</p>
         </dd>
       </dl>
     </div>
@@ -72,6 +72,7 @@ export default {
     return {
       opening_video: true,
       controller: true,
+      nd: null,
       interval: setInterval(function() {
         if (self.controller) {
           if (self.$refs.warp.scrollTop >= self.$refs.listwarp.scrollHeight) {
@@ -85,6 +86,30 @@ export default {
   },
   computed: {},
   mounted() {
+    this.$axios.get("/banquet_all").then(res => {
+      var map = {},
+        dest = [],
+        arr = res;
+      for (var i = 0; i < arr.length; i++) {
+        var ai = arr[i];
+        if (!map[ai.cate]) {
+          dest.push({
+            cate: ai.cate,
+            data: [ai]
+          });
+          map[ai.cate] = ai;
+        } else {
+          for (var j = 0; j < dest.length; j++) {
+            var dj = dest[j];
+            if (dj.cate == ai.cate) {
+              dj.data.push(ai);
+              break;
+            }
+          }
+        }
+      }
+      this.nd = dest;
+    });
     this.$refs.bg.controls = false;
     var _this = this,
       maxScroll = _this.$refs.warp.scrollHeight - window.innerHeight;

@@ -19,8 +19,8 @@ axios.interceptors.request.use(
 
 axios.interceptors.response.use(
     data => {
-        if (data.data.stat == 1)
-            return data.data.data
+        if (data.status == 200)
+            return data.data
         else
             return {}
     },

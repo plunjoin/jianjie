@@ -3,8 +3,8 @@
     <swiper class="pc" :options="vertical">
       <swiper-slide>
         <div class="jie-layer-head">
-          <swiper :options="{autoplay:3000,loop:true}" v-show="info.bg_img_url">
-            <swiper-slide v-for="(bg,idx) in info.bg_img_url" :key="idx">
+          <swiper :options="{autoplay:3000,loop:true}" v-show="info.bg_imgs">
+            <swiper-slide v-for="(bg,idx) in info.bg_imgs" :key="idx">
               <div class="jie-udd-bg" :style="'background-image:url('+bg+')'"></div>
             </swiper-slide>
           </swiper>
@@ -13,16 +13,25 @@
             <div class="next"></div>
           </div>
           <div class="jie-layer-head-comtent" v-show="isTitle">
-            <h2 :class="'font-songti jie-title-letter-spacing '+ $i18n.locale">{{ info.name }}</h2>
+            <h2
+              v-if="$i18n.locale!='en'"
+              :class="'font-songti jie-title-letter-spacing '+ $i18n.locale"
+            >{{ info.name }}</h2>
+            <h2
+              v-else
+              :class="'font-songti jie-title-letter-spacing '+ $i18n.locale"
+            >{{ info.en_name }}</h2>
             <hr />
-            <h3 :class="'font-songti '+$i18n.locale">{{ info.category_name }}</h3>
-            <p>{{ info.introduction }}</p>
+            <h3 v-if="$i18n.locale!='en'" :class="'font-songti '+$i18n.locale">{{ info.cate.name }}</h3>
+            <h3 v-else :class="'font-songti '+$i18n.locale">{{ info.cate.en_name }}</h3>
+            <p v-if="$i18n.locale!='en'">{{ info.remark }}</p>
+            <p v-else>{{ info.en_remark }}</p>
           </div>
         </div>
       </swiper-slide>
       <swiper-slide>
         <div class="jie-layer-video">
-          <video width="100%" autoplay muted controls playsinline :src="info.bg_video_url"></video>
+          <video width="100%" autoplay muted controls playsinline :src="info.video"></video>
           <!-- <video src muted autoplay width="100%"></video> -->
         </div>
       </swiper-slide>
@@ -31,17 +40,20 @@
           <div class="tab-title-warp">
             <ul>
               <li
-                v-for="(item,index) in info.view_group"
+                v-for="(item,index) in info.imgs"
                 :key="index"
                 v-bind:class="{active:tabIndex==index}"
                 @click="selected(item.contents,index)"
                 class="jie-title-letter-spacing"
-              >{{ item.title }}</li>
+              >
+                <span v-if="$i18n.locale!='en'">{{ item.title }}</span>
+                <span v-else>{{ item.en_title }}</span>
+              </li>
             </ul>
           </div>
           <div
             class="jie-layer-tab-warp"
-            v-for="(items,index) in info.view_group"
+            v-for="(items,index) in info.imgs"
             :key="index"
             v-show="tabIndex==index"
           >
@@ -580,8 +592,8 @@
     </swiper>
     <div class="wap">
       <div class="jie-layer-head">
-        <swiper :options="{autoplay:3000,loop:true}" v-show="info.bg_img_url">
-          <swiper-slide v-for="(bg,idx) in info.bg_img_url" :key="idx">
+        <swiper :options="{autoplay:3000,loop:true}" v-show="info.bg_imgs">
+          <swiper-slide v-for="(bg,idx) in info.bg_imgs" :key="idx">
             <div class="jie-udd-bg" :style="'background-image:url('+bg+')'"></div>
           </swiper-slide>
         </swiper>
@@ -590,31 +602,43 @@
           <div class="next"></div>
         </div>
         <div :class="'jie-layer-head-comtent '+$i18n.locale" v-show="isTitle">
-          <h2 :class="'font-songti jie-title-letter-spacing '+ $i18n.locale">{{ info.name }}</h2>
+          <h2
+            v-if="$i18n.locale!='en'"
+            :class="'font-songti jie-title-letter-spacing '+ $i18n.locale"
+          >{{ info.name }}</h2>
+          <h2
+            v-else
+            :class="'font-songti jie-title-letter-spacing '+ $i18n.locale"
+          >{{ info.en_name }}</h2>
           <hr />
-          <h3 :class="'font-songti '+$i18n.locale">{{ info.category_name }}</h3>
-          <p>{{ info.introduction }}</p>
+          <h3 v-if="$i18n.locale!='en'" :class="'font-songti '+$i18n.locale">{{ info.cate.name }}</h3>
+          <h3 v-else :class="'font-songti '+$i18n.locale">{{ info.cate.en_name }}</h3>
+          <p v-if="$i18n.locale!='en'">{{ info.remark }}</p>
+          <p v-else>{{ info.en_remark }}</p>
         </div>
       </div>
       <div class="jie-layer-video">
-        <video width="100%" autoplay muted controls playsinline :src="info.bg_video_url"></video>
+        <video width="100%" autoplay muted controls playsinline :src="info.video"></video>
         <!-- <video src muted autoplay width="100%"></video> -->
       </div>
       <div class="jie-layer-tab">
         <div class="tab-title-warp">
           <ul>
             <li
-              v-for="(item,index) in info.view_group"
+              v-for="(item,index) in info.imgs"
               :key="index"
               v-bind:class="{active:tabIndex==index}"
               @click="selected(item.contents,index)"
               class="jie-title-letter-spacing"
-            >{{ item.title }}</li>
+            >
+              <span v-if="$i18n.locale!='en'">{{ item.title }}</span>
+              <span v-else>{{ item.en_title }}</span>
+            </li>
           </ul>
         </div>
         <div
           class="jie-layer-tab-warp"
-          v-for="(items,index) in info.view_group"
+          v-for="(items,index) in info.imgs"
           :key="index"
           v-show="tabIndex==index"
         >
@@ -717,13 +741,16 @@ export default {
   },
   watch: {
     id(newid, oldid) {
-      this.info = this.$t("night.night")[this.id];
-      this.option.sources.url = this.info.bg_video_url;
-      console.log(this.info);
+      this.$axios.get(`/banquet_single?parameter=${newid}`).then(res => {
+        this.info = res[0];
+        this.option.sources.url = this.info.bg_video_url;
+      });
     }
   },
   mounted() {
-    this.info = this.$t("night.night")[this.id];
+    this.$axios.get(`/banquet_single?parameter=${this.id}`).then(res => {
+      this.info = res[0];
+    });
     var _this = this,
       bv = 0;
     window.onscroll = function() {
@@ -1001,6 +1028,7 @@ export default {
           width: calc(60%);
           > h2 {
             font-size: 2.4rem;
+            white-space: pre;
           }
           > h3 {
             font-size: 1rem;
