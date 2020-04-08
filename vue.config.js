@@ -1,17 +1,17 @@
 module.exports = {
     publicPath: './',
-    devServer: {
-        port: 8082,
-        proxy: {
-            '/jiezi': {
-                target: 'http://localhost:8808',
-                changeOrigin: true,
-                pathRewrite: {
-                    '^/jiezi': '/api'
-                }
-            }
-        }
-    },
+    // devServer: {
+    //     port: 8082,
+    //     proxy: {
+    //         '/jiezi': {
+    //             target: '47.75.32.128:8808',
+    //             changeOrigin: true,
+    //             pathRewrite: {
+    //                 '^/jiezi': '/api'
+    //             }
+    //         }
+    //     }
+    // },
     outputDir: './dist',
     productionSourceMap: false,
     css: {

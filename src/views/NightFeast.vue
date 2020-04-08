@@ -37,10 +37,14 @@
     </div>
     <div class="feast-list" ref="listwarp" @click="startInterval()">
       <dl :class="'font-songti ' + $i18n.locale" v-for="(e,i) in nd" :key="i">
-        <dt>{{ e.cate }}</dt>
+        <dt v-if="$i18n.locale!='en'">{{ e.cate.name }}</dt>
+        <dt v-else>{{ e.cate.en_name }}</dt>
         <dd v-for="(el,idx) in e.data" :key="idx">
           <strong @mouseover="controller = false" @mouseout="controller = true">
-            <router-link :to="'/detail/'+el._id">【 {{ el.name }} 】</router-link>
+            <router-link :to="'/detail/'+el._id">
+              <span v-if="$i18n.locale!='en'">【 {{ el.name }} 】</span>
+              <span v-else>【 {{ el.en_name }} 】</span>
+            </router-link>
           </strong>
           <p>{{ el.project_address }}</p>
           <p>{{ el.date }}</p>
@@ -48,11 +52,15 @@
       </dl>
     </div>
     <div class="feast-list" ref="copy">
-      <dl :class="$i18n.locale" v-for="(e,i) in nd" :key="i">
-        <dt>{{ e.cate }}</dt>
+      <dl :class="'font-songti ' + $i18n.locale" v-for="(e,i) in nd" :key="i">
+        <dt v-if="$i18n.locale!='en'">{{ e.cate.name }}</dt>
+        <dt v-else>{{ e.cate.en_name }}</dt>
         <dd v-for="(el,idx) in e.data" :key="idx">
           <strong @mouseover="controller = false" @mouseout="controller = true">
-            <router-link :to="'/detail/'+el._id">【 {{ el.name }} 】</router-link>
+            <router-link :to="'/detail/'+el._id">
+              <span v-if="$i18n.locale!='en'">【 {{ el.name }} 】</span>
+              <span v-else>【 {{ el.en_name }} 】</span>
+            </router-link>
           </strong>
           <p>{{ el.project_address }}</p>
           <p>{{ el.date }}</p>
@@ -109,6 +117,8 @@ export default {
         }
       }
       this.nd = dest;
+      console.log(this.nd);
+      
     });
     this.$refs.bg.controls = false;
     var _this = this,

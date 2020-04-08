@@ -2,7 +2,7 @@ import Vue from 'vue'
 import axios from 'axios'
 
 axios.defaults.timeout = 50000;
-axios.defaults.baseURL = '/jiezi';
+axios.defaults.baseURL = 'http://47.75.32.128:8808/api';
 axios.defaults.withCredentials = true
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
 
@@ -19,12 +19,16 @@ axios.interceptors.request.use(
 
 axios.interceptors.response.use(
     data => {
+        console.log(data);
+        
         if (data.status == 200)
             return data.data
         else
             return {}
     },
     error => {
+        console.log(error);
+        
         if (error.response.status == 401 || error.response.status == 400) {
 
         } else if (error.response.status == 500) {
