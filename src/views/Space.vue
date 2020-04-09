@@ -81,11 +81,13 @@ export default {
       transform: translateY(-50%);
       right: 20%;
       li {
-        letter-spacing: 8px;
         font-size: 2rem;
         margin: 1.65rem 0;
         opacity: 0.3;
         transition: 0.5s;
+        a {
+          letter-spacing: 8px;
+        }
         &:hover {
           opacity: 1;
         }
@@ -130,6 +132,12 @@ export default {
         li {
           span {
             display: inline-block;
+          }
+          &.en {
+            a {
+              letter-spacing: 1px;
+              white-space: nowrap;
+            }
           }
         }
         .en {

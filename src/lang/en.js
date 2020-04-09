@@ -2,7 +2,7 @@ import state from '../store/state';
 export default {
     name: 'UNI WERSE',
     nav: {
-        night: 'BAN QUET',
+        night: 'Banquet',
         make: 'Gardening',
         space: 'Space',
         thing: 'Long thing',

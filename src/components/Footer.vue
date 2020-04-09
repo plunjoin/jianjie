@@ -55,15 +55,7 @@ export default {
       test: null
     };
   },
-  mounted() {
-    this.$axios.get("/content").then(res => {
-      // this.test = JSON.parse(res[0].content);
-      var data = JSON.parse(res[0].content);
-      console.log(data);
-
-      // console.log(JSON.parse(res[0].content));
-    });
-  },
+  mounted() {},
   methods: {
     idx(idx) {
       idx == this.conunt ? (this.conunt = -1) : (this.conunt = idx);

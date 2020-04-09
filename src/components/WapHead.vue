@@ -57,8 +57,8 @@
         <div class="jie-lang">
           <div class="jie-lang-btns">
             <p>
-              <span v-bind:class="{active:$i18n.locale=='zh'}" @click="changeLang('zh')">ZH</span>
-              <span v-bind:class="{active:$i18n.locale=='en'}" @click="changeLang('en')">EN</span>
+              <span v-bind:class="{active:$i18n.locale=='zh'}" @click="changeLang('zh')">ZH &nbsp;</span>
+              <span v-bind:class="{active:$i18n.locale=='en'}" @click="changeLang('en')">&nbsp; EN</span>
             </p>
           </div>
           <button class="jie-btn-clear" @click="editMenu()"></button>
@@ -132,9 +132,12 @@ export default {
       &.en {
         .tabs {
           .wapNavTab {
+            text-align: center;
             .night-child {
-              width: 70%;
-              float: right;
+              width: 50%;
+              // float: right;
+              display: inline-block;
+              text-align: left;
               .feast-list {
                 dd {
                   width: 100%;
@@ -170,6 +173,8 @@ export default {
             display: inline;
             text-transform: capitalize;
             white-space: nowrap;
+            font-size: 1.3rem;
+            font-weight: 100;
             float: left;
             opacity: 1;
           }

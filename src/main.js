@@ -29,6 +29,13 @@ const i18n = new VueI18n({
   messages
 })
 
+router.beforeEach((to, from, next) => {
+  if (to.meta.title) {
+    document.title = to.meta.title
+  };
+  next();
+})
+
 Vue.config.productionTip = false
 
 new Vue({

@@ -4,7 +4,7 @@
       <video
         ref="opening"
         class="opening-video"
-        src="https://prugna.cn/video/73cb572e1b62e81eaa1d501a916b2bf7.mp4"
+        src="https://jianjie.oss-cn-hongkong.aliyuncs.com/static/opening.mp4"
         muted
         autoplay
         width="100%"
@@ -17,6 +17,7 @@
         alt
         ref="logo"
         @click="clearLogo()"
+        draggable="false"
       />
       <img
         src="@/assets/jianjie.png"
@@ -25,10 +26,11 @@
         alt
         ref="jianjie"
         @click.stop="clearJianjie($event)"
+        draggable="false"
       />
     </div>
     <video
-      src="https://prugna.cn/video/home.1066ffdc.mp4"
+      src="https://jianjie.oss-cn-hongkong.aliyuncs.com/static/home_background.mp4"
       ref="home"
       width="100%"
       muted

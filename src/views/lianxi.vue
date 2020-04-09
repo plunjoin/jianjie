@@ -2,18 +2,9 @@
   <div class="about">
     <div class="bg"></div>
     <div class="jie-tab-warp jie-container">
-      <div class="jie-tab-content" v-if="contact" v-html="$t('about.msg004')">
+      <div :class="'jie-tab-content '+$i18n.locale" v-if="contact" v-html="$t('about.msg004')">
         <div class="share"></div>
       </div>
-      <div class="jie-tab-content" v-if="work">
-        <ul>
-          <li v-for="(item,index) in recruitment" :key="index" v-bind:class="{active:count==index}">
-            <p @click="active(index)">{{ item.title }}</p>
-            <div class="content" v-html="item.content"></div>
-          </li>
-        </ul>
-      </div>
-      <div class="jie-tab-content" v-if="clause">{{ $t("about.msg003") }}</div>
     </div>
   </div>
 </template>
@@ -28,39 +19,13 @@ export default {
     return {
       count: -1,
       contact: true,
-      work: false,
-      clause: false,
       recruitment: this.$t("about.recruitment")
     };
   },
   mounted() {
     console.log(this.test);
   },
-  methods: {
-    tabTaggle(value) {
-      switch (value) {
-        case 1:
-          this.contact = true;
-          this.work = this.clause = false;
-          break;
-        case 2:
-          this.work = true;
-          this.contact = this.clause = false;
-          break;
-        case 3:
-          this.clause = true;
-          this.contact = this.work = false;
-          break;
-      }
-    },
-    active(index) {
-      if (index == this.count) {
-        this.count = -1;
-        return false;
-      }
-      this.count = index;
-    }
-  }
+  methods: {}
 };
 </script>
 
@@ -167,6 +132,9 @@ export default {
       span {
         display: inline-block;
         margin: 0 0 2rem 0;
+      }
+      &.en {
+        text-align: left;
       }
     }
   }

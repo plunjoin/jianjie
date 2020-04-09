@@ -1,16 +1,5 @@
 <template>
   <div class="night" ref="warp">
-    <!-- <div class="openVideo" v-if="opening_video">
-      <video
-        src="https://prugna.cn/video/d298e38b9e634d4320d66f1f2341d841.mp4"
-        width="100%"
-        muted
-        autoplay
-        playsinline
-        @click="opening_video=false;openbg()"
-        ref="openv"
-      ></video>
-    </div>-->
     <div class="background-video">
       <video
         @click="startInterval()"
@@ -118,7 +107,9 @@ export default {
       }
       this.nd = dest;
       console.log(this.nd);
-      
+    });
+    this.$nextTick(() => {
+     
     });
     this.$refs.bg.controls = false;
     var _this = this,
@@ -136,10 +127,6 @@ export default {
         console.log(error);
       }
     };
-    this.$refs.openv.addEventListener("ended", function() {
-      _this.opening_video = false;
-      _this.openbg();
-    });
   },
   methods: {
     openbg() {

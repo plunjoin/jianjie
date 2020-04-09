@@ -2,7 +2,7 @@
   <div id="app">
     <wapHead></wapHead>
     <div class="jie-logo" :style="'transition: 1s;opacity:'+n">
-      <h1 :title="lang.name">
+      <h1>
         <router-link to="/">
           <img src="./assets/883486010602843048.png" alt />
         </router-link>
@@ -26,11 +26,12 @@
             <span :class="$i18n.locale">{{ $t('nav.night') }}</span>
             <div class="night-child">
               <div class="feast-list" ref="listwarp">
-                <dl v-for="(e,i) in $t('night.ls')" :key="i">
-                  <dt :class="$i18n.locale">{{ e.title }}</dt>
-                  <dd v-for="(el,idx) in e.child" :key="idx">
+                <dl v-for="(e,i) in nd" :key="i">
+                  <dt v-if="$i18n.locale!='en'" :class="$i18n.locale">{{ e.cate.name }}</dt>
+                  <dt v-else :class="$i18n.locale">{{ e.cate.name }}</dt>
+                  <dd v-for="(el,idx) in e.data" :key="idx">
                     <strong>
-                      <router-link :to="'/detail/'+idx">{{ el.name }}</router-link>
+                      <router-link :to="'/detail/'+el._id">{{ el.name }}</router-link>
                     </strong>
                   </dd>
                 </dl>
@@ -206,6 +207,7 @@ export default {
       conunt: 0,
       n: 0.3,
       mb: false,
+      nd: null,
       lang: null
     };
   },
@@ -217,6 +219,31 @@ export default {
     "harry_winston"
   ]),
   mounted() {
+    this.$axios.get("/banquet_all").then(res => {
+      var map = {},
+        dest = [],
+        arr = res;
+      for (var i = 0; i < arr.length; i++) {
+        var ai = arr[i];
+        if (!map[ai.cate]) {
+          dest.push({
+            cate: ai.cate,
+            data: [ai]
+          });
+          map[ai.cate] = ai;
+        } else {
+          for (var j = 0; j < dest.length; j++) {
+            var dj = dest[j];
+            if (dj.cate == ai.cate) {
+              dj.data.push(ai);
+              break;
+            }
+          }
+        }
+      }
+      this.nd = dest;
+      console.log(this.nd);
+    });
     // document.querySelector("style").innerText += import(
     //   "@/lang/" + this.$i18n.locale + ".css"
     // );
@@ -225,18 +252,6 @@ export default {
     _this.$i18n.messages[_this.$i18n.locale];
     _this.lang = _this.$i18n.messages[_this.$i18n.locale];
     this.$nextTick(function() {
-      // function play() {
-      //   var music = document.getElementById("audio"); //判断如果音乐停止播放中，就让他播放。。。
-      //   if (music.paused) {
-      //     music.paused = false;
-      //     music.play();
-      //   }
-      // } //调用函数
-      // setInterval(play(), 1);
-      // document.getElementById("app").addEventListener("click", function() {
-      //   _this.$refs.au.play();
-      //   console.log(123);
-      // });
       window.onscroll = function() {
         if (this.scrollY > this.innerHeight) {
           _this.$refs.up.style.display = "block";

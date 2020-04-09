@@ -2,21 +2,7 @@
   <div class="about">
     <div class="bg"></div>
     <div class="jie-tab-warp jie-container">
-      <!-- <div :class="'jie-tab-btn font-songti ' +$i18n.locale">
-        <div class="jie-tab-btn-item" @click="tabTaggle(1)" v-bind:class="{active:contact}">
-          <span>{{ $t("about.msg001") }}</span>
-        </div>
-        <div class="jie-tab-btn-item" @click="tabTaggle(2)" v-bind:class="{active:work}">
-          <span>{{ $t("about.msg002") }}</span>
-        </div>
-        <div class="jie-tab-btn-item" @click="tabTaggle(3)" v-bind:class="{active:clause}">
-          <span>{{ $t("about.msg003") }}</span>
-        </div>
-      </div>-->
-      <div class="jie-tab-content" v-if="contact" v-html="$t('about.msg004')">
-        <div class="share"></div>
-      </div>
-      <div class="jie-tab-content" v-if="work">
+      <div :class="'jie-tab-content '+$i18n.locale" v-if="work">
         <ul>
           <li v-for="(item,index) in recruitment" :key="index" v-bind:class="{active:count==index}">
             <p @click="active(index)">{{ item.title }}</p>
@@ -24,7 +10,6 @@
           </li>
         </ul>
       </div>
-      <div class="jie-tab-content" v-if="clause">{{ $t("about.msg003") }}</div>
     </div>
   </div>
 </template>
@@ -46,22 +31,6 @@ export default {
     console.log(this.test);
   },
   methods: {
-    tabTaggle(value) {
-      switch (value) {
-        case 1:
-          this.contact = true;
-          this.work = this.clause = false;
-          break;
-        case 2:
-          this.work = true;
-          this.contact = this.clause = false;
-          break;
-        case 3:
-          this.clause = true;
-          this.contact = this.work = false;
-          break;
-      }
-    },
     active(index) {
       if (index == this.count) {
         this.count = -1;
@@ -91,6 +60,9 @@ export default {
       // font-weight: 100;
       margin: 3rem 0;
       opacity: 0.9;
+    }
+    &.en {
+      text-align: left;
     }
   }
   .bg {

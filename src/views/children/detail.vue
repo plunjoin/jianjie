@@ -3,7 +3,7 @@
     <swiper class="pc" :options="vertical">
       <swiper-slide>
         <div class="jie-layer-head">
-          <swiper :options="{autoplay:3000,loop:true}" v-show="info.bg_imgs">
+          <swiper :options="{autoplay:3000,loop:true}" v-if="info">
             <swiper-slide v-for="(bg,idx) in info.bg_imgs" :key="idx">
               <div class="jie-udd-bg" :style="'background-image:url('+bg+')'"></div>
             </swiper-slide>
@@ -592,7 +592,7 @@
     </swiper>
     <div class="wap">
       <div class="jie-layer-head">
-        <swiper :options="{autoplay:3000,loop:true}" v-show="info.bg_imgs">
+        <swiper :options="{autoplay:auto,loop:true}" v-if="info">
           <swiper-slide v-for="(bg,idx) in info.bg_imgs" :key="idx">
             <div class="jie-udd-bg" :style="'background-image:url('+bg+')'"></div>
           </swiper-slide>
