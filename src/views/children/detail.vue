@@ -29,7 +29,7 @@
           </div>
         </div>
       </swiper-slide>
-      <swiper-slide>
+      <swiper-slide v-if="info.video">
         <div class="jie-layer-video">
           <video width="100%" autoplay muted controls playsinline :src="info.video"></video>
           <!-- <video src muted autoplay width="100%"></video> -->
@@ -592,9 +592,11 @@
     </swiper>
     <div class="wap">
       <div class="jie-layer-head">
-        <swiper :options="{autoplay:auto,loop:true}" v-if="info">
+        <swiper :options="{autoplay:'auto',loop:true}" v-if="info">
           <swiper-slide v-for="(bg,idx) in info.bg_imgs" :key="idx">
-            <div class="jie-udd-bg" :style="'background-image:url('+bg+')'"></div>
+            <div class="jie-udd-bg">
+              <img v-lazy="bg" alt />
+            </div>
           </swiper-slide>
         </swiper>
         <div class="context">
@@ -617,7 +619,7 @@
           <p v-else>{{ info.en_remark }}</p>
         </div>
       </div>
-      <div class="jie-layer-video">
+      <div class="jie-layer-video" v-if="info.video">
         <video width="100%" autoplay muted controls playsinline :src="info.video"></video>
         <!-- <video src muted autoplay width="100%"></video> -->
       </div>
@@ -674,8 +676,7 @@
 import foot from "../../components/Footer";
 import { mapState, mapMutations } from "vuex";
 export default {
-  name: "content",
-  props: ["id"],
+  inject: ["reload"],
   components: {
     foot
   },
@@ -683,6 +684,7 @@ export default {
   data() {
     const self = this;
     return {
+      id:window.location.href.split('?')[1],
       count: 0,
       tabIndex: 0,
       child: null,
@@ -691,7 +693,7 @@ export default {
         // 所有的参数同 swiper 官方 api 参数
         // ...
         scrollbar: false,
-        autoHeight: false,
+        autoHeight: true,
         observer: true,
         observeParents: true,
         navigation: {
@@ -741,13 +743,18 @@ export default {
   },
   watch: {
     id(newid, oldid) {
-      this.$axios.get(`/banquet_single?parameter=${newid}`).then(res => {
+      console.log(`新的${newid,oldid}`);
+      
+      var _id = newid?newid:oldid;
+      
+      this.$axios.get(`/banquet_single?parameter=${_id}`).then(res => {
         this.info = res[0];
         this.option.sources.url = this.info.bg_video_url;
       });
     }
   },
   mounted() {
+    // this.handleReload();
     this.$axios.get(`/banquet_single?parameter=${this.id}`).then(res => {
       this.info = res[0];
     });
@@ -770,6 +777,9 @@ export default {
       this.realIndex = 0;
       this.tabIndex = index;
       console.log(this.swiper);
+    },
+    handleReload() {
+      this.reload();
     }
   }
 };
@@ -876,6 +886,13 @@ export default {
       height: 100vh;
       background-size: cover;
       background-position: center;
+      position: relative;
+      img {
+        height: 100%;
+        left: 50%;
+        position: absolute;
+        transform: translateX(-50%);
+      }
     }
   }
   .jie-layer-tab {
@@ -1018,6 +1035,15 @@ export default {
       .jie-layer-tab-warp {
         p {
           margin-top: 0;
+        }
+        .swiper-container {
+          .swiper-slide {
+            img {
+              height: auto;
+              width: 100% !important;
+              position: relative;
+            }
+          }
         }
       }
     }

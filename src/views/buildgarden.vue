@@ -10,62 +10,17 @@
       <div class="swiper-container">
         <div :class="'swiper-wrapper font-songti '+$i18n.locale">
           <!-- It is important to set "left" style prop on every slide -->
-          <div class="swiper-slide" on-index="1">
-            <img src="@/assets/image/01.jpg" alt />
+          <div class="swiper-slide" v-for="(el,idx) in project" :key="idx" on-index="1">
+            <img
+              :src="el.bg_imgs[0]?el.bg_imgs[0]:'https://jianjie.oss-cn-hongkong.aliyuncs.com/test/1585755727602.png'"
+              alt
+            />
             <div class="item-title" v-show="isTitle">
-              <router-link to="/makechild">
-                <span class="jie-title-letter-spacing">{{ $t("make.msg001") }}</span>
-                <p>{{ $t("make.msg009") }}</p>
+              <router-link :to="`/makechild?${el._id}`">
+                <span class="jie-title-letter-spacing" v-if="$i18n.locale!='en'">{{ el.name }}</span>
+                <span class="jie-title-letter-spacing" v-else>{{ el.en_name }}</span>
+                <!-- <p>{{ $t("make.msg009") }}</p> -->
               </router-link>
-            </div>
-          </div>
-          <div class="swiper-slide" on-index="2">
-            <img src="@/assets/image/02.jpg" alt />
-            <div class="item-title" v-show="isTitle">
-              <span class="jie-title-letter-spacing">{{ $t("make.msg002") }}</span>
-              <p>{{ $t("make.msg010") }}</p>
-            </div>
-          </div>
-          <div class="swiper-slide" on-index="3">
-            <img src="@/assets/image/03.jpg" alt />
-            <div class="item-title" v-show="isTitle">
-              <span class="jie-title-letter-spacing">{{ $t("make.msg003") }}</span>
-              <p>{{ $t("make.msg011") }}</p>
-            </div>
-          </div>
-          <div class="swiper-slide" on-index="4">
-            <img src="@/assets/image/04.jpg" alt />
-            <div class="item-title" v-show="isTitle">
-              <span class="jie-title-letter-spacing">{{ $t("make.msg004") }}</span>
-              <p>{{ $t("make.msg012") }}</p>
-            </div>
-          </div>
-          <div class="swiper-slide" on-index="5">
-            <img src="@/assets/image/05.jpg" alt />
-            <div class="item-title" v-show="isTitle">
-              <span class="jie-title-letter-spacing">{{ $t("make.msg005") }}</span>
-              <p>{{ $t("make.msg013") }}</p>
-            </div>
-          </div>
-          <div class="swiper-slide" on-index="6">
-            <img src="@/assets/image/06.jpg" alt />
-            <div class="item-title" v-show="isTitle">
-              <span class="jie-title-letter-spacing">{{ $t("make.msg006") }}</span>
-              <p>{{ $t("make.msg014") }}</p>
-            </div>
-          </div>
-          <div class="swiper-slide" on-index="7">
-            <img src="@/assets/image/07.jpg" alt />
-            <div class="item-title" v-show="isTitle">
-              <span class="jie-title-letter-spacing">{{ $t("make.msg007") }}</span>
-              <p>{{ $t("make.msg015") }}</p>
-            </div>
-          </div>
-          <div class="swiper-slide" on-index="8">
-            <img src="@/assets/image/08.jpg" alt />
-            <div class="item-title" v-show="isTitle">
-              <span class="jie-title-letter-spacing">{{ $t("make.msg008") }}</span>
-              <p>{{ $t("make.msg013") }}</p>
             </div>
           </div>
         </div>
@@ -149,11 +104,19 @@ export default {
   computed: mapState(["isTitle"]),
   data() {
     return {
-      screenWidth: document.body.clientWidth
+      screenWidth: document.body.clientWidth,
+      project: null
     };
   },
   mounted() {
     const self = this;
+    async function savePro() {
+      self.project = await self.$axios
+        .get("/buildgarden/buildgarden_all")
+        .then(res => res);
+    }
+    savePro();
+
     const swiper = new Swiper(".swiper-container", {
       loop: true,
       slidesPerView: 1.7,
@@ -224,8 +187,9 @@ export default {
   height: 100vh;
   position: relative;
   .slide {
-    position: absolute;
     top: 50%;
+    max-width: 100%;
+    position: absolute;
     transform: translateY(-50%);
   }
 }

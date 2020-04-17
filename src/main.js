@@ -4,6 +4,9 @@ import router from './router'
 import store from './store'
 import './registerServiceWorker'
 import VideoPlayer from 'vue-video-player'
+
+import VueLazyLoad from 'vue-lazyload'
+
 import 'vue-video-player/src/custom-theme.css'
 import 'video.js/dist/video-js.css'
 
@@ -19,6 +22,9 @@ Vue.use(VueAwesomeSwiper)
 
 Vue.use(VideoPlayer)
 Vue.use(VueI18n)
+Vue.use(VueLazyLoad, {
+  loading: './assets/logo.png'
+})
 
 const messages = {
   zh, en

@@ -31,10 +31,10 @@ const routes = [
     }
   },
   {
-    path: '/make',
-    name: 'make',
+    path: '/buildgarden',
+    name: 'buildgarden',
     component: function () {
-      return import("../views/Make")
+      return import("../views/buildgarden")
     },
     children: []
   }, {
@@ -51,11 +51,11 @@ const routes = [
     }
   },
   {
-    path: "/detail/:id",
+    path: "/detail",
     name: 'detail',
     component: function () {
       return import('../views/children/detail')
-    }, props: true
+    }
   }, {
     path: '/makechild',
     name: 'makechild',

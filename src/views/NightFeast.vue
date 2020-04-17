@@ -30,17 +30,18 @@
         <dt v-else>{{ e.cate.en_name }}</dt>
         <dd v-for="(el,idx) in e.data" :key="idx">
           <strong @mouseover="controller = false" @mouseout="controller = true">
-            <router-link :to="'/detail/'+el._id">
+            <router-link :to="'/detail?'+el._id">
               <span v-if="$i18n.locale!='en'">【 {{ el.name }} 】</span>
               <span v-else>【 {{ el.en_name }} 】</span>
             </router-link>
           </strong>
-          <p>{{ el.project_address }}</p>
+          <p v-if="$i18n.locale!='en'">{{ el.cityaddress }}</p>
+          <p v-else>{{el.en_cityaddress}}</p>
           <p>{{ el.date }}</p>
         </dd>
       </dl>
     </div>
-    <div class="feast-list" ref="copy">
+    <!-- <div class="feast-list" ref="copy">
       <dl :class="'font-songti ' + $i18n.locale" v-for="(e,i) in nd" :key="i">
         <dt v-if="$i18n.locale!='en'">{{ e.cate.name }}</dt>
         <dt v-else>{{ e.cate.en_name }}</dt>
@@ -51,11 +52,12 @@
               <span v-else>【 {{ el.en_name }} 】</span>
             </router-link>
           </strong>
-          <p>{{ el.project_address }}</p>
+          <p v-if="$i18n.locale!='en'">{{ el.cityaddress }}</p>
+          <p v-else>{{el.en_cityaddress}}</p>
           <p>{{ el.date }}</p>
         </dd>
       </dl>
-    </div>
+    </div>-->
   </div>
 </template>
 
@@ -73,7 +75,7 @@ export default {
       interval: setInterval(function() {
         if (self.controller) {
           if (self.$refs.warp.scrollTop >= self.$refs.listwarp.scrollHeight) {
-            self.$refs.warp.scrollTop = 0;
+            // self.$refs.warp.scrollTop = 0;
           }
           self.$refs.warp.scrollTop += 2;
         } else {
@@ -83,45 +85,44 @@ export default {
   },
   computed: {},
   mounted() {
-    this.$axios.get("/banquet_all").then(res => {
-      var map = {},
-        dest = [],
-        arr = res;
-      for (var i = 0; i < arr.length; i++) {
-        var ai = arr[i];
-        if (!map[ai.cate]) {
-          dest.push({
-            cate: ai.cate,
-            data: [ai]
-          });
-          map[ai.cate] = ai;
-        } else {
-          for (var j = 0; j < dest.length; j++) {
-            var dj = dest[j];
-            if (dj.cate == ai.cate) {
-              dj.data.push(ai);
-              break;
-            }
+    var _this = this;
+    async function banquet_allfun() {
+      let banquets = [];
+      var cate = await _this.$axios.get("/api/banquet_cate").then(res => res);
+      var all = await _this.$axios.get("/api/banquet_all").then(res => res);
+      cate.forEach(el => {
+        var child = [];
+        all.forEach((el_, i) => {
+          if (el_.cate._id == el._id) {
+            child.push(el_);
           }
-        }
-      }
-      this.nd = dest;
-      console.log(this.nd);
-    });
-    this.$nextTick(() => {
-     
-    });
+        });
+        banquets.push({ cate: el, data: child });
+      });
+      _this.nd = banquets;
+      console.log(banquets);
+      console.log("完毕");
+    }
+
+    banquet_allfun();
+
+    this.$nextTick(() => {});
     this.$refs.bg.controls = false;
     var _this = this,
-      maxScroll = _this.$refs.warp.scrollHeight - window.innerHeight;
+      maxScroll = _this.$refs.warp.scrollHeight + window.innerHeight / 2;
+    console.log("max" + maxScroll);
+
     document.body.scrollTop = 0;
+
     document.documentElement.scrollTop = 0;
     _this.$refs.warp.onscroll = function() {
       try {
         var scrollTop = _this.$refs.warp.scrollTop;
         if (scrollTop >= maxScroll - 3) {
           clearInterval(_this.interval);
-          _this.$refs.listwarp.style.paddingTop = 0;
+          // _this.$refs.listwarp.style.paddingTop = 0;
+          _this.$refs.listwarp.style.marginBottom = 0;
+          _this.$refs.listwarp.style.scrollTop = 0;
         }
       } catch (error) {
         console.log(error);
@@ -184,6 +185,7 @@ export default {
   }
   .feast-list {
     padding: 100vh 0 0 8.875rem;
+    margin-bottom: 100vh;
     dl {
       // font-family: "NotoSerifCJKsc";
       width: 100%;

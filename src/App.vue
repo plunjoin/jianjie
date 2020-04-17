@@ -31,14 +31,14 @@
                   <dt v-else :class="$i18n.locale">{{ e.cate.name }}</dt>
                   <dd v-for="(el,idx) in e.data" :key="idx">
                     <strong>
-                      <router-link :to="'/detail/'+el._id">{{ el.name }}</router-link>
+                      <router-link :to="'/detail?'+el._id">{{ el.name }}</router-link>
                     </strong>
                   </dd>
                 </dl>
               </div>
             </div>
           </router-link>
-          <router-link to="/make">
+          <router-link to="/buildgarden">
             <span :class="$i18n.locale">{{ $t('nav.make') }}</span>
             <div class="night-child">
               <div class="feast-list">
@@ -186,7 +186,7 @@
         <div class="uptop" @click="returnUp()">UP</div>
       </div>
     </div>
-    <router-view />
+    <router-view v-if="isAlive" />
     <div class="mb" v-bind:class="{active:!isTitle}"></div>
   </div>
 </template>
@@ -201,6 +201,11 @@ import { mapState, mapMutations } from "vuex";
 import $ from "jquery";
 export default {
   name: "jianjie",
+  provide() {
+    return {
+      reload: this.reload
+    };
+  },
   components: { wapHead },
   data() {
     return {
@@ -208,7 +213,8 @@ export default {
       n: 0.3,
       mb: false,
       nd: null,
-      lang: null
+      lang: null,
+      isAlive: true
     };
   },
   computed: mapState([
@@ -219,31 +225,27 @@ export default {
     "harry_winston"
   ]),
   mounted() {
-    this.$axios.get("/banquet_all").then(res => {
-      var map = {},
-        dest = [],
-        arr = res;
-      for (var i = 0; i < arr.length; i++) {
-        var ai = arr[i];
-        if (!map[ai.cate]) {
-          dest.push({
-            cate: ai.cate,
-            data: [ai]
-          });
-          map[ai.cate] = ai;
-        } else {
-          for (var j = 0; j < dest.length; j++) {
-            var dj = dest[j];
-            if (dj.cate == ai.cate) {
-              dj.data.push(ai);
-              break;
-            }
+    var _this = this;
+
+    async function banquet_allfun() {
+      let banquets = [];
+      var cate = await _this.$axios.get("/api/banquet_cate").then(res => res);
+      var all = await _this.$axios.get("/api/banquet_all").then(res => res);
+      cate.forEach(el => {
+        var child = [];
+        all.forEach((el_, i) => {
+          if (el_.cate._id == el._id) {
+            child.push(el_);
           }
-        }
-      }
-      this.nd = dest;
-      console.log(this.nd);
-    });
+        });
+        banquets.push({ cate: el, data: child });
+      });
+      _this.nd = banquets;
+      console.log(banquets);
+      console.log("完毕");
+    }
+
+    banquet_allfun();    
     // document.querySelector("style").innerText += import(
     //   "@/lang/" + this.$i18n.locale + ".css"
     // );
@@ -280,12 +282,18 @@ export default {
         this.$i18n.locale = "en";
         // document.querySelector("style").innerText = import("@/lang/en.css");
       }
-    }
+    },
     // handleCanplay() {
     //   this.$nextTick(() => {
     //     this.$refs.au.play();
     //   });
     // }
+    reload() {
+      this.isAlive = false;
+      this.$nextTick(function() {
+        this.isAlive = true;
+      });
+    }
   }
 };
 </script>

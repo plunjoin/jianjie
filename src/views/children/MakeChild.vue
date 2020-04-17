@@ -81,7 +81,15 @@
 import FOOT from "../../components/Footer";
 export default {
   name: "makechild",
-  components: { FOOT }
+  components: { FOOT },
+  data() {
+    return {
+      _id: window.location.href.split("?")
+    };
+  },
+  mounted() {
+    var _this = this;
+  }
 };
 </script>
 

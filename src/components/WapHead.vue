@@ -12,7 +12,7 @@
             <router-link to="/night">{{ $t('nav.night') }}</router-link>
           </li>
           <li v-bind:class="{active:count==1}" @click="clear();count=1">
-            <router-link to="/make">{{ $t('nav.make') }}</router-link>
+            <router-link to="/buildgarden">{{ $t('nav.make') }}</router-link>
           </li>
           <li v-bind:class="{active:count==2}" @click="clear();count=2">
             <router-link to="/space">{{ $t('nav.space') }}</router-link>
