@@ -53,7 +53,6 @@ export default {
     letter-spacing: 2px;
     line-height: 25px;
     font-weight: 100;
-    opacity: 0.7;
     text-align: justify;
     font-size: 0.8rem;
     h3 {
@@ -100,7 +99,7 @@ export default {
       color: #fefefe;
       // width: 46.333333rem;
       flex: 1;
-      font-weight: 400;
+      font-weight: 100;
       line-height: 1.2083333rem;
       li {
         padding: 0.6666rem 0 0.66666rem 0;
@@ -141,6 +140,9 @@ export default {
           }
         }
         .content {
+          font-size: 0.7rem;
+          padding: 0.6666rem 0 0 0;
+          opacity: 0.7;
           display: none;
         }
       }

@@ -19,7 +19,7 @@
               <router-link :to="`/makechild?${el._id}`">
                 <span class="jie-title-letter-spacing" v-if="$i18n.locale!='en'">{{ el.name }}</span>
                 <span class="jie-title-letter-spacing" v-else>{{ el.en_name }}</span>
-                <!-- <p>{{ $t("make.msg009") }}</p> -->
+                <p>{{ el.title }}</p>
               </router-link>
             </div>
           </div>

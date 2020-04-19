@@ -14,11 +14,10 @@
       @mouseover="n=0;saveIsTitleFalse()"
       @mouseout="n=0.3;saveIsTitleTrue()"
     >
-      <div class="change-lang" @click="changeLang()">ZH/EN</div>
       <div style="flex:1">
         <div
           id="nav"
-          :class="'font-songti a'+$i18n.locale"
+          :class="'font-songti a '+$i18n.locale"
           @mouseover="saveIsTitleFalse()"
           @mouseout="saveIsTitleTrue()"
         >
@@ -28,12 +27,16 @@
               <div class="feast-list" ref="listwarp">
                 <dl v-for="(e,i) in nd" :key="i">
                   <dt v-if="$i18n.locale!='en'" :class="$i18n.locale">{{ e.cate.name }}</dt>
-                  <dt v-else :class="$i18n.locale">{{ e.cate.name }}</dt>
+                  <dt v-else :class="$i18n.locale">{{ e.cate.en_name }}</dt>
                   <dd v-for="(el,idx) in e.data" :key="idx">
-                    <strong>
+                    <strong v-if="$i18n.locale!='en'">
                       <router-link :to="'/detail?'+el._id">{{ el.name }}</router-link>
                     </strong>
+                    <strong v-else>
+                      <router-link :to="'/detail?'+el._id">{{ el.en_name }}</router-link>
+                    </strong>
                   </dd>
+                  <div style="clear: both;"></div>
                 </dl>
               </div>
             </div>
@@ -174,6 +177,10 @@
           </router-link>
         </div>
       </div>
+      <div class="change-lang" style="opacity:0.5">
+        <span @click="changeLang('zh')" v-if="$i18n.locale=='en'" >ZH &nbsp;</span>
+        <span @click="changeLang('en')" v-else>&nbsp; EN</span>
+      </div>
       <!-- <div class="audio">
         <audio id="audio" controls="controls" autoplay="autoplay" loop ref="au">
           <source src="@/assets/audio/bgaudio.mp3" type="audio/mpeg" />Your browser does not support the audio element.
@@ -245,7 +252,7 @@ export default {
       console.log("完毕");
     }
 
-    banquet_allfun();    
+    banquet_allfun();
     // document.querySelector("style").innerText += import(
     //   "@/lang/" + this.$i18n.locale + ".css"
     // );
@@ -274,7 +281,9 @@ export default {
         document.documentElement.scrollTop = window.scrollY - 50;
       }, 1);
     },
-    changeLang() {
+    changeLang(str) {
+      this.$i18n.locale = str;
+      return false;
       if (this.$i18n.locale == "en") {
         this.$i18n.locale = "zh";
         // document.querySelector("style").innerText = import("@/lang/zh.css");

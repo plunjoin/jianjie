@@ -13,21 +13,21 @@
     <div class="space-surface">
       <div class="space-menu" v-show="isTitle">
         <ul>
-          <li :class="'jie-title-letter-spacing '+$i18n.locale">
+          <li :class="'jie-title-letter-spacing font-songti '+$i18n.locale">
             <router-link to="/spacelist">
-              <span>【{{ $t('space.msg001') }}】</span>
+              <span>【 {{ $t('space.msg001') }} 】</span>
             </router-link>
             <p>chian hangzhou</p>
             <p>2019 09 09</p>
           </li>
-          <li :class="'jie-title-letter-spacing '+$i18n.locale">
+          <li :class="'jie-title-letter-spacing font-songti '+$i18n.locale">
             <router-link to="/spacelist">
               <span>【{{ $t('space.msg002') }}】</span>
             </router-link>
             <p>chian hangzhou</p>
             <p>2019 09 09</p>
           </li>
-          <li :class="'jie-title-letter-spacing '+$i18n.locale">
+          <li :class="'jie-title-letter-spacing font-songti '+$i18n.locale">
             <router-link to="/spacelist">
               <span>【{{ $t('space.msg003') }}】</span>
             </router-link>
@@ -79,14 +79,23 @@ export default {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      right: 20%;
+      right: 13%;
       li {
-        font-size: 2rem;
+        font-size: 1.5rem;
         margin: 1.65rem 0;
         opacity: 0.3;
         transition: 0.5s;
         a {
+          margin-bottom: 0.5rem;
+          display: inline-block;
           letter-spacing: 8px;
+        }
+        &.en {
+          a {
+            letter-spacing: 1px;
+            font-size: 1.3rem;
+            text-transform: capitalize;
+          }
         }
         &:hover {
           opacity: 1;
@@ -96,6 +105,7 @@ export default {
           font-size: 0.5rem;
           font-family: Medium;
           margin: 0 0 0.25rem 0;
+          text-transform: capitalize;
         }
       }
     }

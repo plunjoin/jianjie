@@ -70,7 +70,7 @@ export default {
     const self = this;
     return {
       opening_video: true,
-      controller: true,
+      controller: false,
       nd: null,
       interval: setInterval(function() {
         if (self.controller) {
@@ -109,7 +109,7 @@ export default {
     this.$nextTick(() => {});
     this.$refs.bg.controls = false;
     var _this = this,
-      maxScroll = _this.$refs.warp.scrollHeight + window.innerHeight / 2;
+      maxScroll = _this.$refs.warp.scrollHeight + window.innerHeight;
     console.log("max" + maxScroll);
 
     document.body.scrollTop = 0;
@@ -120,8 +120,8 @@ export default {
         var scrollTop = _this.$refs.warp.scrollTop;
         if (scrollTop >= maxScroll - 3) {
           clearInterval(_this.interval);
-          // _this.$refs.listwarp.style.paddingTop = 0;
-          _this.$refs.listwarp.style.marginBottom = 0;
+          _this.$refs.listwarp.style.paddingTop = '3.5rem';
+          // _this.$refs.listwarp.style.marginBottom = 0;
           _this.$refs.listwarp.style.scrollTop = 0;
         }
       } catch (error) {
@@ -185,7 +185,7 @@ export default {
   }
   .feast-list {
     padding: 100vh 0 0 8.875rem;
-    margin-bottom: 100vh;
+    // margin-bottom: 100vh;
     dl {
       // font-family: "NotoSerifCJKsc";
       width: 100%;
@@ -199,6 +199,10 @@ export default {
         dd {
           padding: 0 1rem;
           strong {
+            white-space: nowrap;
+            width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
             text-transform: capitalize;
             font-size: 2rem;
           }
@@ -227,6 +231,7 @@ export default {
           font-size: 0.5rem;
           font-family: Medium;
           margin: 0 0 0.25rem 0;
+          text-transform: capitalize;
         }
       }
     }

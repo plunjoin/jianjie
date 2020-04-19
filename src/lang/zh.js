@@ -3,9 +3,9 @@ export default {
     name: '見芥',
     nav: {
         night: '夜  宴',
-        make: '造  园',
-        space: '空  间',
-        thing: '长  物',
+        make: '造  園',
+        space: '空  間',
+        thing: '長  物',
         about: '我',
     },
     night: {

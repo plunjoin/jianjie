@@ -284,12 +284,20 @@ body {
     float     : right;
     display   : flex;
     transition: 1s;
-
+    &.zh {
+        .night-child {
+            letter-spacing: 3px;
+        }
+    }
     &>a {
         margin       : 0 5rem 0 0;
         padding      : .58px;
         position     : relative;
         border-bottom: 2px solid transparent;
+        white-space: nowrap;
+        &:last-child {
+            margin: 0 2.5rem 0 0;
+        }
 
         span {
             &::first-letter {}
@@ -340,7 +348,7 @@ body {
 
         dl {
             font-size     : 16px;
-            margin        : 0 0 1.5rem 0;
+            // margin        : 0 0 1.5rem 0;
             padding-bottom: 1rem;
 
             dt {
@@ -383,14 +391,15 @@ body {
     display         : flex;
     align-items     : center;
     justify-content : space-between;
-    opacity         : 0;
+    opacity         : 1;
     position        : fixed;
     width           : 100%;
     height          : 3.75rem;
     font-size       : 1.1rem;
     z-index         : 9;
     top             : 0;
-    background-color: #000000;
+    align-items     : center;
+    background-color: transparent;
 
     .change-lang {
         cursor   : pointer;
@@ -398,9 +407,7 @@ body {
         padding  : 20px;
     }
 
-    #nav {
-        padding: 0.7rem 0 1.375rem 0;
-    }
+    #nav {}
 
     &:hover {
         opacity: 1;

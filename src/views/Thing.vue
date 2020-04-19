@@ -8,14 +8,20 @@
         <img v-bind:class="{active:count==3}" src="../assets/image/thing/bg/1.jpg" width="100%" />
       </div>
       <div :class="'list font-songti '+$i18n.locale">
-        <ul v-show="isTitle">
-          <li v-for="(item,index) in cate" :key="index" v-bind:class="{active:count==index}">
-            <p class="jie-title-letter-spacing" @mousemove="changeBG(index)">
-              <router-link to="/thingdatail/0">{{ item.title }}</router-link>
-            </p>
-            <div class="child">
-              <div class="child-el" v-for="(e,i) in item.child" :key="i">
-                <router-link :to="'/thingdatail/'+i">{{ e }}</router-link>
+        <ul v-show="isTitle" :class="count!=-1?'none':''">
+          <li
+            v-for="(item,index) in cate"
+            :key="index"
+            v-bind:class="{active:count==index}"
+            @click.stop="changeBG(-1)"
+          >
+            <div class="jie-title-letter-spacing">
+              <p @click.stop="changeBG(index)">{{ item.title }}</p>
+              <div class="child" v-if="count==index">
+                <div class="child-el" v-for="(e,i) in item.child" :key="i">
+                  <router-link :to="'/thingdatail/'+i">{{ e }}</router-link>
+                </div>
+                <div style="clear:both"></div>
               </div>
             </div>
           </li>
@@ -53,7 +59,7 @@ export default {
     const self = this;
     return {
       cate: this.$t("thing.cate"),
-      count: 0,
+      count: -1,
       vertical: {
         notNextTick: true, //notNextTick是一个组件自有属性，如果notNextTick设置为true，组件则不会通过NextTick来实例化swiper，也就意味着你可以在第一时间获取到swiper对象，假如你需要刚加载遍使用获取swiper对象来做什么事，那么这个属性一定要是true
         direction: "vertical", //水平方向移动
@@ -84,7 +90,16 @@ export default {
   },
   methods: {
     changeBG(bg) {
+      if (bg != -1) {
+        
+        if (bg == this.count) {
+          console.log(bg);
+          this.count = -1;
+          return false
+        }
+      }
       this.count = bg;
+      
     }
   }
 };
@@ -92,17 +107,15 @@ export default {
 
 <style lang="less">
 .thing {
-  margin-top: 3.75rem;
 }
 .thing-war {
   display: none;
 }
 .thing-warp {
   width: 100%;
-  height: calc(100vh - 3.75rem);
   overflow: hidden;
-  width: 100%;
   position: relative;
+  height: calc(100vh);
   .thing-bg {
     position: absolute;
     z-index: -1;
@@ -112,7 +125,7 @@ export default {
       position: absolute;
       left: 0;
       top: 0;
-      transition: 1s;
+      transition: 2s;
       width: 100%;
       filter: grayscale(100%);
       filter: gray;
@@ -123,43 +136,85 @@ export default {
     }
   }
   .list {
-    font-size: 2rem;
-    position: absolute;
-    left: 80%;
+    left: 0%;
+    width: 100%;
     height: 100%;
+    font-size: 2rem;
+    padding-top: 3.5rem;
+    position: absolute;
+    &.en {
+      ul {
+        li {
+          font-size: 1.5rem;
+          p {
+            letter-spacing: 5px;
+          }
+          .child {
+            .child-el {
+              letter-spacing: 3px;
+              text-transform: lowercase;
+            }
+          }
+        }
+      }
+    }
     ul {
       min-width: 200px;
       height: 100%;
       li {
-        opacity: 0.5;
         height: 25%;
         position: relative;
+        text-align: center;
         &.active {
           opacity: 1;
-        }
-        &:hover {
-          .child {
-            display: inline-block;
+          p {
+            top: 0;
+            position: relative;
+            transform: translate(0);
+          }
+          > div {
+            top: 50%;
             opacity: 1;
+            width: 100%;
+            position: absolute;
+            transform: translateY(-50%);
           }
         }
-        p {
+
+        > div {
+          opacity: 0.5;
           position: absolute;
           top: 50%;
           width: 100%;
           transform: translateY(-50%);
+          white-space: nowrap;
+          &:hover {
+            opacity: 1;
+            cursor: pointer;
+          }
         }
         .child {
           // display: none;
-          position: absolute;
-          top: 70%;
-          left: 0;
-          font-size: 0.6666rem;
+          width: 100%;
           transition: 1s;
-          opacity: 0;
+          margin-top: 1rem;
+          font-size: 0.6666rem;
           .child-el {
+            width: 100%;
             float: left;
             margin-right: 15px;
+            margin: 0.25rem 0;
+          }
+        }
+      }
+      &.none {
+        li {
+          height: 0;
+          opacity: 0;
+          overflow: hidden;
+          &.active {
+            height: 100%;
+            opacity: 1;
           }
         }
       }

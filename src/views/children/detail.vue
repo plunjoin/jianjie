@@ -3,7 +3,7 @@
     <swiper class="pc" :options="vertical">
       <swiper-slide>
         <div class="jie-layer-head">
-          <swiper :options="{autoplay:3000,loop:true}" v-if="info">
+          <swiper :options="{autoplay:true,loop:true}" v-if="info">
             <swiper-slide v-for="(bg,idx) in info.bg_imgs" :key="idx">
               <div class="jie-udd-bg" :style="'background-image:url('+bg+')'"></div>
             </swiper-slide>
@@ -24,7 +24,7 @@
             <hr />
             <h3 v-if="$i18n.locale!='en'" :class="'font-songti '+$i18n.locale">{{ info.cate.name }}</h3>
             <h3 v-else :class="'font-songti '+$i18n.locale">{{ info.cate.en_name }}</h3>
-            <p v-if="$i18n.locale!='en'">{{ info.remark }}</p>
+            <p :class="$i18n.locale" v-if="$i18n.locale!='en'">{{ info.remark }}</p>
             <p v-else>{{ info.en_remark }}</p>
           </div>
         </div>
@@ -684,7 +684,7 @@ export default {
   data() {
     const self = this;
     return {
-      id:window.location.href.split('?')[1],
+      id: window.location.href.split("?")[1],
       count: 0,
       tabIndex: 0,
       child: null,
@@ -743,10 +743,8 @@ export default {
   },
   watch: {
     id(newid, oldid) {
-      console.log(`新的${newid,oldid}`);
-      
-      var _id = newid?newid:oldid;
-      
+      console.log(`新的${(newid, oldid)}`);
+      var _id = newid ? newid : oldid;
       this.$axios.get(`/banquet_single?parameter=${_id}`).then(res => {
         this.info = res[0];
         this.option.sources.url = this.info.bg_video_url;
@@ -755,11 +753,17 @@ export default {
   },
   mounted() {
     // this.handleReload();
-    this.$axios.get(`/banquet_single?parameter=${this.id}`).then(res => {
-      this.info = res[0];
-    });
     var _this = this,
       bv = 0;
+    async function getinfo() {
+      var data = await _this.$axios
+        .get(`/api/banquet_single?parameter=${_this.id}`)
+        .then(res => res);
+      _this.info = data[0];
+      console.log(_this.info);
+    }
+    getinfo();
+
     window.onscroll = function() {
       if (this.scrollY >= window.innerHeight / 2) {
         if (bv == 0) {
@@ -870,16 +874,25 @@ export default {
       h2 {
         font-size: 3.416666rem;
         font-weight: 100;
+        &.en {
+          font-size: 1.999rem;
+        }
       }
       h3 {
         font-size: 1.8rem;
         margin-bottom: 1.3rem;
         font-weight: 100;
+        &.en {
+          font-size: 1.3rem;
+        }
       }
       p {
         font-size: 0.65rem;
         line-height: 1.33rem;
         letter-spacing: 2px;
+        &.en {
+          letter-spacing: 1px;
+        }
       }
     }
     .jie-udd-bg {

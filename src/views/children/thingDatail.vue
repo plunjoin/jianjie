@@ -42,11 +42,13 @@ export default {
   },
   watch: {
     id(newinfo, oldinfo) {
+      this.realIndex = 0;
       this.imgs = this.thing[this.id].imgs;
       this.onloadSwiper();
     }
   },
   mounted() {
+    this.realIndex = 0;
     this.imgs = this.thing[this.id].imgs;
     var swipers = {};
     const self = this;
