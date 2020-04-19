@@ -25,15 +25,20 @@
             <span :class="$i18n.locale">{{ $t('nav.night') }}</span>
             <div class="night-child">
               <div class="feast-list" ref="listwarp">
-                <dl v-for="(e,i) in nd" :key="i">
+                <dl
+                  v-for="(e,i) in nd"
+                  :key="i"
+                  v-bind:class="{active:i==rc}"
+                  @click="returncount(rc,i)"
+                >
                   <dt v-if="$i18n.locale!='en'" :class="$i18n.locale">{{ e.cate.name }}</dt>
                   <dt v-else :class="$i18n.locale">{{ e.cate.en_name }}</dt>
                   <dd v-for="(el,idx) in e.data" :key="idx">
-                    <strong v-if="$i18n.locale!='en'">
-                      <router-link :to="'/detail?'+el._id">{{ el.name }}</router-link>
+                    <strong v-if="$i18n.locale!='en'" @click="link(`/detail?${el._id}`)">
+                      <a>{{ el.name }}</a>
                     </strong>
-                    <strong v-else>
-                      <router-link :to="'/detail?'+el._id">{{ el.en_name }}</router-link>
+                    <strong v-else @click="link(`/detail?${el._id}`)">
+                      <a>{{ el.en_name }}</a>
                     </strong>
                   </dd>
                   <div style="clear: both;"></div>
@@ -44,57 +49,57 @@
           <router-link to="/buildgarden">
             <span :class="$i18n.locale">{{ $t('nav.make') }}</span>
             <div class="night-child">
-              <div class="feast-list">
-                <dl>
+              <div class="feast-list none">
+                <dl class="active">
                   <dd>
                     <strong>
                       <router-link to="/makechild">{{ $t('make.msg001') }}</router-link>
                     </strong>
                   </dd>
                 </dl>
-                <dl>
+                <dl class="active">
                   <dd>
                     <strong>
                       <router-link to="/makechild">{{ $t('make.msg002') }}</router-link>
                     </strong>
                   </dd>
                 </dl>
-                <dl>
+                <dl class="active">
                   <dd>
                     <strong>
                       <router-link to="/makechild">{{ $t('make.msg003') }}</router-link>
                     </strong>
                   </dd>
                 </dl>
-                <dl>
+                <dl class="active">
                   <dd>
                     <strong>
                       <router-link to="/makechild">{{ $t('make.msg004') }}</router-link>
                     </strong>
                   </dd>
                 </dl>
-                <dl>
+                <dl class="active">
                   <dd>
                     <strong>
                       <router-link to="/makechild">{{ $t('make.msg005') }}</router-link>
                     </strong>
                   </dd>
                 </dl>
-                <dl>
+                <dl class="active">
                   <dd>
                     <strong>
                       <router-link to="/makechild">{{ $t('make.msg006') }}</router-link>
                     </strong>
                   </dd>
                 </dl>
-                <dl>
+                <dl class="active">
                   <dd>
                     <strong>
                       <router-link to="/makechild">{{ $t('make.msg007') }}</router-link>
                     </strong>
                   </dd>
                 </dl>
-                <dl>
+                <dl class="active">
                   <dd>
                     <strong>
                       <router-link to="/makechild">{{ $t('make.msg008') }}</router-link>
@@ -108,21 +113,21 @@
             <span :class="$i18n.locale">{{ $t('nav.space') }}</span>
             <div class="night-child">
               <div class="feast-list">
-                <dl>
+                <dl class="active">
                   <dd>
                     <strong>
                       <router-link to="/spacelist">{{ $t('space.msg001') }}</router-link>
                     </strong>
                   </dd>
                 </dl>
-                <dl>
+                <dl class="active">
                   <dd>
                     <strong>
                       <router-link to="/spacelist">{{ $t('space.msg002') }}</router-link>
                     </strong>
                   </dd>
                 </dl>
-                <dl>
+                <dl class="active">
                   <dd>
                     <strong>
                       <router-link to="/spacelist">{{ $t('space.msg003') }}</router-link>
@@ -136,11 +141,16 @@
             <span :class="$i18n.locale">{{ $t('nav.thing') }}</span>
             <div class="night-child">
               <div class="feast-list">
-                <dl v-for="(el,idx) in $t('thing.cate')" :key="idx">
+                <dl
+                  v-for="(el,idx) in $t('thing.cate')"
+                  :key="idx"
+                  v-bind:class="{active:idx==lc}"
+                  @click="thi(lc,idx)"
+                >
                   <dt :class="$i18n.locale">{{ el.title }}</dt>
                   <dd v-for="(e,i) in el.child" :key="i">
                     <strong>
-                      <router-link :to="'/thingdatail/'+i">{{ e }}</router-link>
+                      <router-link :to="'/thingdatail?'+i">{{ e }}</router-link>
                     </strong>
                   </dd>
                 </dl>
@@ -151,24 +161,31 @@
             <span :class="$i18n.locale">{{ $t('nav.about') }}</span>
             <div class="night-child">
               <div class="feast-list">
-                <dl>
+                <dl class="active">
                   <dd>
                     <strong>
                       <router-link to="/lianxi">{{ $t("about.msg001") }}</router-link>
                     </strong>
                   </dd>
                 </dl>
-                <dl>
+                <dl class="active">
                   <dd>
                     <strong>
                       <router-link to="/about">{{ $t("about.msg002") }}</router-link>
                     </strong>
                   </dd>
                 </dl>
-                <dl>
+                <dl class="active">
                   <dd>
                     <strong>
                       <router-link to="/tiaowen">{{ $t("about.msg003") }}</router-link>
+                    </strong>
+                  </dd>
+                </dl>
+                <dl class="active">
+                  <dd>
+                    <strong>
+                      <router-link to="/map">{{ $t("about.msg000") }}</router-link>
                     </strong>
                   </dd>
                 </dl>
@@ -178,7 +195,7 @@
         </div>
       </div>
       <div class="change-lang" style="opacity:0.5">
-        <span @click="changeLang('zh')" v-if="$i18n.locale=='en'" >ZH &nbsp;</span>
+        <span @click="changeLang('zh')" v-if="$i18n.locale=='en'">ZH &nbsp;</span>
         <span @click="changeLang('en')" v-else>&nbsp; EN</span>
       </div>
       <!-- <div class="audio">
@@ -188,7 +205,7 @@
       </div>-->
       <div class="both"></div>
     </div>
-    <div class="upwarp" ref="up">
+    <div class="upwarp" ref="up" v-if="false">
       <div class="jie-container">
         <div class="uptop" @click="returnUp()">UP</div>
       </div>
@@ -198,9 +215,6 @@
   </div>
 </template>
 
-<style lang="less">
-@import url("./less/reset.less");
-</style>
 
 <script>
 import wapHead from "./components/WapHead";
@@ -216,6 +230,8 @@ export default {
   components: { wapHead },
   data() {
     return {
+      rc: -1,
+      lc: -1,
       conunt: 0,
       n: 0.3,
       mb: false,
@@ -233,11 +249,12 @@ export default {
   ]),
   mounted() {
     var _this = this;
-
+    sessionStorage.setItem("lang", "zh");
+    _this.$i18n.locale=sessionStorage.getItem("lang");
     async function banquet_allfun() {
       let banquets = [];
-      var cate = await _this.$axios.get("/api/banquet_cate").then(res => res);
-      var all = await _this.$axios.get("/api/banquet_all").then(res => res);
+      var cate = await _this.$axios.get("/banquet_cate").then(res => res);
+      var all = await _this.$axios.get("/banquet_all").then(res => res);
       cate.forEach(el => {
         var child = [];
         all.forEach((el_, i) => {
@@ -286,9 +303,11 @@ export default {
       return false;
       if (this.$i18n.locale == "en") {
         this.$i18n.locale = "zh";
+        sessionStorage.setItem("lang", "zh");
         // document.querySelector("style").innerText = import("@/lang/zh.css");
       } else {
         this.$i18n.locale = "en";
+        sessionStorage.setItem("lang", "en");
         // document.querySelector("style").innerText = import("@/lang/en.css");
       }
     },
@@ -302,11 +321,30 @@ export default {
       this.$nextTick(function() {
         this.isAlive = true;
       });
+    },
+    link(url) {
+      window.location.href = url;
+    },
+    returncount(item, conunt) {
+      if (item == conunt) {
+        this.rc = -1;
+      } else {
+        this.rc = conunt;
+      }
+    },
+    thi(item, cou) {
+      if (item == cou) {
+        this.lc = -1;
+      } else {
+        this.lc = cou;
+      }
     }
   }
 };
 </script>
-
+<style lang="less">
+@import url("./less/reset.less");
+</style>
 <style lang="less">
 .mb {
   height: 100vh;

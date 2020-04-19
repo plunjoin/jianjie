@@ -262,6 +262,7 @@ export default {
         </div>`
     },
     about: {
+        msg000: 'address',
         msg001: 'Contact Us',
         msg002: 'Career Opportunities',
         msg003: 'Legal provisions',

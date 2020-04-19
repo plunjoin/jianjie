@@ -19,7 +19,7 @@
               <p @click.stop="changeBG(index)">{{ item.title }}</p>
               <div class="child" v-if="count==index">
                 <div class="child-el" v-for="(e,i) in item.child" :key="i">
-                  <router-link :to="'/thingdatail/'+i">{{ e }}</router-link>
+                  <router-link :to="'/thingdatail?'+i">{{ e }}</router-link>
                 </div>
                 <div style="clear:both"></div>
               </div>
@@ -40,7 +40,7 @@
             <span>{{ item.title }}</span>
             <div class="child">
               <div class="child-el" v-for="(e,i) in item.child" :key="i">
-                <router-link :to="'/thingdatail/'+i">{{ e }}</router-link>
+                <router-link :to="'/thingdatail?'+i">{{ e }}</router-link>
               </div>
             </div>
           </div>

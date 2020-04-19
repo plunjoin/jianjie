@@ -281,22 +281,32 @@ body {
 // nav
 
 #nav {
-    float     : right;
-    display   : flex;
-    transition: 1s;
+    float        : right;
+    display      : flex;
+    // transition: 1s;
+
     &.zh {
         .night-child {
             letter-spacing: 3px;
         }
     }
+
     &>a {
         margin       : 0 5rem 0 0;
         padding      : .58px;
         position     : relative;
         border-bottom: 2px solid transparent;
-        white-space: nowrap;
+        white-space  : nowrap;
+
         &:last-child {
             margin: 0 2.5rem 0 0;
+        }
+
+        >span {
+            &.en {
+                font-size  : 0.90rem;
+                font-weight: 600;
+            }
         }
 
         span {
@@ -304,9 +314,9 @@ body {
         }
 
         .night-child {
-            // background-color: #00000080;
-            transition         : 2s;
-            opacity            : 0;
+            // background-color   : #00000080;
+            // transition         : 2s;
+            opacity               : 0;
 
             a {
                 opacity: .5;
@@ -319,6 +329,34 @@ body {
             &::after {
                 content: '';
                 display: block;
+
+            }
+
+            .none {
+                dl {
+                    padding: 0;
+                }
+            }
+
+            dl {
+                border    : none;
+                transition: 1s;
+
+                dd {
+                    height  : 0;
+                    overflow: hidden;
+                    margin  : 0;
+                }
+
+                &.active {
+                    border: none;
+
+                    dd {
+                        height        : auto;
+                        text-transform: capitalize;
+                        margin        : 0 0 0.5rem 0;
+                    }
+                }
 
             }
         }
@@ -347,12 +385,12 @@ body {
         }
 
         dl {
-            font-size     : 16px;
+            font-size        : 15px;
             // margin        : 0 0 1.5rem 0;
-            padding-bottom: 1rem;
+            padding-bottom   : 0.55rem;
 
             dt {
-                font-weight: 600;
+                font-weight: 100;
                 position   : relative;
                 margin     : 0 0 .5rem 0;
 
@@ -366,8 +404,8 @@ body {
             }
 
             dd {
-                float : left;
-                margin: 0 1rem .5rem 0;
+                margin        : 0 1rem .5rem 0;
+                text-transform: capitalize !important;
 
                 &:last-child {}
             }
@@ -379,6 +417,7 @@ body {
             }
         }
     }
+
 }
 
 .jie-common {

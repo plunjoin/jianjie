@@ -24,8 +24,8 @@
         src="https://prugna.cn/video/257990ffbde6a101cb28ed5f33856c98.mp4"
       ></video>
     </div>
-    <div class="feast-list" ref="listwarp" @click="startInterval()">
-      <dl :class="'font-songti ' + $i18n.locale" v-for="(e,i) in nd" :key="i">
+    <div class="feast-list pcroll" ref="listwarp" @click="startInterval()">
+      <dl ref="pit" :class="'font-songti ' + $i18n.locale" v-for="(e,i) in nd" :key="i">
         <dt v-if="$i18n.locale!='en'">{{ e.cate.name }}</dt>
         <dt v-else>{{ e.cate.en_name }}</dt>
         <dd v-for="(el,idx) in e.data" :key="idx">
@@ -86,10 +86,11 @@ export default {
   computed: {},
   mounted() {
     var _this = this;
+    var maxScroll = 0;
     async function banquet_allfun() {
       let banquets = [];
-      var cate = await _this.$axios.get("/api/banquet_cate").then(res => res);
-      var all = await _this.$axios.get("/api/banquet_all").then(res => res);
+      var cate = await _this.$axios.get("/banquet_cate").then(res => res);
+      var all = await _this.$axios.get("/banquet_all").then(res => res);
       cate.forEach(el => {
         var child = [];
         all.forEach((el_, i) => {
@@ -101,33 +102,39 @@ export default {
       });
       _this.nd = banquets;
       console.log(banquets);
+      _this.$nextTick(() => {
+        console.log(_this.$refs.listwarp.height);
+        console.log(_this.$refs.listwarp.scrollHeight);
+        console.log(_this.$refs.listwarp.clientHeight);
+        console.log(_this.$refs.listwarp.offsetHeight);
+
+        maxScroll =
+          _this.$refs.listwarp.clientHeight - _this.$refs.warp.clientHeight;
+        _this.$refs.bg.controls = false;
+
+        document.body.scrollTop = 0;
+
+        document.documentElement.scrollTop = 0;
+        _this.$refs.warp.onscroll = function() {
+          try {
+            var scrollTop = _this.$refs.warp.scrollTop;
+            console.log(`${scrollTop}:${maxScroll}`);
+            if (scrollTop >= maxScroll) {
+              clearInterval(_this.interval);
+              _this.$refs.warp.scrollTop = 0;
+              _this.$refs.listwarp.style.paddingTop = "3.5rem";
+              // _this.$refs.listwarp.style.marginBottom = 0;
+            }
+          } catch (error) {
+            console.log(error);
+          }
+        };
+      });
+
       console.log("完毕");
     }
 
     banquet_allfun();
-
-    this.$nextTick(() => {});
-    this.$refs.bg.controls = false;
-    var _this = this,
-      maxScroll = _this.$refs.warp.scrollHeight + window.innerHeight;
-    console.log("max" + maxScroll);
-
-    document.body.scrollTop = 0;
-
-    document.documentElement.scrollTop = 0;
-    _this.$refs.warp.onscroll = function() {
-      try {
-        var scrollTop = _this.$refs.warp.scrollTop;
-        if (scrollTop >= maxScroll - 3) {
-          clearInterval(_this.interval);
-          _this.$refs.listwarp.style.paddingTop = '3.5rem';
-          // _this.$refs.listwarp.style.marginBottom = 0;
-          _this.$refs.listwarp.style.scrollTop = 0;
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
   },
   methods: {
     openbg() {

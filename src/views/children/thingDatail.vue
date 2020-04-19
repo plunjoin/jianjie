@@ -31,10 +31,10 @@ import { mapState } from "vuex";
 export default {
   name: "thingdatail",
   components: { foot },
-  props: ["id"],
   computed: mapState(["thing"]),
   data() {
     return {
+      id: null,
       count: 0,
       imgs: null,
       realIndex: 0
@@ -48,6 +48,7 @@ export default {
     }
   },
   mounted() {
+    this.id = window.location.href.split("?")[1];
     this.realIndex = 0;
     this.imgs = this.thing[this.id].imgs;
     var swipers = {};

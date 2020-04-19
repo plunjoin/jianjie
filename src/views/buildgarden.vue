@@ -3,10 +3,6 @@
     <div class="slide">
       <br />
       <br />
-      <br />
-      <br />
-      <br />
-      <br />
       <div class="swiper-container">
         <div :class="'swiper-wrapper font-songti '+$i18n.locale">
           <!-- It is important to set "left" style prop on every slide -->
@@ -109,6 +105,7 @@ export default {
     };
   },
   mounted() {
+    // window.location.reload();
     const self = this;
     async function savePro() {
       self.project = await self.$axios

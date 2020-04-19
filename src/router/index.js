@@ -75,11 +75,11 @@ const routes = [
       return import('../views/children/spaceDatail')
     }
   }, {
-    path: '/thingdatail/:id',
+    path: '/thingdatail',
     name: 'thingdatail',
     component: function () {
       return import('../views/children/thingDatail')
-    }, props: true
+    }
   }, {
     path: '/lianxi',
     name: 'lianxi',
@@ -92,6 +92,12 @@ const routes = [
     component: function () {
       return import('../views/tiaowen')
     }, props: true
+  }, {
+    path: '/map',
+    name: 'map',
+    component: function () {
+      return import('../views/map')
+    }
   }
 
 

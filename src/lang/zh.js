@@ -262,6 +262,7 @@ export default {
         </div>`
     },
     about: {
+        msg000: '地址',
         msg001: '聯繫我們',
         msg002: '工作機會',
         msg003: '法律條文',

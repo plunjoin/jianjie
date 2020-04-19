@@ -3,6 +3,7 @@ import axios from 'axios'
 
 axios.defaults.timeout = 50000;
 axios.defaults.baseURL = '/jiezi';
+// axios.defaults.baseURL = 'https://www.jianjie-china.com';
 axios.defaults.withCredentials = true
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
 

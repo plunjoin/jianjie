@@ -757,7 +757,7 @@ export default {
       bv = 0;
     async function getinfo() {
       var data = await _this.$axios
-        .get(`/api/banquet_single?parameter=${_this.id}`)
+        .get(`/banquet_single?parameter=${_this.id}`)
         .then(res => res);
       _this.info = data[0];
       console.log(_this.info);
@@ -785,6 +785,18 @@ export default {
     handleReload() {
       this.reload();
     }
+  },
+  beforeRouteUpdate(to, from, next) {
+    var _this = this;
+    this.id = window.location.href.split("?")[1];
+    async function getinfo() {
+      var data = await _this.$axios
+        .get(`/banquet_single?parameter=${_this.id}`)
+        .then(res => res);
+      _this.info = data[0];
+      console.log(_this.info);
+    }
+    getinfo();
   }
 };
 </script>
