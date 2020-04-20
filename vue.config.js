@@ -7,7 +7,7 @@ module.exports = {
                 target: 'https://api.jianjie-china.com',
                 changeOrigin: true,
                 pathRewrite: {
-                    '^/jiezi': '/'
+                    '^/jiezi': '/api'
                 }
             }
         }

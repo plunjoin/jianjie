@@ -3,7 +3,7 @@
     <swiper class="pc" :options="vertical">
       <swiper-slide>
         <div class="jie-layer-head">
-          <swiper :options="{autoplay:true,loop:true}" v-if="info">
+          <swiper :options="{autoplay:3000,loop:true}" v-if="info">
             <swiper-slide v-for="(bg,idx) in info.bg_imgs" :key="idx">
               <div class="jie-udd-bg" :style="'background-image:url('+bg+')'"></div>
             </swiper-slide>
@@ -26,6 +26,23 @@
             <h3 v-else :class="'font-songti '+$i18n.locale">{{ info.cate.en_name }}</h3>
             <p :class="$i18n.locale" v-if="$i18n.locale!='en'">{{ info.remark }}</p>
             <p v-else>{{ info.en_remark }}</p>
+          </div>
+          <div class="info">
+            <ul>
+              <li
+                v-for="(e,i) in $store.state.harry_winston[0].tabloid"
+                :key="i"
+                @click="m=i"
+                v-bind:class="{a:m==i}"
+              >{{ e.keyName }}</li>
+            </ul>
+            <div class="content">
+              <div
+                v-for="(e,i) in $store.state.harry_winston[0].tabloid"
+                :key="i"
+                v-show="m==i"
+              >{{ e.vals[0] }}</div>
+            </div>
           </div>
         </div>
       </swiper-slide>
@@ -684,6 +701,7 @@ export default {
   data() {
     const self = this;
     return {
+      m: -1,
       id: window.location.href.split("?")[1],
       count: 0,
       tabIndex: 0,
@@ -833,6 +851,34 @@ export default {
     height: 100vh;
     position: relative;
     background-size: cover;
+    .info {
+      position: absolute;
+      z-index: 2;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 10px;
+      font-size: 0.7rem;
+      overflow: auto;
+      letter-spacing: 2px;
+      ul {
+        display: flex;
+        margin: 0 0 0.5rem 0;
+        li {
+          opacity: 0.6;
+
+          float: left;
+          white-space: nowrap;
+          margin-right: 2rem;
+          &.a {
+            opacity: 1;
+          }
+        }
+      }
+      .content {
+        font-size: 12px;
+      }
+    }
     &::after {
       content: "";
       display: block;
@@ -878,8 +924,8 @@ export default {
     }
     .jie-layer-head-comtent {
       text-align: justify;
-      top: 8rem;
-      right: 10.25rem;
+      top: 9rem;
+      right: 5.25rem;
       position: absolute;
       width: 25rem;
       z-index: 2;

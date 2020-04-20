@@ -108,10 +108,14 @@ export default {
     overflow-x: auto;
     table {
       min-width: 1190px;
+      td {
+        text-transform: capitalize;
+      }
     }
   }
   .make-detail-content {
     font-size: 16px;
+    text-transform: capitalize;
   }
 
   .banners {
@@ -131,6 +135,7 @@ export default {
       p {
         text-align: left;
         font-size: 2.5rem;
+        text-transform: capitalize;
       }
     }
   }

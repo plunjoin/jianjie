@@ -6,7 +6,12 @@
       <div class="swiper-container">
         <div :class="'swiper-wrapper font-songti '+$i18n.locale">
           <!-- It is important to set "left" style prop on every slide -->
-          <div class="swiper-slide" v-for="(el,idx) in project" :key="idx" on-index="1">
+          <div
+            :class="`swiper-slide ${$i18n.locale}`"
+            v-for="(el,idx) in project"
+            :key="idx"
+            on-index="1"
+          >
             <img
               :src="el.bg_imgs[0]?el.bg_imgs[0]:'https://jianjie.oss-cn-hongkong.aliyuncs.com/test/1585755727602.png'"
               alt
@@ -15,7 +20,8 @@
               <router-link :to="`/makechild?${el._id}`">
                 <span class="jie-title-letter-spacing" v-if="$i18n.locale!='en'">{{ el.name }}</span>
                 <span class="jie-title-letter-spacing" v-else>{{ el.en_name }}</span>
-                <p>{{ el.title }}</p>
+                <p v-if="$i18n.locale!='en'">{{ el.subtitle }}</p>
+                <p v-else>{{ el.en_subtitle }}</p>
               </router-link>
             </div>
           </div>
@@ -224,6 +230,13 @@ export default {
   img {
     width: 100%;
   }
+  &.en {
+    .item-title {
+      span {
+        font-weight: 600;
+      }
+    }
+  }
   .item-title {
     top: 50%;
     right: 20%;
@@ -247,6 +260,9 @@ export default {
   .item-title {
     transition: 2s;
     right: -2%;
+    p {
+      text-transform: capitalize;
+    }
     // transform: translateX(-50%);
   }
 }
