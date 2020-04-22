@@ -250,7 +250,7 @@ export default {
   mounted() {
     var _this = this;
     sessionStorage.setItem("lang", "zh");
-    _this.$i18n.locale=sessionStorage.getItem("lang");
+    _this.$i18n.locale = sessionStorage.getItem("lang");
     async function banquet_allfun() {
       let banquets = [];
       var cate = await _this.$axios.get("/banquet_cate").then(res => res);

@@ -81,6 +81,7 @@
 import FOOT from "../../components/Footer";
 export default {
   name: "makechild",
+  props: ["id"],
   components: { FOOT },
   data() {
     return {
@@ -89,6 +90,7 @@ export default {
   },
   mounted() {
     var _this = this;
+    this.$axios.get("/buildgarden_single?parameter=5e86ef581eb9b40e3869920e");
   }
 };
 </script>
