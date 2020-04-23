@@ -10,16 +10,18 @@
       <div :class="'list font-songti '+$i18n.locale">
         <ul v-show="isTitle" :class="count!=-1?'none':''">
           <li
-            v-for="(item,index) in cate"
+            v-for="(item,index) in  All.thing"
             :key="index"
             v-bind:class="{active:count==index}"
             @click.stop="changeBG(-1)"
           >
             <div class="jie-title-letter-spacing">
-              <p @click.stop="changeBG(index)">{{ item.title }}</p>
+              <p
+                @click.stop="changeBG(index)"
+              >{{ $i18n.locale!='en'?item.category.name:item.category.en_name }}</p>
               <div class="child" v-if="count==index">
-                <div class="child-el" v-for="(e,i) in item.child" :key="i">
-                  <router-link :to="'/thingdatail?'+i">{{ e }}</router-link>
+                <div class="child-el" v-for="(e,i) in item.childs" :key="i">
+                  <a @click="link('/thingdatail?'+e._id)">{{ $i18n.locale!="en"?e.name:e.en_name }}</a>
                 </div>
                 <div style="clear:both"></div>
               </div>
@@ -31,16 +33,16 @@
     <div class="thing-war">
       <swiper :options="vertical">
         <swiper-slide
-          v-for="(item,index) in cate"
+          v-for="(item,index) in All.thing"
           :key="index"
           v-bind:class="{active:count==index}"
           :style="`background-image:url(https://prugna.cn/img/${index}.jpg)`"
         >
           <div class="wap-title" @mousemove="changeBG(index)">
-            <span>{{ item.title }}</span>
+            <span>{{ $i18n.locale!='en'?item.category.name:item.category.en_name }}</span>
             <div class="child">
-              <div class="child-el" v-for="(e,i) in item.child" :key="i">
-                <router-link :to="'/thingdatail?'+i">{{ e }}</router-link>
+              <div class="child-el" v-for="(e,i) in item.childs" :key="i">
+                <a @click="link('/thingdatail?'+e._id)">{{ $i18n.locale!='en'?e.name:e.en_name }}</a>
               </div>
             </div>
           </div>
@@ -54,7 +56,7 @@
 import { mapState } from "vuex";
 export default {
   name: "thing",
-  computed: mapState(["isTitle", "thing"]),
+  computed: mapState(["isTitle", "thing", "All"]),
   data() {
     const self = this;
     return {
@@ -87,19 +89,21 @@ export default {
   mounted() {
     console.log(this.cate);
     console.log(this.thing);
+    console.log(this.All.thing);
   },
   methods: {
     changeBG(bg) {
       if (bg != -1) {
-        
         if (bg == this.count) {
           console.log(bg);
           this.count = -1;
-          return false
+          return false;
         }
       }
       this.count = bg;
-      
+    },
+    link(url) {
+      window.location.href = url;
     }
   }
 };

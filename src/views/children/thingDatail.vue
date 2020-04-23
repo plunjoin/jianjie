@@ -16,7 +16,11 @@
         <div class="swiper-slide-index">
           <p align="right">{{ realIndex+1 }} / {{ imgs?imgs.length:0 }}</p>
         </div>
-        <div class="jie-thing-info jie-container" v-html="$t('thing.content')"></div>
+        <div
+          class="jie-thing-info jie-container"
+          v-if="thing.remark"
+          v-html="$i18n.locale!='en'?thing.remark:thing.en_remark"
+        ></div>
       </div>
     </div>
     <foot></foot>
@@ -31,30 +35,41 @@ import { mapState } from "vuex";
 export default {
   name: "thingdatail",
   components: { foot },
-  computed: mapState(["thing"]),
+  computed: mapState(["All"]),
   data() {
     return {
       id: null,
       count: 0,
       imgs: null,
+      thing: null,
       realIndex: 0
     };
   },
-  watch: {
-    id(newinfo, oldinfo) {
-      this.realIndex = 0;
-      this.imgs = this.thing[this.id].imgs;
-      this.onloadSwiper();
-    }
-  },
+
   mounted() {
-    this.id = window.location.href.split("?")[1];
-    this.realIndex = 0;
-    this.imgs = this.thing[this.id].imgs;
-    var swipers = {};
     const self = this;
+    this.id = window.location.href.split("?")[1];
+
+    for (let i = 0; i < self.All.thing.length; i++) {
+      const e = self.All.thing[i];
+      try {
+        if (e.childs.length != 0) {
+          for (let j = 0; j < e.childs.length; j++) {
+            const el = e.childs[j];
+            if (el._id == self.id) self.thing = el;
+          }
+        }
+      } catch (error) {}
+    }
+    this.realIndex = 0;
+
     this.$nextTick(function() {
+      console.log(this.thing);
+
+      this.imgs = this.thing.imgs;
+      var swipers = {};
       this.onloadSwiper();
+      console.log(this.All);
     });
   },
   methods: {

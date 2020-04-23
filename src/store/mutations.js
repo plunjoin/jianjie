@@ -10,5 +10,10 @@ export default {
     },
     saveIsTitleFalse(state) {
         state.isTitle = false
+    },
+    saveAll(state, val) {
+        console.log(val);
+
+        state.All = val
     }
 }

@@ -2,74 +2,48 @@
   <div class="jie-content jie-container">
     <div class="make-child-warp jie-container">
       <div class="banners">
-        <img src="../../assets/image/make/_DSC7153.jpg" alt srcset />
+        <img
+          v-if="b.bg_imgs"
+          :src="b.bg_imgs?b.bg_imgs[0]:'https://www.jianjie-china.com/img/logo.bafa2e21.png'"
+          alt
+          srcset
+        />
         <div :class="'banner-title '+$i18n.locale">
-          <h2 class="jie-title-letter-spacing">{{ $t("make.msg001") }}</h2>
-          <p>{{ $t("make.msg009") }}</p>
+          <h2 class="jie-title-letter-spacing">{{ $i18n.locale!='en'?b.name:b.en_name }}</h2>
+          <p>{{ $i18n.locale!='en'?b.subtitle:b.en_subtitle }}</p>
         </div>
       </div>
-      <div :class="'make-attributes '+$i18n.locale">
+      <div :class="'make-attributes '+$i18n.locale" v-if="b.info.length!=0">
         <table style="width:100%;text-align:left;margin:2rem 0 3rem 0;">
           <thead style="font-size:16px">
-            <th class="jie-title-letter-spacing">{{ $t('make.msg016') }}</th>
-            <th class="jie-title-letter-spacing">{{ $t('make.msg017') }}</th>
-            <th class="jie-title-letter-spacing">{{ $t('make.msg018') }}</th>
-            <th class="jie-title-letter-spacing">{{ $t('make.msg019') }}</th>
-            <th class="jie-title-letter-spacing">{{ $t('make.msg020') }}</th>
+            <th
+              class="jie-title-letter-spacing"
+              v-for="(e,i) in b.info"
+              :key="i"
+            >{{ $i18n.locale!='en'?e.title:e.en_title }}</th>
           </thead>
           <tbody style="font-size:16px">
             <tr>
-              <td>{{ $t('make.msg022') }}</td>
-              <td>{{ $t('make.msg023') }}</td>
-              <td>{{ $t('make.msg024') }}</td>
-              <td>{{ $t('make.msg025') }}</td>
-              <td>{{ $t('make.msg026') }}</td>
+              <td v-for="(e,i) in b.info" :key="i">{{ $i18n.locale!='en'?e.val:e.en_val }}</td>
             </tr>
           </tbody>
         </table>
       </div>
       <div :class="'make-detail-content '+$i18n.locale">
-        <div style="display: flex;align-items: center;">
+        <!-- <div style="display: flex;align-items: center;">
           <div style="text-align: center;">
             <p style="width: 50%;display: inline-block;text-align: left;">{{ $t('make.msg028') }}</p>
           </div>
           <div>
             <img src="../../assets/image/867ee26fb82863bf5ddf1730266567e.png" alt />
           </div>
-        </div>
-        <div>
-          <img src="../../assets/image/make/3.pic.jpg" width="100%" alt />
-        </div>
-
-        <div>
-          <img src="../../assets/image/make/4.pic.jpg" width="100%" alt />
-        </div>
-        <div>
-          <div>
-            <img src="../../assets/image/make/14.pic.jpg" width="100%" alt />
-          </div>
-        </div>
-        <div style="font-size: 16px;margin: 2rem 0;">
+        </div>-->
+        <div style="font-size: 16px;margin: 2rem 0;" v-if="b.materials">
           <span style="margin: 0 0 10px 0;">{{ $t('make.msg029') }}</span>
-          <p>{{ $t('make.msg030') }}</p>
+          <p>{{ $i18n.locale!='en'?b.materials:b.en_materials }}</p>
         </div>
-        <div>
-          <img src="../../assets/image/make/_DSC7267.jpg" width="100%" alt />
-        </div>
-        <div>
-          <img src="../../assets/image/make/_DSC7333.jpg" width="100%" alt />
-        </div>
-        <div>
-          <img src="../../assets/image/make/_DSC7264.jpg" width="100%" alt />
-        </div>
-        <div>
-          <img src="../../assets/image/make/_DSC7153.jpg" width="100%" alt />
-        </div>
-        <div>
-          <img src="../../assets/image/make/_DSC7282.jpg" width="100%" alt />
-        </div>
-        <div>
-          <img src="../../assets/image/make/_DSC7208.jpg" width="100%" alt />
+        <div v-for="(e,i) in b.imgs" :key="i">
+          <img :src="e.url" width="100%" alt />
         </div>
       </div>
     </div>
@@ -85,12 +59,22 @@ export default {
   components: { FOOT },
   data() {
     return {
-      _id: window.location.href.split("?")
+      _id: window.location.href.split("?"),
+      b: null
     };
   },
   mounted() {
     var _this = this;
-    this.$axios.get("/buildgarden_single?parameter=5e86ef581eb9b40e3869920e");
+    _this._id = window.location.href.split("?")[1];
+    console.log(_this._id);
+    _this.$store.state.All.buildgarden.forEach(e => {
+      if (e._id == _this._id) {
+        _this.b = e;
+      }
+    });
+    console.log(_this.b);
+
+    // this.$axios.get("/buildgarden_single?parameter=5e86ef581eb9b40e3869920e");
   }
 };
 </script>

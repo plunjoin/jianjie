@@ -47,6 +47,8 @@ import harry_winston from './night/harry_winston'
 import harry_winstonEn from './night/harry_winstonE'
 
 export default {
+    defaultLang: localStorage.getItem('LANG'),
+    All: JSON.parse(sessionStorage.getItem("JIANJIE_CHINA_CLIENT_ALL_INFO")),
     opening: true,
     menu: false,
     footerList: [{

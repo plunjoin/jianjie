@@ -34,62 +34,16 @@
       <div class="swiper-container-wap">
         <div :class="'swiper-wrapper font-songti '+$i18n.locale">
           <!-- It is important to set "left" style prop on every slide -->
-          <div class="swiper-slide" on-index="1">
-            <img src="@/assets/image/01.jpg" alt />
+          <div class="swiper-slide" v-for="(el,idx) in project" :key="idx" :on-index="idx+1">
+            <img
+              :src="el.bg_imgs[0]?el.bg_imgs[0]:'https://jianjie.oss-cn-hongkong.aliyuncs.com/test/1585755727602.png'"
+              alt
+            />
             <div class="item-title" v-show="isTitle">
-              <router-link to="/makechild">
-                <span class="jie-title-letter-spacing">{{ $t("make.msg001") }}</span>
-                <p>{{ $t("make.msg009") }}</p>
-              </router-link>
-            </div>
-          </div>
-          <div class="swiper-slide" on-index="2">
-            <img src="@/assets/image/02.jpg" alt />
-            <div class="item-title" v-show="isTitle">
-              <span class="jie-title-letter-spacing">{{ $t("make.msg002") }}</span>
-              <p>{{ $t("make.msg010") }}</p>
-            </div>
-          </div>
-          <div class="swiper-slide" on-index="3">
-            <img src="@/assets/image/03.jpg" alt />
-            <div class="item-title" v-show="isTitle">
-              <span class="jie-title-letter-spacing">{{ $t("make.msg003") }}</span>
-              <p>{{ $t("make.msg011") }}</p>
-            </div>
-          </div>
-          <div class="swiper-slide" on-index="4">
-            <img src="@/assets/image/04.jpg" alt />
-            <div class="item-title" v-show="isTitle">
-              <span class="jie-title-letter-spacing">{{ $t("make.msg004") }}</span>
-              <p>{{ $t("make.msg012") }}</p>
-            </div>
-          </div>
-          <div class="swiper-slide" on-index="5">
-            <img src="@/assets/image/05.jpg" alt />
-            <div class="item-title" v-show="isTitle">
-              <span class="jie-title-letter-spacing">{{ $t("make.msg005") }}</span>
-              <p>{{ $t("make.msg013") }}</p>
-            </div>
-          </div>
-          <div class="swiper-slide" on-index="6">
-            <img src="@/assets/image/06.jpg" alt />
-            <div class="item-title" v-show="isTitle">
-              <span class="jie-title-letter-spacing">{{ $t("make.msg006") }}</span>
-              <p>{{ $t("make.msg014") }}</p>
-            </div>
-          </div>
-          <div class="swiper-slide" on-index="7">
-            <img src="@/assets/image/07.jpg" alt />
-            <div class="item-title" v-show="isTitle">
-              <span class="jie-title-letter-spacing">{{ $t("make.msg007") }}</span>
-              <p>{{ $t("make.msg015") }}</p>
-            </div>
-          </div>
-          <div class="swiper-slide" on-index="8">
-            <img src="@/assets/image/08.jpg" alt />
-            <div class="item-title" v-show="isTitle">
-              <span class="jie-title-letter-spacing">{{ $t("make.msg008") }}</span>
-              <p>{{ $t("make.msg013") }}</p>
+              <div @click="link(`/makechild?${el._id}`)">
+                <span class="jie-title-letter-spacing">{{ $i18n.locale!='en'?el.name:el.en_name }}</span>
+                <p>{{ $i18n.locale!='en'?el.subtitle:el.subtitle }}</p>
+              </div>
             </div>
           </div>
         </div>
@@ -177,6 +131,11 @@ export default {
         self.screenWidth = window.screenWidth;
       })();
     };
+  },
+  methods: {
+    link(url) {
+      window.location.href = url;
+    }
   },
   watch: {}
 };

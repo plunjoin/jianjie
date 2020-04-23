@@ -31,9 +31,9 @@
                   v-bind:class="{active:i==rc}"
                   @click="returncount(rc,i)"
                 >
-                  <dt v-if="$i18n.locale!='en'" :class="$i18n.locale">{{ e.cate.name }}</dt>
-                  <dt v-else :class="$i18n.locale">{{ e.cate.en_name }}</dt>
-                  <dd v-for="(el,idx) in e.data" :key="idx">
+                  <dt v-if="$i18n.locale!='en'" :class="$i18n.locale">{{ e.category.name }}</dt>
+                  <dt v-else :class="$i18n.locale">{{ e.category.en_name }}</dt>
+                  <dd v-for="(el,idx) in e.childs" :key="idx">
                     <strong v-if="$i18n.locale!='en'" @click="link(`/detail?${el._id}`)">
                       <a>{{ el.name }}</a>
                     </strong>
@@ -50,59 +50,10 @@
             <span :class="$i18n.locale">{{ $t('nav.make') }}</span>
             <div class="night-child">
               <div class="feast-list none">
-                <dl class="active">
+                <dl class="active" v-for="(e,i) in $store.state.All.buildgarden" :key="i">
                   <dd>
-                    <strong>
-                      <router-link to="/makechild">{{ $t('make.msg001') }}</router-link>
-                    </strong>
-                  </dd>
-                </dl>
-                <dl class="active">
-                  <dd>
-                    <strong>
-                      <router-link to="/makechild">{{ $t('make.msg002') }}</router-link>
-                    </strong>
-                  </dd>
-                </dl>
-                <dl class="active">
-                  <dd>
-                    <strong>
-                      <router-link to="/makechild">{{ $t('make.msg003') }}</router-link>
-                    </strong>
-                  </dd>
-                </dl>
-                <dl class="active">
-                  <dd>
-                    <strong>
-                      <router-link to="/makechild">{{ $t('make.msg004') }}</router-link>
-                    </strong>
-                  </dd>
-                </dl>
-                <dl class="active">
-                  <dd>
-                    <strong>
-                      <router-link to="/makechild">{{ $t('make.msg005') }}</router-link>
-                    </strong>
-                  </dd>
-                </dl>
-                <dl class="active">
-                  <dd>
-                    <strong>
-                      <router-link to="/makechild">{{ $t('make.msg006') }}</router-link>
-                    </strong>
-                  </dd>
-                </dl>
-                <dl class="active">
-                  <dd>
-                    <strong>
-                      <router-link to="/makechild">{{ $t('make.msg007') }}</router-link>
-                    </strong>
-                  </dd>
-                </dl>
-                <dl class="active">
-                  <dd>
-                    <strong>
-                      <router-link to="/makechild">{{ $t('make.msg008') }}</router-link>
+                    <strong @click="link(`/makechild?${e._id}`)">
+                      <a>{{ $i18n.locale!='en'?e.name:e.en_name }}</a>
                     </strong>
                   </dd>
                 </dl>
@@ -113,24 +64,10 @@
             <span :class="$i18n.locale">{{ $t('nav.space') }}</span>
             <div class="night-child">
               <div class="feast-list">
-                <dl class="active">
+                <dl class="active" v-for="(e,i) in $store.state.All.space" :key="i">
                   <dd>
-                    <strong>
-                      <router-link to="/spacelist">{{ $t('space.msg001') }}</router-link>
-                    </strong>
-                  </dd>
-                </dl>
-                <dl class="active">
-                  <dd>
-                    <strong>
-                      <router-link to="/spacelist">{{ $t('space.msg002') }}</router-link>
-                    </strong>
-                  </dd>
-                </dl>
-                <dl class="active">
-                  <dd>
-                    <strong>
-                      <router-link to="/spacelist">{{ $t('space.msg003') }}</router-link>
+                    <strong @click="link(`/spacelist?${e._id}`)">
+                      <a to>{{ $i18n.locale!='en'?e.name:e.en_name }}</a>
                     </strong>
                   </dd>
                 </dl>
@@ -142,15 +79,17 @@
             <div class="night-child">
               <div class="feast-list">
                 <dl
-                  v-for="(el,idx) in $t('thing.cate')"
+                  v-for="(el,idx) in $store.state.All.thing"
                   :key="idx"
                   v-bind:class="{active:idx==lc}"
                   @click="thi(lc,idx)"
                 >
-                  <dt :class="$i18n.locale">{{ el.title }}</dt>
-                  <dd v-for="(e,i) in el.child" :key="i">
-                    <strong>
-                      <router-link :to="'/thingdatail?'+i">{{ e }}</router-link>
+                  <dt
+                    :class="$i18n.locale"
+                  >{{ $i18n.locale!='en'?el.category.name:el.category.en_name }}</dt>
+                  <dd v-for="(e,i) in el.childs" :key="i">
+                    <strong @click="link('/thingdatail?'+e._id)">
+                      <a>{{ $i18n.locale!='en'?e.name:e.en_name }}</a>
                     </strong>
                   </dd>
                 </dl>
@@ -205,11 +144,11 @@
       </div>-->
       <div class="both"></div>
     </div>
-    <div class="upwarp" ref="up" v-if="false">
+    <!-- <div class="upwarp" ref="up" v-if="false">
       <div class="jie-container">
         <div class="uptop" @click="returnUp()">UP</div>
       </div>
-    </div>
+    </div>-->
     <router-view v-if="isAlive" />
     <div class="mb" v-bind:class="{active:!isTitle}"></div>
   </div>
@@ -241,35 +180,46 @@ export default {
     };
   },
   computed: mapState([
+    "All",
     "menu",
-    "footerList",
-    "isTitle",
     "thing",
-    "harry_winston"
+    "isTitle",
+    "footerList",
+    "harry_winston",
+    "defaultLang"
   ]),
   mounted() {
     var _this = this;
-    sessionStorage.setItem("lang", "zh");
-    _this.$i18n.locale = sessionStorage.getItem("lang");
-    async function banquet_allfun() {
-      let banquets = [];
-      var cate = await _this.$axios.get("/banquet_cate").then(res => res);
-      var all = await _this.$axios.get("/banquet_all").then(res => res);
-      cate.forEach(el => {
-        var child = [];
-        all.forEach((el_, i) => {
-          if (el_.cate._id == el._id) {
-            child.push(el_);
-          }
-        });
-        banquets.push({ cate: el, data: child });
-      });
-      _this.nd = banquets;
-      console.log(banquets);
-      console.log("完毕");
+    if (localStorage.getItem("LANG")) {
+      console.log(localStorage.getItem("LANG"));
+      _this.$i18n.locale = _this.defaultLang;
+    } else {
+      console.log(_this.defaultLang);
+
+      console.log(321);
+
+      localStorage.setItem("LANG", "zh");
+      _this.$i18n.locale = "zh";
     }
 
-    banquet_allfun();
+    async function all() {
+      if (!sessionStorage.getItem("JIANJIE_CHINA_CLIENT_ALL_INFO")) {
+        var allinfo = await _this.$axios.get("/all").then(res => res);
+        _this.$store.commit("saveAll", allinfo);
+        sessionStorage.setItem(
+          "JIANJIE_CHINA_CLIENT_ALL_INFO",
+          JSON.stringify(allinfo)
+        );
+      } else {
+        _this.All = JSON.parse(
+          sessionStorage.getItem("JIANJIE_CHINA_CLIENT_ALL_INFO")
+        );
+      }
+    }
+
+    all();
+    _this.nd = _this.$store.state.All.banquet;
+    console.log(_this.$store.state.All);
     // document.querySelector("style").innerText += import(
     //   "@/lang/" + this.$i18n.locale + ".css"
     // );
@@ -279,16 +229,21 @@ export default {
     _this.lang = _this.$i18n.messages[_this.$i18n.locale];
     this.$nextTick(function() {
       window.onscroll = function() {
-        if (this.scrollY > this.innerHeight) {
-          _this.$refs.up.style.display = "block";
-        } else {
-          _this.$refs.up.style.display = "none";
-        }
+        // if (this.scrollY > this.innerHeight) {
+        //   _this.$refs.up.style.display = "block";
+        // } else {
+        //   _this.$refs.up.style.display = "none";
+        // }
       };
     });
   },
   methods: {
-    ...mapMutations(["editMenu", "saveIsTitleTrue", "saveIsTitleFalse"]),
+    ...mapMutations([
+      "editMenu",
+      "saveIsTitleTrue",
+      "saveIsTitleFalse",
+      "saveAll"
+    ]),
     returnUp() {
       var interval = setInterval(function() {
         if (window.scrollY == 0) {
@@ -300,14 +255,16 @@ export default {
     },
     changeLang(str) {
       this.$i18n.locale = str;
+      localStorage.setItem("LANG", str);
+
       return false;
       if (this.$i18n.locale == "en") {
         this.$i18n.locale = "zh";
-        sessionStorage.setItem("lang", "zh");
+        localStorage.setItem("LANG", "zh");
         // document.querySelector("style").innerText = import("@/lang/zh.css");
       } else {
         this.$i18n.locale = "en";
-        sessionStorage.setItem("lang", "en");
+        localStorage.setItem("LANG", "en");
         // document.querySelector("style").innerText = import("@/lang/en.css");
       }
     },

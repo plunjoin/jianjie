@@ -13,25 +13,15 @@
     <div class="space-surface">
       <div class="space-menu" v-show="isTitle">
         <ul>
-          <li :class="'jie-title-letter-spacing font-songti '+$i18n.locale">
-            <router-link to="/spacelist">
-              <span>【 {{ $t('space.msg001') }} 】</span>
-            </router-link>
-            <p>chian hangzhou</p>
-            <p>2019 09 09</p>
-          </li>
-          <li :class="'jie-title-letter-spacing font-songti '+$i18n.locale">
-            <router-link to="/spacelist">
-              <span>【{{ $t('space.msg002') }}】</span>
-            </router-link>
-            <p>chian hangzhou</p>
-            <p>2019 09 09</p>
-          </li>
-          <li :class="'jie-title-letter-spacing font-songti '+$i18n.locale">
-            <router-link to="/spacelist">
-              <span>【{{ $t('space.msg003') }}】</span>
-            </router-link>
-            <p>chian hangzhou</p>
+          <li
+            :class="'jie-title-letter-spacing font-songti '+$i18n.locale"
+            v-for="(e,i) in s"
+            :key="i"
+          >
+            <a @click="link(`/spacelist?${e._id}`)">
+              <span>【{{ $i18n.locale!='en'?e.name:e.en_name }}】</span>
+            </a>
+            <p>{{ $i18n.locale!='en'?e.cityaddress:e.en_cityaddress }}</p>
             <p>2019 09 09</p>
           </li>
         </ul>
@@ -46,10 +36,16 @@ export default {
   computed: mapState(["isTitle"]),
   data() {
     return {
-      opening_video: true
+      opening_video: true,
+      s: null
     };
   },
   mounted() {
+    var _this = this;
+    _this.$nextTick(function() {
+      _this.s = _this.$store.state.All.space;
+      console.log(_this.s);
+    });
     if (window.innerWidth <= 640) {
       this.$refs.opening_video.src =
         "https://prugna.cn/video/34778d1bb3cd6740760f1dff83379c76.mp4";
@@ -60,7 +56,11 @@ export default {
       _this.opening_video = false;
     });
   },
-  methods: {}
+  methods: {
+    link(url) {
+      window.location.href = url;
+    }
+  }
 };
 </script>
 

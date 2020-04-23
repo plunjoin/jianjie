@@ -67,7 +67,9 @@ export default {
       scroll: null,
       spaceData: [],
       activeArr: null,
-      realIndex: 0
+      realIndex: 0,
+      sd: null,
+      id: null
     };
   },
   methods: {
@@ -198,9 +200,14 @@ export default {
     }
   },
   mounted() {
+    console.log(this.$store.state.All.space);
+
     this.activeArr = this.space[0].imgs;
     var _this = this;
     this.$nextTick(() => {
+      _this.id = window.location.href.split("?")[1];
+      // console.log();
+
       let timer = setTimeout(() => {
         if (timer) {
           clearTimeout(timer);

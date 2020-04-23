@@ -57,11 +57,11 @@ const routes = [
       return import('../views/children/detail')
     }
   }, {
-    path: '/makechild/:id',
+    path: '/makechild',
     name: 'makechild',
     component: function () {
       return import('../views/children/MakeChild')
-    }, props: true
+    }
   }, {
     path: '/spacelist',
     name: 'spacelist',
