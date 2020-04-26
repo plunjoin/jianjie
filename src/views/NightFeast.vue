@@ -118,7 +118,6 @@ export default {
         _this.$refs.warp.onscroll = function() {
           try {
             var scrollTop = _this.$refs.warp.scrollTop;
-            console.log(`${scrollTop}:${maxScroll}`);
             if (scrollTop >= maxScroll) {
               clearInterval(_this.interval);
               _this.$refs.warp.scrollTop = 0;

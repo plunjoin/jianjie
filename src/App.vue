@@ -49,8 +49,8 @@
           <router-link to="/buildgarden">
             <span :class="$i18n.locale">{{ $t('nav.make') }}</span>
             <div class="night-child">
-              <div class="feast-list none">
-                <dl class="active" v-for="(e,i) in $store.state.All.buildgarden" :key="i">
+              <div class="feast-list none" v-if="navdata">
+                <dl class="active" v-for="(e,i) in navdata.buildgarden" :key="i">
                   <dd>
                     <strong @click="link(`/makechild?${e._id}`)">
                       <a>{{ $i18n.locale!='en'?e.name:e.en_name }}</a>
@@ -63,8 +63,8 @@
           <router-link to="/space">
             <span :class="$i18n.locale">{{ $t('nav.space') }}</span>
             <div class="night-child">
-              <div class="feast-list">
-                <dl class="active" v-for="(e,i) in $store.state.All.space" :key="i">
+              <div class="feast-list" v-if="navdata">
+                <dl class="active" v-for="(e,i) in navdata.space" :key="i">
                   <dd>
                     <strong @click="link(`/spacelist?${e._id}`)">
                       <a to>{{ $i18n.locale!='en'?e.name:e.en_name }}</a>
@@ -77,9 +77,9 @@
           <router-link to="/thing">
             <span :class="$i18n.locale">{{ $t('nav.thing') }}</span>
             <div class="night-child">
-              <div class="feast-list">
+              <div class="feast-list" v-if="navdata">
                 <dl
-                  v-for="(el,idx) in $store.state.All.thing"
+                  v-for="(el,idx) in navdata.thing"
                   :key="idx"
                   v-bind:class="{active:idx==lc}"
                   @click="thi(lc,idx)"
@@ -176,7 +176,8 @@ export default {
       mb: false,
       nd: null,
       lang: null,
-      isAlive: true
+      isAlive: true,
+      navdata: null
     };
   },
   computed: mapState([
@@ -195,9 +196,6 @@ export default {
       _this.$i18n.locale = _this.defaultLang;
     } else {
       console.log(_this.defaultLang);
-
-      console.log(321);
-
       localStorage.setItem("LANG", "zh");
       _this.$i18n.locale = "zh";
     }
@@ -206,6 +204,8 @@ export default {
       if (!sessionStorage.getItem("JIANJIE_CHINA_CLIENT_ALL_INFO")) {
         var allinfo = await _this.$axios.get("/all").then(res => res);
         _this.$store.commit("saveAll", allinfo);
+        _this.nd = allinfo.banquet;
+        _this.navdata = allinfo;
         sessionStorage.setItem(
           "JIANJIE_CHINA_CLIENT_ALL_INFO",
           JSON.stringify(allinfo)
@@ -218,16 +218,15 @@ export default {
     }
 
     all();
-    _this.nd = _this.$store.state.All.banquet;
-    console.log(_this.$store.state.All);
     // document.querySelector("style").innerText += import(
     //   "@/lang/" + this.$i18n.locale + ".css"
     // );
-    var _this = this;
     // this.$i18n.locale = 'en'
     _this.$i18n.messages[_this.$i18n.locale];
     _this.lang = _this.$i18n.messages[_this.$i18n.locale];
     this.$nextTick(function() {
+      _this.navdata = _this.$store.state.All;
+      _this.nd = _this.$store.state.All.banquet;
       window.onscroll = function() {
         // if (this.scrollY > this.innerHeight) {
         //   _this.$refs.up.style.display = "block";

@@ -13,7 +13,7 @@
             on-index="1"
           >
             <img
-              :src="el.bg_imgs[0]?el.bg_imgs[0]:'https://jianjie.oss-cn-hongkong.aliyuncs.com/test/1585755727602.png'"
+              :src="el.bg_imgs[0]?el.bg_imgs[0]+'?x-oss-process=image/resize,w_1920/quality,q_40':'https://jianjie.oss-cn-hongkong.aliyuncs.com/test/1585755727602.png'"
               alt
             />
             <div class="item-title" v-show="isTitle">
@@ -36,7 +36,7 @@
           <!-- It is important to set "left" style prop on every slide -->
           <div class="swiper-slide" v-for="(el,idx) in project" :key="idx" :on-index="idx+1">
             <img
-              :src="el.bg_imgs[0]?el.bg_imgs[0]:'https://jianjie.oss-cn-hongkong.aliyuncs.com/test/1585755727602.png'"
+              v-lazy="el.bg_imgs[0]?el.bg_imgs[0]+'?x-oss-process=image/resize,w_1920/quality,q_40':'https://jianjie.oss-cn-hongkong.aliyuncs.com/test/1585755727602.png'"
               alt
             />
             <div class="item-title" v-show="isTitle">
