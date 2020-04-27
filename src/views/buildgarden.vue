@@ -3,7 +3,7 @@
     <div class="slide">
       <br />
       <br />
-      <div class="swiper-container">
+      <div class="swiper-container map">
         <div :class="'swiper-wrapper font-songti '+$i18n.locale">
           <!-- It is important to set "left" style prop on every slide -->
           <div
@@ -12,10 +12,14 @@
             :key="idx"
             on-index="1"
           >
-            <img
-              :src="el.bg_imgs[0]?el.bg_imgs[0]+'?x-oss-process=image/resize,w_1920/quality,q_40':'https://jianjie.oss-cn-hongkong.aliyuncs.com/test/1585755727602.png'"
-              alt
-            />
+            <div
+              class="bg-box"
+              :style="`background-image:url(${el.bg_imgs[0]}?x-oss-process=image/resize,w_1920/quality,q_40)`"
+            >
+              <img
+                :src="el.bg_imgs[0]?el.bg_imgs[0]+'?x-oss-process=image/resize,w_1920/quality,q_40':'https://jianjie.oss-cn-hongkong.aliyuncs.com/test/1585755727602.png'"
+              />
+            </div>
             <div class="item-title" v-show="isTitle">
               <router-link :to="`/makechild?${el._id}`">
                 <span class="jie-title-letter-spacing" v-if="$i18n.locale!='en'">{{ el.name }}</span>
@@ -57,7 +61,7 @@ import Swiper from "swiper/dist/js/swiper";
 import { mapState } from "vuex";
 
 export default {
-  computed: mapState(["isTitle"]),
+  computed: mapState(["isTitle", "All"]),
   data() {
     return {
       screenWidth: document.body.clientWidth,
@@ -67,26 +71,40 @@ export default {
   mounted() {
     // window.location.reload();
     const self = this;
-    async function savePro() {
-      self.project = await self.$axios
-        .get("/buildgarden/buildgarden_all")
-        .then(res => res);
-    }
-    savePro();
+    // async function savePro() {
+    //   self.project = await self.$axios
+    //     .get("/buildgarden/buildgarden_all")
+    //     .then(res => res);
+    // }
+    // savePro();
+
+    self.project = self.All.buildgarden;
 
     const swiper = new Swiper(".swiper-container", {
       loop: true,
+      speed: 1500,
+      observer: true, //修改swiper自己或子元素时，自动初始化swiper
+      grabCursor: true,
       slidesPerView: 1.7,
-      centeredSlides: true,
+      autoplay: {
+        delay: 3000 //1秒切换一次
+      },
       spaceBetween: 50,
-      autoplay: true,
-      speed: 2000,
+      // effect: "coverflow",
+      centeredSlides: true,
+      direction: "horizontal",
+      observeParents: true,
+      coverflowEffect: {
+        rotate: 0,
+        stretch: -100, // slide左右距离
+        depth: 100, // slide前后距离
+        modifier: 2, //
+        slideShadows: false // 滑块遮罩层
+      },
       navigation: {
         nextEl: ".swiper-button-next",
         prevEl: ".swiper-button-prev"
-      },
-      observer: true, //修改swiper自己或子元素时，自动初始化swiper
-      observeParents: true //修改swiper的父元素时，自动初始化swiper
+      }
     });
 
     this.$nextTick(function() {
@@ -144,6 +162,28 @@ export default {
 * {
   transition: 1s;
 }
+.map {
+  width: 100%;
+  height: 80vh;
+  .swiper-slide {
+    overflow: inherit;
+    // width: 80% !important;
+    .bg-box {
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+      background-size: cover;
+      background-position: center;
+      // img {
+      //   left: 50%;
+      //   height: 100%;
+      //   // position: absolute;
+      //   transform: translateX(-50%);
+      // }
+    }
+  }
+}
 .make {
   overflow: hidden;
   height: 100vh;
@@ -186,8 +226,11 @@ export default {
   transition: 1s;
   position: relative;
   transform: scale(0.7);
+
   img {
     width: 100%;
+    z-index: -1;
+    position: relative;
   }
   &.en {
     .item-title {
