@@ -137,11 +137,11 @@
         <span @click="changeLang('zh')" v-if="$i18n.locale=='en'">ZH &nbsp;</span>
         <span @click="changeLang('en')" v-else>&nbsp; EN</span>
       </div>
-      <!-- <div class="audio">
-        <audio id="audio" controls="controls" autoplay="autoplay" loop ref="au">
-          <source src="@/assets/audio/bgaudio.mp3" type="audio/mpeg" />Your browser does not support the audio element.
+      <div class="audio">
+        <audio id="audio" controls="controls" autoplay="autoplay" loop preload="auto" ref="au">
+          <source src="@/assets/audio/bgmusic.mp3" type="audio/mpeg" />Your browser does not support the audio element.
         </audio>
-      </div>-->
+      </div>
       <div class="both"></div>
     </div>
     <!-- <div class="upwarp" ref="up" v-if="false">
@@ -191,6 +191,16 @@ export default {
   ]),
   mounted() {
     var _this = this;
+    document.addEventListener("WeixinJSBridgeReady", function() {
+      document.getElementById("audios").play();
+    });
+    document.getElementById("audio").play();
+    document.addEventListener("touchstart", function() {
+      document.getElementById("audio").play();
+    });
+    document.addEventListener("click", function() {
+      document.getElementById("audio").play();
+    });
     if (localStorage.getItem("LANG")) {
       console.log(localStorage.getItem("LANG"));
       _this.$i18n.locale = _this.defaultLang;
