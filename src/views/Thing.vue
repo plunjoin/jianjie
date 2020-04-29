@@ -7,6 +7,12 @@
         <img v-bind:class="{active:count==2}" src="../assets/image/thing/bg/5.jpg" width="100%" alt />
         <img v-bind:class="{active:count==3}" src="../assets/image/thing/bg/1.jpg" width="100%" />
       </div>
+      <div class="thing-bg bg-wap">
+        <img v-bind:class="{active:count==0}" src="../assets/image/thing/bg/0.jpg" width="100%" />
+        <img v-bind:class="{active:count==1}" src="../assets/image/thing/bg/wap1.jpg" width="100%" />
+        <img v-bind:class="{active:count==2}" src="../assets/image/thing/bg/2.jpg" width="100%" alt />
+        <img v-bind:class="{active:count==3}" src="../assets/image/thing/bg/3.jpg" width="100%" />
+      </div>
       <div :class="'list font-songti '+$i18n.locale">
         <ul v-show="isTitle" :class="count!=-1?'none':''">
           <li
@@ -29,26 +35,7 @@
           </li>
         </ul>
       </div>
-    </div>
-    <div class="thing-war">
-      <swiper :options="vertical">
-        <swiper-slide
-          v-for="(item,index) in All.thing"
-          :key="index"
-          v-bind:class="{active:count==index}"
-          :style="`background-image:url(https://prugna.cn/img/${index}.jpg)`"
-        >
-          <div class="wap-title" @mousemove="changeBG(index)">
-            <span>{{ $i18n.locale!='en'?item.category.name:item.category.en_name }}</span>
-            <div class="child">
-              <div class="child-el" v-for="(e,i) in item.childs" :key="i">
-                <a @click="link('/thingdatail?'+e._id)">{{ $i18n.locale!='en'?e.name:e.en_name }}</a>
-              </div>
-            </div>
-          </div>
-        </swiper-slide>
-      </swiper>
-    </div>
+    </div>  
   </div>
 </template>
  
@@ -111,10 +98,12 @@ export default {
 
 <style lang="less">
 .thing {
+  .bg-wap{
+    display: none;
+  }
 }
-.thing-war {
-  display: none;
-}
+
+
 .thing-warp {
   width: 100%;
   overflow: hidden;
@@ -229,41 +218,20 @@ export default {
 @media screen and (max-width: 640px) {
   .thing {
     margin: 0;
-  }
-  .thing-war {
-    display: block;
-    .swiper-slide {
-      opacity: 0;
-      transition: 1s;
-      display: flex;
-      height: 100vh;
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      align-items: center;
-      font-size: 3rem;
-      .child {
-        .child-el {
-          a {
-            font-size: 1.5rem;
-          }
-        }
-      }
-      p {
-        writing-mode: vertical-rl;
-        margin-right: 1rem;
-      }
+    .bg-wap{
+      display: block;
+      height: 100%;
       img {
-        width: auto;
+        width: 100%;
         height: 100%;
-      }
-      &.swiper-slide-active {
-        opacity: 0.5;
+        position: absolute;
+        
       }
     }
   }
+
   .thing-warp {
-    display: none;
+    // display: none;
   }
   .wap-title {
     left: 50%;

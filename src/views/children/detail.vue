@@ -29,15 +29,18 @@
               <p :class="$i18n.locale">{{ $i18n.locale!='en'?info.remark:info.en_remark }}</p>
             </div>
             <div class="swiper-container info-wrap info">
-              <ul class="swiper-wrapper">
-                <li
+              <div class="swiper-wrapper">
+                <div
+                style="display: inline-block;width:auto"
                   class="swiper-slide"
                   v-for="(e,i) in $store.state.harry_winston[0].tabloid"
                   :key="i"
                   @click="m=i"
                   v-bind:class="{a:m==i}"
-                >{{ e.keyName }}</li>
-              </ul>
+                >
+                  <p style="display: inline-block;margin-right:1rem">{{ e.keyName }}</p>
+                </div>
+              </div>
               <div class="content">
                 <div
                   v-for="(e,i) in $store.state.harry_winston[0].tabloid"
@@ -243,30 +246,16 @@ export default {
         }
       });
       var info = new Swiper(".info-wrap", {
-        slidesPerView: 20,
-        scrollbar: false,
-        autoHeight: false,
-        observer: true,
-        observeParents: true,
-        navigation: {
-          nextEl: ".swiper-button-next",
-          prevEl: ".swiper-button-prev"
-        },
-        on: {
-          slideChangeTransitionEnd(swiper) {
-            _this.realIndex = this.activeIndex;
-          },
-          reachEnd: function(swiper) {
-            // if (self.tabIndex == self.info.view_group.length + 1) {
-            //   self.tabIndex = 0;
-            //   return false;
-            // }
-            // alert(self.tabIndex);
-            // self.tabIndex += 1;
-            // swiper.slideTO(0);
-            // return false;
-          }
-        }
+        notNextTick: true, //notNextTick是一个组件自有属性，如果notNextTick设置为true，组件则不会通过NextTick来实例化swiper，也就意味着你可以在第一时间获取到swiper对象，假如你需要刚加载遍使用获取swiper对象来做什么事，那么这个属性一定要是true
+        direction: "horizontal", //水平方向移动
+        grabCursor: true, //鼠标覆盖Swiper时指针会变成手掌形状，拖动时指针会变成抓手形状
+        setWrapperSize: true, //Swiper使用flexbox布局(display: flex)，开启这个设定会在Wrapper上添加等于slides相加的宽或高，在对flexbox布局的支持不是很好的浏览器中可能需要用到。
+        autoHeight: true, //自动高度。设置为true时，wrapper和container会随着当前slide的高度而发生变化
+        slidesPerView: "auto", //设置slider容器能够同时显示的slides数量(carousel模式)。可以设置为数字（可为小数，小数不可loop），或者 'auto'则自动根据slides的宽度来设定数量。loop模式下如果设置为'auto'还需要设置另外一个参数loopedSlides。
+        mousewheel: true, //开启鼠标滚轮控制Swiper切换。可设置鼠标选项，默认值false
+        mousewheelControl: true, //同上
+        resistanceRatio: 0, //抵抗率。边缘抵抗力的大小比例。值越小抵抗越大越难将slide拖离边缘，0时完全无法拖离。本业务需要
+        observeParents: true //将observe应用于Swiper的父元素。当Swiper的父元素变化时，例如window.resize，Swiper更新
       });
     });
   },

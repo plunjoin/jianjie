@@ -3,7 +3,7 @@
     <wapHead></wapHead>
     <div class="jie-logo" :style="'transition: 1s;opacity:'+n">
       <h1>
-        <router-link to="/">
+        <router-link to="/home">
           <img src="./assets/883486010602843048.png" alt />
         </router-link>
       </h1>

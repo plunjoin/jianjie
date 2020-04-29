@@ -7,6 +7,13 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
+    name: 'opening',
+    component: function () {
+      return import('../views/Opening');
+    }
+  },
+  {
+    path: '/home',
     name: 'Home',
     component: Home,
     meta: {

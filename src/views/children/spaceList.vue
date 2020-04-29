@@ -74,6 +74,7 @@ export default {
   },
   methods: {
     changeimg(i, item, e) {
+      this.realIndex = 0;
       this.activeArr = item;
       $(".imgs-group").animate({
         opacity: 1,
@@ -469,9 +470,11 @@ export default {
         display: inline-block;
         height: 100%;
         width: 100%;
+        padding: 0 2.5rem;
         .lsit-item {
           width: 100%;
           height: 25%;
+          border: none;
           ul {
             width: 100% !important;
             padding: 0;
@@ -480,9 +483,19 @@ export default {
             li {
               width: 50%;
               display: -webkit-inline-box;
+              span {
+                display: block;
+                width: 100%;
+              }
             }
           }
         }
+      }
+    }
+    .imgs-group {
+      .close {
+        top: 1rem;
+        right: 1rem;
       }
     }
   }

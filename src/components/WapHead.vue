@@ -2,7 +2,7 @@
   <div class="jie-head-top">
     <div class="jie-head-wrap">
       <h1 v-bind:class="{active:isShow}">
-        <router-link to="/">
+        <router-link to="/home">
           <img src="../assets/883486010602843048.png" width="20" alt />
         </router-link>
       </h1>

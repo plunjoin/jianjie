@@ -102,7 +102,7 @@ export default {
         }
         p {
           text-indent: 1rem;
-          font-size: 0.5rem;
+          font-size: 12px;
           font-family: Medium;
           margin: 0 0 0.25rem 0;
           text-transform: capitalize;
