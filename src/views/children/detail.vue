@@ -28,7 +28,7 @@
               >{{ $i18n.locale!='en'?info.cate.name:info.cate.en_name }}</h3>
               <p :class="$i18n.locale">{{ $i18n.locale!='en'?info.remark:info.en_remark }}</p>
             </div>
-            <div class="swiper-container info-wrap info">
+            <div class="swiper-container info-wrap info" v-if="false">
               <div class="swiper-wrapper">
                 <div
                 style="display: inline-block;width:auto"
@@ -51,7 +51,7 @@
             </div>
           </div>
         </div>
-        <div class="swiper-slide">
+        <div class="swiper-slide" v-if="info&&info.video">
           <div class="jie-layer-video" v-if="info">
             <video width="100%" autoplay muted controls playsinline :src="info.video"></video>
             <!-- <video src muted autoplay width="100%"></video> -->

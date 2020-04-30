@@ -350,8 +350,34 @@ body {
                     height  : 0;
                     overflow: hidden;
                     margin  : 0;
-                }
 
+                    &.active {
+                        color         : #fff;
+                        border        : none;
+                        overflow      : initial;
+                        height        : auto;
+                        text-transform: capitalize;
+                        margin        : 0 0 0.5rem 0;
+
+                        strong {
+                            color   : #fff;
+                            position: relative;
+
+                            &::before {
+                                left    : -10px;
+                                content : "·";
+                                position: absolute;
+                            }
+
+                            a {
+                                opacity: 1;
+                            }
+                        }
+                    }
+                }
+                &:has(> dd.active) {
+                    color: red;
+                }
                 &.active {
                     border: none;
 

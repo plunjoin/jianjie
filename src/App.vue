@@ -31,14 +31,10 @@
                   v-bind:class="{active:i==rc}"
                   @click="returncount(rc,i)"
                 >
-                  <dt v-if="$i18n.locale!='en'" :class="$i18n.locale">{{ e.category.name }}</dt>
-                  <dt v-else :class="$i18n.locale">{{ e.category.en_name }}</dt>
-                  <dd v-for="(el,idx) in e.childs" :key="idx">
-                    <strong v-if="$i18n.locale!='en'" @click="link(`/detail?${el._id}`)">
-                      <a>{{ el.name }}</a>
-                    </strong>
-                    <strong v-else @click="link(`/detail?${el._id}`)">
-                      <a>{{ el.en_name }}</a>
+                  <dt :class="$i18n.locale">{{ $i18n.locale!='en'?e.category.name:e.category.en_name }}</dt>
+                  <dd v-for="(el,idx) in e.childs" :key="idx" v-bind:class="{active:el._id==href}">
+                    <strong @click="link(`/detail?${el._id}`)">
+                      <a>{{ $i18n.locale!='en'?el.name:el.en_name }}</a>
                     </strong>
                   </dd>
                   <div style="clear: both;"></div>
@@ -87,7 +83,7 @@
                   <dt
                     :class="$i18n.locale"
                   >{{ $i18n.locale!='en'?el.category.name:el.category.en_name }}</dt>
-                  <dd v-for="(e,i) in el.childs" :key="i">
+                  <dd v-for="(e,i) in el.childs" :key="i" v-bind:class="{active:e._id==href}">
                     <strong @click="link('/thingdatail?'+e._id)">
                       <a>{{ $i18n.locale!='en'?e.name:e.en_name }}</a>
                     </strong>
@@ -169,6 +165,7 @@ export default {
   components: { wapHead },
   data() {
     return {
+      href:window.location.href.split('?')[1],
       rc: -1,
       lc: -1,
       conunt: 0,
@@ -191,6 +188,8 @@ export default {
   ]),
   mounted() {
     var _this = this;
+    console.log(_this.href);
+    
     document.addEventListener("WeixinJSBridgeReady", function() {
       document.getElementById("audios").play();
     });
