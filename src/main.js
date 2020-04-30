@@ -23,7 +23,8 @@ Vue.use(VueAwesomeSwiper)
 Vue.use(VideoPlayer)
 Vue.use(VueI18n)
 Vue.use(VueLazyLoad, {
-  loading: './assets/logo.png'
+  loading: 'https://jianjie.oss-cn-hongkong.aliyuncs.com/test/1585755727602.png'
+  // loading: 'https://www.jianjie-china.com/file/test/1585755727602.png'
 })
 
 const messages = {

@@ -129,7 +129,8 @@ export default {
       realIndex: null,
       vertical: {},
       info: null,
-      imagesGroup: null
+      imagesGroup: null,
+      images:null,
     };
   },
   mounted() {
@@ -220,7 +221,7 @@ export default {
           slideChange: () => {}
         }
       });
-      var images = new Swiper(".swiper-container-images-wrap", {
+       _this.images = new Swiper(".swiper-container-images-wrap", {
         scrollbar: false,
         autoHeight: false,
         observer: true,
@@ -263,6 +264,7 @@ export default {
     ...mapMutations(["saveIsTitle"]),
     selected(item, index) {
       this.imagesGroup = item;
+      this.images.slideTo(0,100,false);
       this.realIndex = 0;
       this.tabIndex = index;
     },

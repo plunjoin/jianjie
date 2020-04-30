@@ -7,12 +7,7 @@
           <ul :style="publicWidth" :index="idx" v-show="isTitle">
             <li v-for="(el ,i) in e" :key="i">
               <span @click="changeimg(idx,el.imgs,$event)">{{ el.title }}</span>
-            </li>
-            <!-- <li>
-              <div class="back">
-                <div></div>
-              </div>
-            </li>-->
+            </li>         
           </ul>
         </div>
       </div>
@@ -26,7 +21,7 @@
             :key="i"
             @click="expand($event)"
           >
-            <img :src="el.url" draggable="false" />
+            <img v-lazy="el.url" draggable="false" />
           </div>
         </div>
         <div class="swiper-navigation-btn">
@@ -52,7 +47,7 @@ import { mapState } from "vuex";
 export default {
   name: "spacedatail",
   computed: {
-    ...mapState(["space", "isTitle"]),
+    ...mapState(["isTitle", "All"]),
     publicWidth() {
       return {
         width: `${this.width}px`
@@ -64,18 +59,21 @@ export default {
       width: window.innerWidth / 4,
       sun: 1,
       suns: 0,
+      space:null,
       scroll: null,
       spaceData: [],
       activeArr: null,
       realIndex: 0,
       sd: null,
-      id: null
+      id: window.location.href.split("?")[1],
+      swiper: null
     };
   },
   methods: {
     changeimg(i, item, e) {
       this.realIndex = 0;
       this.activeArr = item;
+      this.swiper.slideTo(0, 100, false);
       $(".imgs-group").animate({
         opacity: 1,
         zIndex: 999999
@@ -201,85 +199,29 @@ export default {
     }
   },
   mounted() {
-    console.log(this.$store.state.All.space);
-
-    this.activeArr = this.space[0].imgs;
     var _this = this;
-    this.$nextTick(() => {
-      _this.id = window.location.href.split("?")[1];
-      // console.log();
+    console.log(this.All.space);
+    this.All.space.forEach(el => {
+      if (el._id == _this.id) {
+        this.space = el;
+      }
+    });
+    console.log(this.space);
+    console.log(this.space.imgs);
 
+    this.activeArr = this.space.imgs;
+    this.$nextTick(() => {
       let timer = setTimeout(() => {
         if (timer) {
           clearTimeout(timer);
-
           // this.verScroll((this.spaceData.length + 0.1) * this.width);
         }
       }, 0);
-      $(".back").click(function() {
-        var width =
-          $(_this.$refs.cont).width() -
-          $(this)
-            .parent()
-            .parent()
-            .siblings()
-            .width();
-
-        $(this)
-          .parent()
-          .parent()
-          .siblings()
-          .animate(
-            {
-              width: 0
-            },
-            function() {
-              $(".lsit-item .active").animate(
-                {
-                  left: 0,
-                  position: "",
-                  zIndex: 9
-                },
-                () => {
-                  $(".list-warp").css({
-                    transform: "translateX(0px) translateY(0px) translateZ(0px)"
-                  });
-                  _this.verScroll((_this.spaceData.length + 0.1) * _this.width);
-                }
-              );
-            }
-          );
-      });
-      function backw(width) {
-        if (
-          $(".back")
-            .parent()
-            .parent()
-            .siblings()
-            .width() == 0
-        ) {
-          if (width) {
-            _this.verScroll(width);
-          } else {
-            _this.verScroll((_this.spaceData.length + 0.1) * _this.width);
-          }
-        } else {
-          backw();
-        }
-      }
     });
-    const self = this;
-    console.log(this.$t("space.space"));
+    
     var i = 0;
-    while (i++) {
-      if (i >= this.space.length) {
-        if (i % 4 == 0) {
-          console.log(i);
-        }
-        break;
-      }
-    }
-    var swiper = new Swiper(".swiper-container", {
+   
+    _this.swiper = new Swiper(".swiper-container", {
       loop: true,
       initialSlide: 1,
       slidesPerView: 1,
@@ -297,20 +239,11 @@ export default {
         }
       }
     });
-    for (var i = 0; i < this.$t("space.space").length; i += 4) {
-      this.spaceData.push(this.$t("space.space").slice(i, i + 4));
+    for (var i = 0; i < this.space.imgs.length; i += 4) {
+      this.spaceData.push(this.space.imgs.slice(i, i + 4));
     }
-    this.spaceData.forEach(el => {
-      el.activeArr = el[0].imgs;
-    });
-
-    // const swiper = new Swiper(".swiper-container", {
-    //   // ...
-    //   loop: true,
-    //   slidesPerView: 1.7,
-    //   centeredSlides: true,
-    //   spaceBetween: 50
-    // });
+    console.log(this.spaceData);
+    
   }
 };
 </script>
