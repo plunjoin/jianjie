@@ -9,7 +9,7 @@
                 <div class="swiper-slide" v-for="(bg,idx) in info.bg_imgs" :key="idx">
                   <div
                     class="jie-udd-bg"
-                    :style="'background-image:url('+bg+'?x-oss-process=image/resize,w_1920/quality,q_40)'"
+                    :style="'background-image:url('+bg+'?x-oss-process=image/resize,w_1920/quality,q_100)'"
                   ></div>
                 </div>
               </div>
@@ -78,7 +78,7 @@
                   <div class="swiper-slide" :key="index" v-for="(item,index) in imagesGroup.imgs">
                     <img
                       v-if="item.type == 0"
-                      v-lazy="item.url+'?x-oss-process=image/resize,w_1920/quality,q_40'"
+                      v-lazy="item.url+'?x-oss-process=image/resize,w_1920/quality,q_100'"
                     />
                     <div v-else class="video">
                       <video :src="item.url" autoplay muted playsinline loop height="100%"></video>
@@ -234,11 +234,22 @@ export default {
         on: {
           slideChangeTransitionEnd(swiper) {
             _this.realIndex = this.activeIndex;
-            console.log(_this.imagesGroup.imgs.length);
             if(_this.realIndex==_this.imagesGroup.imgs.length){
               _this.realIndex = 0;
-              _this.tabIndex+=1;
+              if((_this.tabIndex+1)<_this.info.imgs.length){
+                console.log('true');
+                console.log(_this.tabIndex+1);
+                console.log(_this.info.imgs.length);
+                
+                _this.tabIndex+=1;
               _this.imagesGroup = _this.info.imgs[_this.tabIndex]
+              }else {
+                 _this.tabIndex = 0
+              _this.imagesGroup = _this.info.imgs[_this.tabIndex]
+
+                console.log('false');
+                
+              }
               console.log( _this.imagesGroup);
               _this.images.slideTo(0,100,false);
             }
@@ -408,6 +419,7 @@ export default {
       h2 {
         font-size: 3.416666rem;
         font-weight: 100;
+        white-space: pre;
         &.en {
           font-size: 1.999rem;
         }

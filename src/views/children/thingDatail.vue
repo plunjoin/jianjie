@@ -5,7 +5,7 @@
         <div class="swiper-container thing-img">
           <div class="swiper-wrapper">
             <span class="swiper-slide imgs" v-for="(el,i) in imgs" :key="i">
-              <img v-lazy="el.url+'?x-oss-process=image/resize,w_1920/quality,q_40'" alt />
+              <img v-lazy="el.url+'?x-oss-process=image/resize,w_1920/quality,q_100'" alt />
             </span>
           </div>
           <div class="swiper-btn">
