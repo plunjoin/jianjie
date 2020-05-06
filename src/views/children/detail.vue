@@ -84,6 +84,7 @@
                       <video :src="item.url" autoplay muted playsinline loop height="100%"></video>
                     </div>
                   </div>
+                  <div class="swiper-slide"></div>
                 </div>
               </div>
               <div class="swiper-btn">
@@ -233,8 +234,21 @@ export default {
         on: {
           slideChangeTransitionEnd(swiper) {
             _this.realIndex = this.activeIndex;
+            console.log(_this.imagesGroup.imgs.length);
+            if(_this.realIndex==_this.imagesGroup.imgs.length){
+              _this.realIndex = 0;
+              _this.tabIndex+=1;
+              _this.imagesGroup = _this.info.imgs[_this.tabIndex]
+              console.log( _this.imagesGroup);
+              _this.images.slideTo(0,100,false);
+            }
           },
           reachEnd: function(swiper) {
+            // _this.realIndex = 0;
+            // _this.tabIndex+=1;
+            // _this.imagesGroup = _this.info.imgs[_this.tabIndex]
+            // console.log( _this.imagesGroup);
+            // _this.images.slideTo(0,100,false);
             // if (self.tabIndex == self.info.view_group.length + 1) {
             //   self.tabIndex = 0;
             //   return false;
@@ -276,6 +290,9 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.swiper-button-next.swiper-button-disabled {
+  pointer-events:auto;
+}
 .swiper-container-images-wrap {
   overflow: hidden;
 }

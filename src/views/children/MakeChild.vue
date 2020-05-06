@@ -4,7 +4,7 @@
       <div class="banners">
         <img
           v-if="b"
-          v-lazy="b.bg_imgs?b.bg_imgs[0]+'?x-oss-process=image/resize,w_1920/quality,q_40':'https://www.jianjie-china.com/img/logo.bafa2e21.png?x-oss-process=image/resize,w_1920/quality,q_40'"
+          v-lazy="b.bg_imgs?b.bg_imgs[0]+'?x-oss-process=image/resize,w_1920/quality,q_100':'https://www.jianjie-china.com/img/logo.bafa2e21.png?x-oss-process=image/resize,w_1920/quality,q_100'"
           alt
           srcset
         />
@@ -38,7 +38,7 @@
           <p>{{ $i18n.locale!='en'?b.materials:b.en_materials }}</p>
         </div>
         <div v-for="(e,i) in b.imgs" :key="i">
-          <img v-lazy="e.url+'?x-oss-process=image/resize,w_1920/quality,q_40'" width="100%" alt />
+          <img v-lazy="e.url+'?x-oss-process=image/resize,w_1920/quality,q_100'" width="100%" alt />
         </div>
       </div>
     </div>
